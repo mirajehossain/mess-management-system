@@ -1,0 +1,23 @@
+{
+  "development":{
+    "server": {
+      "host": "localhost",
+      "port": 3000
+    },
+    "database":{
+      "db": "mongodb://127.0.0.1/messdb"
+    },
+    "secret": "MySecretKey"
+  },
+  "production":{
+    "server": {
+      "host": "localhost",
+      "port": 80
+    },
+    "database":{
+      "db": "mongodb://127.0.0.1/messdb"
+    },
+    "secret": "MySecretKey"
+  }
+
+}
