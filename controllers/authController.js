@@ -18,9 +18,9 @@ class AuthController {
                 if(result == null) {
                     return res.json(response.error(false, "User Not found", "User does not found"));
                 } else {
-                    bcrypt.compare(user.body.password,result.password,(err,matched)=>{
+                    bcrypt.compare(user.password,result.password,(err,matched)=>{
                         console.log("password matched - ", matched);
-                        if(err && !matched){
+                        if(!matched){
                             return res.json(response.error(false, "Email or password not matched", "Email or password not matched"));
                         } else {
                             // return res.json(response.single(true,"User found",result));
@@ -104,14 +104,17 @@ class AuthController {
     };
     generateToken(req,res,next){
         req.tokenObject = {};
-        req.tokenObject.token = this.createToken(req.auth);
+        req.tokenObject.token = jwt.sign(req.auth, secretKey, {
+            expiresIn: "30 days"
+        });
+
         next()
     }
-    createToken(tokenobj){
-        return jwt.sign(tokenobj, secretKey, {
-            expiresIn: "30 days"
-        })
-    };
+    // createToken(tokenobj){
+    //     return jwt.sign(tokenobj, secretKey, {
+    //         expiresIn: "30 days"
+    //     })
+    // };
     sendToken(req,res){
         res.setHeader('x-auth-token',req.tokenObject.token);
         res.json(response.single(true, 'Enjoy your token!', {token: req.tokenObject}));
