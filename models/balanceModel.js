@@ -13,7 +13,7 @@ const balanceSchema = new schema({
         required: true
     },
     date: {
-        type: Date,
+        type: String,
         defaultValue: new Date(),
         required: true
     },

@@ -36,7 +36,7 @@ class ExpenseController {
         let balanceObject = req.body;
         balanceObject.userId = req.auth.id;
         balanceObject.messName = req.auth.messusername;
-        balanceObject.date = new Date();
+        balanceObject.date = req.body.date || new Date();
         ExpenseModel.create(balanceObject, (err,result)=>{
             if(err){
                 return res.json(response.error(false,"An error occur",err))
