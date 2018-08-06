@@ -1,28 +1,28 @@
 let response = require('../helper/response');
-let BalanceModel = require('../models/balanceModel');
-let BalanceCategoryModel = require('../models/balanceCategoryModel');
+let ExpenseModel = require('../models/expenseModel');
+let ExpenseCategoryModel= require('../models/expenseCategoryModel');
 
-class BalanceController {
+class ExpenseController {
     constructor(){};
-    addBalanceCategory(req,res){
-        let categoryObject = req.body;
-        categoryObject.messName = req.auth.messusername;
-        console.log(categoryObject);
+    addExpenseCategory(req,res){
+        let expenseObject = req.body;
+        expenseObject.messName = req.auth.messusername;
+        console.log(expenseObject);
 
-        BalanceCategoryModel.findOne({
-            $and: [ {name: categoryObject.name},{messName: categoryObject.messName}]
-        },(err,mess)=>{
+        ExpenseCategoryModel.findOne({
+            $and: [ {name: expenseObject.name},{messName: expenseObject.messName}]
+        },(err,category)=>{
             if(err){
                 return res.json(response.error(false,"An error occur",err))
             } else {
-                if(mess !== null){
-                    return res.json(response.error(false,`Category '${mess.name}' already exist`,null))
+                if(category !== null){
+                    return res.json(response.error(false,`Category '${category.name}' already exist`,null))
                 } else {
-                    BalanceCategoryModel.create(categoryObject,(err,result)=>{
+                    ExpenseCategoryModel.create(expenseObject,(err,result)=>{
                         if(err){
                             return res.json(response.error(false,"An error occur",err))
                         } else {
-                            return res.json(response.single(true, "New Balance category Created", result));
+                            return res.json(response.single(true, "New Expense category Created", result));
                         }
                     })
                 }
@@ -50,4 +50,4 @@ class BalanceController {
 
 }
 
-module.exports = new BalanceController();
+module.exports = new ExpenseController();
