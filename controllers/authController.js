@@ -103,6 +103,7 @@ class AuthController {
         };
         next();
     };
+
     generateToken(req,res,next){
         req.tokenObject = {};
         req.tokenObject.token = jwt.sign(req.auth, secretKey, {
@@ -110,11 +111,7 @@ class AuthController {
         });
         next()
     }
-    // createToken(tokenobj){
-    //     return jwt.sign(tokenobj, secretKey, {
-    //         expiresIn: "30 days"
-    //     })
-    // };
+
     sendToken(req,res){
         res.setHeader('x-auth-token',req.tokenObject.token);
         res.json(response.single(true, 'Enjoy your token!', {token: req.tokenObject}));

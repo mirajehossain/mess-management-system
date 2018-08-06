@@ -47,6 +47,14 @@ class BalanceController {
 
     };
 
+    totalBalance(req,res){};
+
+    availableBalance(req,res){};
+
+    totalMessBalance(req,res){};
+
+
+
 
 }
 

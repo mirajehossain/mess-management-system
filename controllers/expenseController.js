@@ -46,6 +46,8 @@ class ExpenseController {
         })
     };
 
+    totalExpenseAmount(req,res){};
+
 
 }
 
