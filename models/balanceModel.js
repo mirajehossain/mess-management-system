@@ -5,7 +5,6 @@ const schema = mongoose.Schema;
 const balanceSchema = new schema({
     userId: {
         type: schema.ObjectId,
-        unique: false,
         required: true
     },
     amount: {

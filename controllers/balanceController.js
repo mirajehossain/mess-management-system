@@ -30,6 +30,22 @@ class BalanceController {
             }
         });
     }
+
+    addBalance(req,res){
+        console.log(req.auth.id);
+        let balanceObject = req.body;
+            balanceObject.userId = req.auth.id;
+            balanceObject.date = new Date();
+        BalanceModel.create(balanceObject, (err,result)=>{
+            if(err){
+                return res.json(response.error(false,"An error occur",err))
+            } else {
+                return res.json(response.single(true, `You are add ${result.amount} amount on your balance`, result));
+            }
+        })
+
+
+    }
 }
 
 module.exports = new BalanceController();

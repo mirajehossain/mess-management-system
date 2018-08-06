@@ -138,7 +138,7 @@ class AuthController {
     }
 
     isUser(req,res,next){
-        if(req.auth.role === ('user' || 'admin')){
+        if(req.auth.role === 'user' || 'admin'){
             next();
         } else {
             res.json(response.error(false, 'You are not admin or user',null))
