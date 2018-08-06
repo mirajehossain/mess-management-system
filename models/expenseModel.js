@@ -15,20 +15,18 @@ const expenseSchema = new schema({
     },
     summary: {
         type: String,
-        required: false
+        required: true
     },
     expenseCategoryId: {
-        type: Number,
+        type: schema.ObjectId,
         required: true
     },
     userId: {
-        type: Number,
-        unique: false,
+        type: schema.ObjectId,
         required: true
     },
-    messId: {
-        type: Number,
-        unique: false,
+    messName: {
+        type: String,
         required: true
     }
 });

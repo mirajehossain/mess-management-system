@@ -10,4 +10,6 @@ const ExpenseController = require('../controllers/expenseController');
     router.route('/addBalance').post(AuthController.isUser, BalanceController.addBalance );
 
     router.route('/addExpenseCategory').post(AuthController.isAdmin, ExpenseController.addExpenseCategory);
+    router.route('/addExpense').post(AuthController.isUser, ExpenseController.addExpense);
+
 module.exports = router;
