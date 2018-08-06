@@ -4,7 +4,7 @@ const schema = mongoose.Schema;
 
 const balanceSchema = new schema({
     userId: {
-        type: Number,
+        type: schema.ObjectId,
         unique: false,
         required: true
     },
@@ -19,7 +19,7 @@ const balanceSchema = new schema({
         required: true
     },
     balanceCategoryId: {
-        type: Number,
+        type: schema.ObjectId,
         required: true
     }
 });

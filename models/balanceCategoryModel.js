@@ -8,8 +8,8 @@ const balanceCategorySchema = new schema({
         unique: true,
         required: true
     },
-    messId: {
-        type: Number,
+    messName: {
+        type: String,
         unique: false,
         required: true
     }
