@@ -5,7 +5,8 @@ const schema = mongoose.Schema;
 const userSchema = new schema({
    email: {
        type: String,
-       unique: true
+       unique: true,
+       required: true
    },
     username: {
        type: String
@@ -17,11 +18,11 @@ const userSchema = new schema({
        type: Number
     },
     address: {
-        type: String,
-        defaultValue: null
+        type: String
     },
     messusername: {
-        type: String
+        type: String,
+        required: true
     },
     role: {
        type: String /// admin,  user

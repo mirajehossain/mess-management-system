@@ -7,9 +7,12 @@ const ExpenseController = require('../controllers/expenseController');
 const MealController = require('../controllers/mealController');
 
 
-    router.route('/changePassword').put(AuthController.isUser, UserController.changePassword);
 
     router.route('/addUser').post(AuthController.isAdmin, UserController.addUser);
+    router.route('/changePassword').put(AuthController.isUser, UserController.changePassword);
+    router.route('/updateProfile').put(AuthController.isUser, UserController.updateProfile);
+
+
     router.route('/addBalanceCategory').post(AuthController.isAdmin, BalanceController.addBalanceCategory );
     router.route('/addBalance').post(AuthController.isUser, BalanceController.addBalance );
 

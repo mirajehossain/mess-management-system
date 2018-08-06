@@ -74,6 +74,18 @@ class UserController {
         });
     };
 
+    updateProfile(req,res){
+        const id = req.auth.id;
+        let updateObject = req.body;
+        UserModel.findByIdAndUpdate(id, updateObject,{new:true}, (err,data)=>{
+            if(err){
+                return res.json(response.error(false,'An error occur',err));
+            } else {
+                return res.json(response.single(true, 'Updated successfully', data));
+            }
+        })
+    };
+
 
 
 }
