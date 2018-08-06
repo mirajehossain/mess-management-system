@@ -9,6 +9,8 @@ const port = config.development.server.port || 3000;
 const database = require('./config/database')();
 const indexRoute = require('./routes/index');
 const authRoute = require('./routes/auth');
+const userRoute = require('./routes/user');
+const authController = require('./controllers/authController');
 const corsOptions = {
     origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -27,11 +29,10 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname,'public')));
 
 app.use('/api',indexRoute);
-app.use('/api/user',authRoute);
-// app.use('/api/auth',router);
-// app.all('/api/v1/*',auth.isAuthenticated);
+app.use('/api/auth',authRoute);
+app.all('/api/v1/*',authController.isAuthenticate);
 
-// app.use('/api/v1/user',require('./router/user'));
+app.use('/api/v1/user',userRoute);
 
 
 server.listen(port,()=>{

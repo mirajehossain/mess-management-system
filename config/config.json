@@ -7,7 +7,7 @@
     "database":{
       "db": "mongodb://127.0.0.1/messdb"
     },
-    "secret": "MySecretKey"
+    "JWTsecret": "MySecretKey"
   },
   "production":{
     "server": {
@@ -17,7 +17,7 @@
     "database":{
       "db": "mongodb://127.0.0.1/messdb"
     },
-    "secret": "MySecretKey"
+    "JWTsecret": "MySecretKey"
   }
 
 }

@@ -3,7 +3,7 @@ let jwt = require('jsonwebtoken');
 let response = require('../helper/response');
 let UserModel = require('../models/userModel');
 let MessModel = require('../models/messModel');
-let secretKey = require('../config/config').development.secret;
+let secretKey = require('../config/config').development.JWTsecret;
 const saltRounds = 10;
 
 class AuthController {
@@ -39,7 +39,8 @@ class AuthController {
                 return res.json(response.error(false,"An error occur hash password",err))
             } else {
                 user.password = hashed;
-                user.role = 0; /// 0 manager , 1 member
+                // user.role = 0;/// 0 manager , 1 member
+                user.role = 'admin'; ///admin , user
                 let mes = {
                     messusername: req.body.messusername
                 };
@@ -107,7 +108,6 @@ class AuthController {
         req.tokenObject.token = jwt.sign(req.auth, secretKey, {
             expiresIn: "30 days"
         });
-
         next()
     }
     // createToken(tokenobj){
@@ -119,6 +119,39 @@ class AuthController {
         res.setHeader('x-auth-token',req.tokenObject.token);
         res.json(response.single(true, 'Enjoy your token!', {token: req.tokenObject}));
     };
+
+    isAuthenticate(req,res,next){
+        const token = req.body.token || req.query.token || req.headers['x-auth-token'];
+        if(token){
+            jwt.verify(token, secretKey, (err,decoded)=>{
+                if (err) {
+                    return res.json(response.error(false,"Failed to authenticate token",err));
+                } else {
+                    req.auth = decoded;
+                    console.log('token-',req.auth);
+                    next();
+                }
+            })
+        } else {
+            return res.json(response.error(false,"You are not authenticate", null))
+        }
+    }
+
+    isUser(req,res,next){
+        if(req.auth.role === ('user' || 'admin')){
+            next();
+        } else {
+            res.json(response.error(false, 'You are not admin or user',null))
+        }
+    }
+
+    isAdmin(req,res,next){
+        if(req.auth.role === 'admin'){
+            next();
+        } else {
+            res.json(response.error(false, 'You are not admin',null))
+        }
+    }
 
 }
 

@@ -21,11 +21,10 @@ const userSchema = new schema({
         defaultValue: null
     },
     messusername: {
-        type: String,
-        unique: true
+        type: String
     },
     role: {
-       type: Number /// 0 manager, 1 member
+       type: String /// admin,  user
     }
 });
 
