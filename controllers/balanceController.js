@@ -47,15 +47,20 @@ class BalanceController {
         });
     };
 
-    totalBalance(req,res){
-        const balance = BalanceLib.totalBalance(req.auth.messusername);
+    totalUserBalance(req,res) {
+        const balance = BalanceLib.totalUserBalance(req.auth.id);
         console.log(balance);
         res.json(response.single(true,'Total Balance is '+ balance, balance))
+
+    }
+
+    totalMessBalance(req,res){
+        const balance = BalanceLib.totalMessBalance(req.auth.messusername);
+        console.log(balance);
+        res.json(response.single(true,'Total Mess Balance is '+ balance, balance))
     };
 
     availableBalance(req,res){};
-
-    totalMessBalance(req,res){};
 }
 
 module.exports = new BalanceController();
