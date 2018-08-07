@@ -11,6 +11,7 @@ const MealController = require('../controllers/mealController');
     router.route('/addUser').post(AuthController.isAdmin, UserController.addUser);
     router.route('/changePassword').put(AuthController.isUser, UserController.changePassword);
     router.route('/updateProfile').put(AuthController.isUser, UserController.updateProfile);
+    router.route('/getProfile').get(AuthController.isUser, UserController.getProfile);
 
 
     router.route('/addBalanceCategory').post(AuthController.isAdmin, BalanceController.addBalanceCategory );

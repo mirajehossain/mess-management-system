@@ -85,6 +85,16 @@ class UserController {
             }
         })
     };
+    getProfile(req,res){
+        const id = req.auth.id;
+        UserModel.findById(id, {password:0}, (err,data)=>{
+            if(err){
+                return res.json(response.error(false,'An error occur',err));
+            } else {
+                return res.json(response.single(true, `Welcome ${data.username}`, data));
+            }
+        })
+    };
 
 
 
