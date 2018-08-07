@@ -7,6 +7,14 @@ const balanceSchema = new schema({
         type: schema.ObjectId,
         required: true
     },
+    balanceCategoryId: {
+        type: schema.ObjectId,
+        required: true
+    },
+    messName: {
+        type: String,
+        required: true
+    },
     amount: {
         type: Number,
         defaultValue: 0,
@@ -15,10 +23,6 @@ const balanceSchema = new schema({
     date: {
         type: String,
         defaultValue: new Date(),
-        required: true
-    },
-    balanceCategoryId: {
-        type: schema.ObjectId,
         required: true
     }
 });

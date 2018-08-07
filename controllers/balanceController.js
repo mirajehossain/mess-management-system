@@ -35,6 +35,7 @@ class BalanceController {
         console.log(req.auth.id);
         let balanceObject = req.body;
             balanceObject.userId = req.auth.id;
+            balanceObject.messName = req.auth.messusername;
             balanceObject.date = req.body.date || new Date();
         BalanceModel.create(balanceObject, (err,result)=>{
             if(err){
