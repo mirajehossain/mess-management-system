@@ -1,7 +1,8 @@
 let response = require('../helper/response');
 let BalanceModel = require('../models/balanceModel');
 let BalanceCategoryModel = require('../models/balanceCategoryModel');
-
+let BalanceLib = require('../lib/balance.lib');
+// let BalanceLib = new balanceLib();
 class BalanceController {
     constructor(){};
     addBalanceCategory(req,res){
@@ -34,29 +35,27 @@ class BalanceController {
     addBalance(req,res){
         console.log(req.auth.id);
         let balanceObject = req.body;
-            balanceObject.userId = req.auth.id;
-            balanceObject.messName = req.auth.messusername;
-            balanceObject.date = req.body.date || new Date();
+        balanceObject.userId = req.auth.id;
+        balanceObject.messName = req.auth.messusername;
+        balanceObject.date = req.body.date || new Date();
         BalanceModel.create(balanceObject, (err,result)=>{
             if(err){
                 return res.json(response.error(false,"An error occur",err))
             } else {
                 return res.json(response.single(true, `You are add ${result.amount} amount on your balance`, result));
             }
-        })
-
-
+        });
     };
 
-    totalBalance(req,res){};
+    totalBalance(req,res){
+        const balance = BalanceLib.totalBalance(req.auth.messusername);
+        console.log(balance);
+        res.json(response.single(true,'Total Balance is '+ balance, balance))
+    };
 
     availableBalance(req,res){};
 
     totalMessBalance(req,res){};
-
-
-
-
 }
 
 module.exports = new BalanceController();

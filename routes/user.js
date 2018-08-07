@@ -16,6 +16,9 @@ const MealController = require('../controllers/mealController');
 
     router.route('/addBalanceCategory').post(AuthController.isAdmin, BalanceController.addBalanceCategory );
     router.route('/addBalance').post(AuthController.isUser, BalanceController.addBalance );
+    router.route('/totalBalance').get(AuthController.isUser, BalanceController.totalBalance );
+
+
 
     router.route('/addExpenseCategory').post(AuthController.isAdmin, ExpenseController.addExpenseCategory);
     router.route('/addExpense').post(AuthController.isUser, ExpenseController.addExpense);
