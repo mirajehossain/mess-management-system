@@ -25,8 +25,6 @@ const MealController = new mealController();
     router.route('/getUsers').get(AuthController.isUser, UserController.getUsers);
 
 
-
-
     router.route('/addBalanceCategory').post(AuthController.isAdmin, BalanceController.addBalanceCategory );
     router.route('/addBalance').post(AuthController.isUser, BalanceController.addBalance );
     router.route('/totalMessBalance').get(AuthController.isUser, BalanceController.totalMessBalance );

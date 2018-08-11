@@ -1,10 +1,14 @@
 let bcrypt = require('bcrypt');
 let response = require('../helper/response');
 let UserModel = require('../models/userModel');
+
+const UserLib = require('../lib/user.lib');
 const saltRounds = 10;
 
-class UserController {
-    constructor(){};
+class UserController extends UserLib{
+    constructor(){
+        super();
+    };
 
     addUser(req,res){
         let user = req.body;
@@ -97,7 +101,12 @@ class UserController {
     };
 
     getUsers(req,res){
-
+        const mess = req.auth.messusername;
+        super.getUsers(mess).then(users=>{
+            return res.json(response.single(true, `Mess users `, users));
+        }).catch(err=>{
+            return res.json(response.error(false,"An error occur",err));
+        })
     }
 
 }
