@@ -1,5 +1,4 @@
 let response = require('../helper/response');
-let BalanceModel = require('../models/balanceModel');
 let BalanceLib = require('../lib/balance.lib');
 
 class BalanceController extends BalanceLib{
