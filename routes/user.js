@@ -23,6 +23,10 @@ const MealController = require('../controllers/mealController');
 
     router.route('/addExpenseCategory').post(AuthController.isAdmin, ExpenseController.addExpenseCategory);
     router.route('/addExpense').post(AuthController.isUser, ExpenseController.addExpense);
+    router.route('/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
+
+    router.route('/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
+
 
     router.route('/addMeal').post(AuthController.isUser, MealController.addMeal);
 

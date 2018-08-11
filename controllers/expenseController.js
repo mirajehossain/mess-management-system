@@ -1,9 +1,11 @@
 let response = require('../helper/response');
 let ExpenseModel = require('../models/expenseModel');
 let ExpenseCategoryModel= require('../models/expenseCategoryModel');
-
-class ExpenseController {
-    constructor(){};
+let ExpenseLib = require('../lib/exepnse.lib');
+class ExpenseController extends ExpenseLib{
+    constructor(){
+        super();
+    };
     addExpenseCategory(req,res){
         let expenseObject = req.body;
         expenseObject.messName = req.auth.messusername;
@@ -46,7 +48,23 @@ class ExpenseController {
         })
     };
 
-    totalExpenseAmount(req,res){};
+    totalMessExpense(req,res){
+        let mess = req.auth.messusername;
+        super.totalMessExpense(mess).then(expense=>{
+            return res.json(response.single(true, `Total expense of mess: ${expense} `, expense));
+        }).catch(err=>{
+            return res.json(response.error(false,"An error occur",err));
+        })
+    }
+
+    categoryWiseExpense(req, res){
+        let categoryId = req.params.categoryId;
+        super.categoryWiseExpense(categoryId).then(expense=>{
+            return res.json(response.single(true, `Expense amount of the categories is: ${expense} `, expense));
+        }).catch(err=>{
+            return res.json(response.error(false,"An error occur",err));
+        })
+    }
 
 
 }
