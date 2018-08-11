@@ -1,7 +1,9 @@
 let response = require('../helper/response');
-const MealModel = require('../models/mealModel');
-class MealController {
-    constructor(){};
+const MealLib = require('../lib/meal.lib');
+class MealController extends MealLib{
+    constructor(){
+        super();
+    };
 
     addMeal(req,res){
         let mealObject = req.body;
@@ -9,12 +11,10 @@ class MealController {
         mealObject.messName = req.auth.messusername;
         mealObject.date = req.body.date || new Date();
 
-        MealModel.create(mealObject, (err,meal)=>{
-            if(err){
-                return res.json(response.error(false, 'An error occur',err))
-            } else {
-                return res.json(response.single(true, 'Meal added',meal))
-            }
+        super.addMeal(mealObject).then(result=>{
+            return res.json(response.single(true, 'Meal added', result));
+        }).catch(err=>{
+            return res.json(response.error(false, 'An error occur', err));
         })
     }
 
