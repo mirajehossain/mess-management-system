@@ -96,6 +96,10 @@ class UserController {
         })
     };
 
+    getUsers(req,res){
+
+    }
+
 }
 
-module.exports = new UserController();
+module.exports = UserController;

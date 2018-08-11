@@ -69,4 +69,4 @@ class BalanceController extends BalanceLib{
     availableBalance(req,res){};
 }
 
-module.exports = new BalanceController();
+module.exports = BalanceController;

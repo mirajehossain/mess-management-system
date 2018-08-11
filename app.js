@@ -6,11 +6,13 @@ const cors = require('cors');
 const server = require('http').createServer(app);
 const config = require('./config/config');
 const port = config.development.server.port || 3000;
-const database = require('./config/database')();
 const indexRoute = require('./routes/index');
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
 const authController = require('./controllers/authController');
+const AuthController = new authController();
+require('./config/database')();
+
 const corsOptions = {
     origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -30,7 +32,7 @@ app.use(express.static(path.join(__dirname,'public')));
 
 app.use('/api',indexRoute);
 app.use('/api/auth',authRoute);
-app.all('/api/v1/*',authController.isAuthenticate);
+app.all('/api/v1/*',AuthController.isAuthenticate);
 
 app.use('/api/v1/user',userRoute);
 

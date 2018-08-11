@@ -69,4 +69,4 @@ class ExpenseController extends ExpenseLib{
 
 }
 
-module.exports = new ExpenseController();
+module.exports = ExpenseController;

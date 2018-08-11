@@ -5,17 +5,17 @@ class MealController {
 
     addMeal(req,res){
         let mealObject = req.body;
-            mealObject.userId = req.auth.id;
-            mealObject.messName = req.auth.messusername;
-            mealObject.date = req.body.date || new Date();
+        mealObject.userId = req.auth.id;
+        mealObject.messName = req.auth.messusername;
+        mealObject.date = req.body.date || new Date();
 
-            MealModel.create(mealObject, (err,meal)=>{
-                if(err){
-                    return res.json(response.error(false, 'An error occur',err))
-                } else {
-                    return res.json(response.single(true, 'Meal added',meal))
-                }
-            })
+        MealModel.create(mealObject, (err,meal)=>{
+            if(err){
+                return res.json(response.error(false, 'An error occur',err))
+            } else {
+                return res.json(response.single(true, 'Meal added',meal))
+            }
+        })
     }
 
     updateMeal(req,res){}
@@ -26,4 +26,4 @@ class MealController {
 
 }
 
-module.exports = new MealController();
+module.exports = MealController;
