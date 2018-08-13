@@ -17,11 +17,34 @@ class MealController extends MealLib{
         })
     }
 
-    updateMeal(req,res){}
+    updateMeal(req,res){
+        let mealId = req.params.mealId;
+        let updateObj = req.body;
+        super.updateMeal(mealId, updateObj).then(result=>{
+            return res.json(response.single(true, 'Meal updated successfully', result));
+        }).catch(err=>{
+            return res.json(response.error(false, 'An error occur', err));
+        })
+    }
+
 
     totalMeal(req,res){}
-
-    userWiseMeal(req,res){}
+    userWiseMeal(req,res){
+        let userId = req.params.userId;
+        super.userWiseMeal(userId).then(result=>{
+            return res.json(response.single(true, 'Your total Meals', result));
+        }).catch(err=>{
+            return res.json(response.error(false, 'An error occur', err));
+        })
+    }
+    currentMessMeal(req,res){
+        let messName = req.auth.messusername;
+        super.currentMessMeal(messName).then(result=>{
+            return res.json(response.single(true, 'Current Mess Meals', result));
+        }).catch(err=>{
+            return res.json(response.error(false, 'An error occur', err));
+        })
+    }
 
 }
 

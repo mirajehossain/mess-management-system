@@ -38,6 +38,10 @@ const MealController = new mealController();
 
 
     router.route('/addMeal').post(AuthController.isAdmin, MealController.addMeal);
+    router.route('/updateMeal/:mealId').post(AuthController.isAdmin, MealController.updateMeal);
+    router.route('/totalMeal').post(AuthController.isUser, MealController.totalMeal);
+    router.route('/userWieMeal/:userId').post(AuthController.isUser, MealController.userWiseMeal);
+    router.route('/currentMessMeal').post(AuthController.isUser, MealController.currentMessMeal);
 
 
 module.exports = router;
