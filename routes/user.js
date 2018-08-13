@@ -31,10 +31,10 @@ const MealController = new mealController();
     router.route('balance/totalUserBalance').get(AuthController.isUser, BalanceController.totalUserBalance );
 
 
-    router.route('category/addExpenseCategory').post(AuthController.isAdmin, ExpenseController.addExpenseCategory);
-    router.route('category/addExpense').post(AuthController.isUser, ExpenseController.addExpense);
-    router.route('category/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
-    router.route('category/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
+    router.route('expense/addExpenseCategory').post(AuthController.isAdmin, ExpenseController.addExpenseCategory);
+    router.route('expense/addExpense').post(AuthController.isUser, ExpenseController.addExpense);
+    router.route('expense/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
+    router.route('expense/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
 
 
     router.route('meal/addMeal').post(AuthController.isAdmin, MealController.addMeal);
