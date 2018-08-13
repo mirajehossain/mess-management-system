@@ -7,7 +7,6 @@ class MealController extends MealLib{
 
     addMeal(req,res){
         let mealObject = req.body;
-        mealObject.userId = req.auth.id;
         mealObject.messName = req.auth.messusername;
         mealObject.date = req.body.date || new Date();
 
