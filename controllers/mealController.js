@@ -27,8 +27,8 @@ class MealController extends MealLib{
         })
     }
 
-
     totalMeal(req,res){}
+
     userWiseMeal(req,res){
         let userId = req.params.userId;
         super.userWiseMeal(userId).then(result=>{
@@ -37,6 +37,7 @@ class MealController extends MealLib{
             return res.json(response.error(false, 'An error occur', err));
         })
     }
+
     currentMessMeal(req,res){
         let messName = req.auth.messusername;
         super.currentMessMeal(messName).then(result=>{

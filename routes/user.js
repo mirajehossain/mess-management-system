@@ -25,23 +25,23 @@ const MealController = new mealController();
     router.route('/getUsers').get(AuthController.isUser, UserController.getUsers);
 
 
-    router.route('/addBalanceCategory').post(AuthController.isAdmin, BalanceController.addBalanceCategory );
-    router.route('/addBalance').post(AuthController.isUser, BalanceController.addBalance );
-    router.route('/totalMessBalance').get(AuthController.isUser, BalanceController.totalMessBalance );
-    router.route('/totalUserBalance').get(AuthController.isUser, BalanceController.totalUserBalance );
+    router.route('balance/addBalanceCategory').post(AuthController.isAdmin, BalanceController.addBalanceCategory );
+    router.route('balance/addBalance').post(AuthController.isUser, BalanceController.addBalance );
+    router.route('balance/totalMessBalance').get(AuthController.isUser, BalanceController.totalMessBalance );
+    router.route('balance/totalUserBalance').get(AuthController.isUser, BalanceController.totalUserBalance );
 
 
-    router.route('/addExpenseCategory').post(AuthController.isAdmin, ExpenseController.addExpenseCategory);
-    router.route('/addExpense').post(AuthController.isUser, ExpenseController.addExpense);
-    router.route('/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
-    router.route('/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
+    router.route('category/addExpenseCategory').post(AuthController.isAdmin, ExpenseController.addExpenseCategory);
+    router.route('category/addExpense').post(AuthController.isUser, ExpenseController.addExpense);
+    router.route('category/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
+    router.route('category/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
 
 
-    router.route('/addMeal').post(AuthController.isAdmin, MealController.addMeal);
-    router.route('/updateMeal/:mealId').post(AuthController.isAdmin, MealController.updateMeal);
-    router.route('/totalMeal').post(AuthController.isUser, MealController.totalMeal);
-    router.route('/userWieMeal/:userId').post(AuthController.isUser, MealController.userWiseMeal);
-    router.route('/currentMessMeal').post(AuthController.isUser, MealController.currentMessMeal);
+    router.route('meal/addMeal').post(AuthController.isAdmin, MealController.addMeal);
+    router.route('meal/updateMeal/:mealId').post(AuthController.isAdmin, MealController.updateMeal);
+    router.route('meal/totalMeal').post(AuthController.isUser, MealController.totalMeal);
+    router.route('meal/userWieMeal/:userId').post(AuthController.isUser, MealController.userWiseMeal);
+    router.route('meal/currentMessMeal').post(AuthController.isUser, MealController.currentMessMeal);
 
 
 module.exports = router;
