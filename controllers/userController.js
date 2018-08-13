@@ -14,6 +14,7 @@ class UserController extends UserLib{
             return res.json(response.error(false,"An error occur",err));
         });
     };
+
     changePassword(req, res){
         let id = req.auth.id;
         let oldPassword = req.body.oldPassword;
@@ -34,6 +35,7 @@ class UserController extends UserLib{
             return res.json(response.error(false,"An error occur",err));
         });
     };
+
     getProfile(req,res){
         const id = req.auth.id;
         super.getProfile(id).then(data=>{
@@ -50,7 +52,16 @@ class UserController extends UserLib{
         }).catch(err=>{
             return res.json(response.error(false,"An error occur",err));
         })
-    }
+    };
+
+    userSummary(req,res){
+        let userId = req.params.userId;
+        super.userSummary(userId).then(summary=>{
+            return res.json(response.single(true, `User Summary `, summary));
+        }).catch(err=>{
+            return res.json(response.error(false,"An error occur",err));
+        })
+    };
 
 }
 
