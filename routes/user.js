@@ -36,6 +36,7 @@ const MealController = new mealController();
     router.route('/balance/totalMessBalance').get(AuthController.isUser, BalanceController.totalMessBalance );
     router.route('/balance/totalUserBalance').get(AuthController.isUser, BalanceController.totalUserBalance );
     router.route('/balance/categoryWiseBalance/:balanceCatId').get(AuthController.isUser,  BalanceController.categoryWiseBalance);
+    router.route('/balance/currentBalance').get(AuthController.isUser,  BalanceController.currentBalance);
 
 /**
  * Expense routing

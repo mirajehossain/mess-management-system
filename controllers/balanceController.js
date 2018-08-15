@@ -56,7 +56,16 @@ class BalanceController extends BalanceLib{
             return res.json(response.error(false,"An error occur",err));
         })
     };
-    availableBalance(req,res){};
+    currentBalance(req,res){
+        const messName = req.auth.messusername;
+        super.currentBalance(messName).then(balance=>{
+            return res.json(response.single(true, `Current Balance amount of the Mess is: ${balance} `, balance));
+        }).catch(err=>{
+            return res.json(response.error(false,"An error occur",err));
+        });
+
+
+    };
 }
 
 module.exports = BalanceController;
