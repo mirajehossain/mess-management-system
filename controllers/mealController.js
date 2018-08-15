@@ -47,6 +47,15 @@ class MealController extends MealLib{
         })
     }
 
+    mealRate(req,res){
+        let messName = req.auth.messusername;
+        super.mealRate(messName).then(result=>{
+            return res.json(response.single(true, 'Meal rate', result));
+        }).catch(err=>{
+            return res.json(response.error(false, 'An error occur', err));
+        })
+    }
+
 }
 
 module.exports = MealController;

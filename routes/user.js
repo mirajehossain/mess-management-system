@@ -54,6 +54,7 @@ const MealController = new mealController();
     router.route('/meal/updateMeal/:mealId').put(AuthController.isAdmin, MealController.updateMeal);
     router.route('/meal/totalMeal').get(AuthController.isUser, MealController.totalMeal);
     router.route('/meal/userWiseMeal/:userId').get(AuthController.isUser, MealController.userWiseMeal);
+    router.route('/meal/mealRate').get(AuthController.isUser, MealController.mealRate);
     // router.route('/meal/currentMessMealWithRate').get(AuthController.isUser, MealController.currentMessMealWithRate);
 
 
