@@ -5,7 +5,7 @@ const schema = mongoose.Schema;
 const balanceCategorySchema = new schema({
     name: {
         type: String,
-        unique: true,
+        unique: false,
         required: true
     },
     messName: {
