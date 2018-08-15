@@ -48,6 +48,14 @@ class BalanceController extends BalanceLib{
         });
     };
 
+    categoryWiseBalance(req,res){
+        let balanceCatId = req.params.balanceCatId;
+        super.categoryWiseBalance(balanceCatId).then(expense=>{
+            return res.json(response.single(true, `Balance amount of the categories is: ${expense} `, expense));
+        }).catch(err=>{
+            return res.json(response.error(false,"An error occur",err));
+        })
+    };
     availableBalance(req,res){};
 }
 
