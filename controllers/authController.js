@@ -126,7 +126,15 @@ class AuthController {
                 } else {
                     req.auth = decoded;
                     console.log('token-',req.auth);
-                    next();
+                    UserModel.findOne({
+                        $and: [ {_id: req.auth.id},{messusername: req.auth.messusername}]
+                    },(err,user)=>{
+                       if(err){
+                           res.json(response.error(false, 'Failed to authenticate user',err));
+                       } else {
+                           user? next() : res.json(response.error(false, 'Failed to authenticate user',err));
+                       }
+                    });
                 }
             })
         } else {
