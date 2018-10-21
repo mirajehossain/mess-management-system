@@ -8,7 +8,7 @@ class MealController extends MealLib{
     addMeal(req,res){
         let mealObject = req.body;
         mealObject.messName = req.auth.messusername;
-        mealObject.date = req.body.date || new Date();
+        mealObject.date = req.body.date || new Date().toLocaleDateString();  /// date formate "10/22/2018"
 
         super.addMeal(mealObject).then(result=>{
             return res.json(response.single(true, 'Meal added', result));

@@ -21,8 +21,8 @@ const balanceSchema = new schema({
         required: true
     },
     date: {
-        type: String,
-        defaultValue: new Date(),
+        type: Date,
+        defaultValue: new Date().toLocaleDateString(),
         required: true
     }
 });

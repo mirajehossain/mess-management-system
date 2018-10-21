@@ -16,7 +16,7 @@ const messSchema = new schema({
         required: true
     },
     date: {
-        type: String,
+        type: Date,
         required: true
     }
 

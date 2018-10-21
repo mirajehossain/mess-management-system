@@ -22,7 +22,7 @@ class BalanceController extends BalanceLib{
         let balanceObject = req.body;
         balanceObject.userId = req.auth.id;
         balanceObject.messName = req.auth.messusername;
-        balanceObject.date = req.body.date || new Date();
+        balanceObject.date = req.body.date || new Date().toLocaleDateString(); /// date formate "10/22/2018"
 
         super.addBalance(balanceObject).then(balance=>{
             res.json(response.single(true,`You are add ${balance.amount} amount on your balance`, balance));

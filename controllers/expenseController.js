@@ -21,7 +21,7 @@ class ExpenseController extends ExpenseLib{
         let expenseObject = req.body;
         expenseObject.userId = req.auth.id;
         expenseObject.messName = req.auth.messusername;
-        expenseObject.date = req.body.date || new Date();
+        expenseObject.date = req.body.date || new Date().toLocaleDateString();  /// date formate "10/22/2018"
         super.addExpense(expenseObject).then(result=>{
             return res.json(response.single(true,`You are add ${result.amount} amount on your Expense`, result));
         }).catch(err=>{
