@@ -35,7 +35,7 @@ const MealController = new mealController();
     router.route('/balance/addBalance').post(AuthController.isUser, BalanceController.addBalance );
     router.route('/balance/totalMessBalance').get(AuthController.isUser, BalanceController.totalMessBalance );
     router.route('/balance/totalUserBalance').get(AuthController.isUser, BalanceController.totalUserBalance );
-    router.route('/balance/categoryWiseBalance/:balanceCatId').get(AuthController.isUser,  BalanceController.categoryWiseBalance);
+    router.route('/balance/categoryWiseBalance/:categoryId').get(AuthController.isUser,  BalanceController.categoryWiseBalance);
     router.route('/balance/currentBalance').get(AuthController.isUser,  BalanceController.currentBalance);
 
 /**
@@ -56,7 +56,7 @@ const MealController = new mealController();
     router.route('/meal/currentMeal').get(AuthController.isUser, MealController.currentMeal);
     // router.route('/meal/userWiseMeal/:userId').get(AuthController.isUser, MealController.userWiseMeal);
     router.route('/meal/mealRateInMonth').get(AuthController.isUser, MealController.mealRateInMonth);
-    router.route('/meal/mealRate').get(AuthController.isUser, MealController.mealRate);
+    // router.route('/meal/mealRate').get(AuthController.isUser, MealController.mealRate);
     // router.route('/meal/currentMessMealWithRate').get(AuthController.isUser, MealController.currentMessMealWithRate);
 
 
