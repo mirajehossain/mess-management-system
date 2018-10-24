@@ -51,8 +51,11 @@ const MealController = new mealController();
  */
     router.route('/meal/addMeal').post(AuthController.isAdmin, MealController.addMeal);
     router.route('/meal/updateMeal/:mealId').put(AuthController.isAdmin, MealController.updateMeal);
-    router.route('/meal/totalMeal').get(AuthController.isUser, MealController.totalMeal);
-    router.route('/meal/userWiseMeal/:userId').get(AuthController.isUser, MealController.userWiseMeal);
+    router.route('/meal/totalMealInMonth').get(AuthController.isUser, MealController.totalMealInMonth);
+    // router.route('/meal/totalMeal').get(AuthController.isUser, MealController.totalMeal);
+    router.route('/meal/currentMeal').get(AuthController.isUser, MealController.currentMeal);
+    // router.route('/meal/userWiseMeal/:userId').get(AuthController.isUser, MealController.userWiseMeal);
+    router.route('/meal/mealRateInMonth').get(AuthController.isUser, MealController.mealRateInMonth);
     router.route('/meal/mealRate').get(AuthController.isUser, MealController.mealRate);
     // router.route('/meal/currentMessMealWithRate').get(AuthController.isUser, MealController.currentMessMealWithRate);
 

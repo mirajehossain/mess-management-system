@@ -29,7 +29,47 @@ class MealController extends MealLib{
         })
     }
 
-    totalMeal(req,res){}
+    totalMealInMonth(req,res){
+        let messName = req.auth.messusername;
+        const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+        const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+
+
+        super.totalMealInMonth(currentMonthFirstDate, currentMonthLastDate, messName).then(result=>{
+            return res.status(200).json(response.single(true, 'Total Meals', result));
+        }).catch(err=>{
+            return res.status(400).json(response.error(false, 'An error occur', err));
+        })
+    }
+
+    totalMeal(req,res){
+        let messName = req.auth.messusername;
+        const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+        const currentDate = new Date().toISOString();
+
+
+        super.totalMeal(currentMonthFirstDate, currentDate, messName).then(result=>{
+            return res.status(200).json(response.single(true, 'Total Meals', result));
+        }).catch(err=>{
+            return res.status(400).json(response.error(false, 'An error occur', err));
+        })
+    }
+
+    currentMeal(req,res){
+        let messName = req.auth.messusername;
+        const month = new Date().getMonth()+1;
+        const year = new Date().getFullYear();
+        const currentMonthDate = new Date(`${month},1, ${year}`);
+        currentMonthDate.toISOString();
+        const currentDate = new Date().toISOString();
+        super.currentMeal(currentMonthDate, currentDate, messName).then(result=>{
+            return res.status(200).json(response.single(true, 'Total Meals', result));
+        }).catch(err=>{
+            return res.status(400).json(response.error(false, 'An error occur', err));
+        })
+    }
 
     userWiseMeal(req,res){
         let userId = req.params.userId;
@@ -49,8 +89,21 @@ class MealController extends MealLib{
         })
     }
 
+    mealRateInMonth(req,res){
+        let messName = req.auth.messusername;
+        const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+        const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+
+        super.mealRateInMonth(currentMonthFirstDate,currentMonthLastDate,messName).then(result=>{
+            return res.status(200).json(response.single(true, 'Meal rate', result));
+        }).catch(err=>{
+            return res.status(400).json(response.error(false, 'An error occur', err));
+        })
+    }
     mealRate(req,res){
         let messName = req.auth.messusername;
+
         super.mealRate(messName).then(result=>{
             return res.status(200).json(response.single(true, 'Meal rate', result));
         }).catch(err=>{
