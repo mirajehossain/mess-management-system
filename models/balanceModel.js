@@ -7,7 +7,7 @@ const balanceSchema = new schema({
         type: schema.ObjectId,
         required: true
     },
-    balanceCategoryId: {
+    categoryId: {
         type: schema.ObjectId,
         required: true
     },
@@ -22,7 +22,7 @@ const balanceSchema = new schema({
     },
     date: {
         type: Date,
-        defaultValue: new Date().toLocaleDateString(),
+        defaultValue: new Date().toISOString(),
         required: true
     }
 });

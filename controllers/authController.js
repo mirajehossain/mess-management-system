@@ -36,7 +36,7 @@ class AuthController {
         let user = req.body;
         bcrypt.hash(user.password,saltRounds,(err,hashed)=>{
             if(err){
-                return res.json(response.error(false,"An error occur hash password",err))
+                return res.status(400).json(response.error(false,"An error occur hash password",err))
             } else {
                 user.password = hashed;
                 // user.role = 0;/// 0 manager , 1 member
@@ -47,30 +47,30 @@ class AuthController {
 
                 MessModel.findOne(mes,(err,found)=>{
                     if(err){
-                        return res.json(response.error(false,"an error occur",err.message));
+                        return res.status(400).json(response.error(false,"an error occur",err.message));
                     } else {
                         console.log(found);
                         if(found !== null){
-                            return res.json(response.error(false,"Mess name already exist","Mess name already exist"));
+                            return res.status(409).json(response.error(false,"Mess name already exist","Mess name already exist"));
                         } else {
                             let emailobj = {
                                 email: user.email
-                            }
+                            };
                             UserModel.findOne(emailobj,(err,found)=>{
                                 if(found !== null){
-                                    return res.json(response.error(false,"Email already exist","Email already exist"));
+                                    return res.status(409).json(response.error(false,"Email already exist","Email already exist"));
                                 } else {
                                     MessModel.create(mes,(err, done)=>{
                                         if(err){
-                                            return res.json(response.error(false,"Mess name already exist",err.message));
+                                            return res.status(409).json(response.error(false,"Mess name already exist",err.message));
                                         } else {
                                             console.log(done);
                                             // return res.json(response.single(true, "Mess name Created", done));
                                             UserModel.create(user, (err,result)=>{
                                                 if(err){
-                                                    return res.json(response.error(false,"Email is already",err.message))
+                                                    return res.status(409).json(response.error(false,"Email is already exist",err.message))
                                                 } else {
-                                                    return res.json(response.single(true, "New User Created", result));
+                                                    return res.status(201).json(response.single(true, "New User Created", result));
                                                 }
                                             })
 

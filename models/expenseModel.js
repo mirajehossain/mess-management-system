@@ -17,7 +17,7 @@ const expenseSchema = new schema({
         type: String,
         required: true
     },
-    expenseCategoryId: {
+    categoryId: {
         type: schema.ObjectId,
         required: true
     },

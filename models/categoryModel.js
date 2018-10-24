@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 
-const expenseCategorySchema = new schema({
+const categorySchema = new schema({
     name: {
         type: String,
         unique: false,
@@ -16,4 +16,4 @@ const expenseCategorySchema = new schema({
 });
 
 
-module.exports = mongoose.model('expenseCategory',expenseCategorySchema);
+module.exports = mongoose.model('category',categorySchema);

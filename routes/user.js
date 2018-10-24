@@ -31,17 +31,16 @@ const MealController = new mealController();
 /**
  * Balance routing
  */
-    router.route('/balance/addBalanceCategory').post(AuthController.isAdmin, BalanceController.addBalanceCategory );
+    router.route('/balance/addCategory').post(AuthController.isAdmin, BalanceController.addCategory );
     router.route('/balance/addBalance').post(AuthController.isUser, BalanceController.addBalance );
     router.route('/balance/totalMessBalance').get(AuthController.isUser, BalanceController.totalMessBalance );
     router.route('/balance/totalUserBalance').get(AuthController.isUser, BalanceController.totalUserBalance );
-    router.route('/balance/categoryWiseBalance/:balanceCatId').get(AuthController.isUser,  BalanceController.categoryWiseBalance);
+    router.route('/balance/categoryWiseBalance/:categoryId').get(AuthController.isUser,  BalanceController.categoryWiseBalance);
     router.route('/balance/currentBalance').get(AuthController.isUser,  BalanceController.currentBalance);
 
 /**
  * Expense routing
  */
-    router.route('/expense/addExpenseCategory').post(AuthController.isAdmin, ExpenseController.addExpenseCategory);
     router.route('/expense/addExpense').post(AuthController.isUser, ExpenseController.addExpense);
     router.route('/expense/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
     router.route('/expense/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
@@ -52,9 +51,12 @@ const MealController = new mealController();
  */
     router.route('/meal/addMeal').post(AuthController.isAdmin, MealController.addMeal);
     router.route('/meal/updateMeal/:mealId').put(AuthController.isAdmin, MealController.updateMeal);
-    router.route('/meal/totalMeal').get(AuthController.isUser, MealController.totalMeal);
-    router.route('/meal/userWiseMeal/:userId').get(AuthController.isUser, MealController.userWiseMeal);
-    router.route('/meal/mealRate').get(AuthController.isUser, MealController.mealRate);
+    router.route('/meal/totalMealInMonth').get(AuthController.isUser, MealController.totalMealInMonth);
+    // router.route('/meal/totalMeal').get(AuthController.isUser, MealController.totalMeal);
+    router.route('/meal/currentMeal').get(AuthController.isUser, MealController.currentMeal);
+    // router.route('/meal/userWiseMeal/:userId').get(AuthController.isUser, MealController.userWiseMeal);
+    router.route('/meal/mealRateInMonth').get(AuthController.isUser, MealController.mealRateInMonth);
+    // router.route('/meal/mealRate').get(AuthController.isUser, MealController.mealRate);
     // router.route('/meal/currentMessMealWithRate').get(AuthController.isUser, MealController.currentMessMealWithRate);
 
 
