@@ -4,18 +4,6 @@ class ExpenseController extends ExpenseLib{
     constructor(){
         super();
     };
-    addExpenseCategory(req,res){
-        let expenseObject = req.body;
-        expenseObject.messName = req.auth.messusername;
-        console.log(expenseObject);
-        super.addExpenseCategory(expenseObject).then(result=>{
-            return res.json(response.single(true,`You are add new Expense category`, result));
-        }).catch(err=>{
-            return res.json(response.error(false,"An error occur",err));
-        })
-
-    };
-
     addExpense(req,res){
         console.log(req.auth.id);
         let expenseObject = req.body;

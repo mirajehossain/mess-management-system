@@ -5,12 +5,12 @@ class BalanceController extends BalanceLib{
     constructor(){
         super();
     };
-    addBalanceCategory(req,res){
+    addCategory(req,res){
         let categoryObject = req.body;
         categoryObject.messName = req.auth.messusername;
         console.log(categoryObject);
 
-        super.addBalanceCategory(categoryObject).then(balance=>{
+        super.addCategory(categoryObject).then(balance=>{
             res.json(response.single(true,'New Balance category added ', balance));
         }).catch(error=>{
             res.json(response.error(false,'An error occur', error))
@@ -22,7 +22,7 @@ class BalanceController extends BalanceLib{
         let balanceObject = req.body;
         balanceObject.userId = req.auth.id;
         balanceObject.messName = req.auth.messusername;
-        balanceObject.date = req.body.date || new Date().toLocaleDateString(); /// date formate "10/22/2018"
+        balanceObject.date = req.body.date || new Date().toISOString(); /// date formate "10/22/2018"
 
         super.addBalance(balanceObject).then(balance=>{
             res.json(response.single(true,`You are add ${balance.amount} amount on your balance`, balance));
