@@ -1,5 +1,4 @@
 # Mess-Management-System
---
 
 ## Prerequisites
 - > Install [NodeJS](https://nodejs.org/en/download/).
@@ -14,12 +13,13 @@ npm install
 npm start
 ```
 
-#Features
-- Register a Mess
-- Add mess members
-- Track their balance and expense
-- User wise report 
-- Monthly report 
+# Features
+
+- > Register a Mess
+- >Add mess members
+- >Track their balance and expense
+- >User wise report 
+- >Monthly report 
 
 ## APIs 
 
