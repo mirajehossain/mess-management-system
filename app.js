@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({
 //Root Routing
 app.use(express.static(path.join(__dirname,'public')));
 
-app.use('/api',indexRoute);
+app.use('/',indexRoute);
 app.use('/api/auth',authRoute);
 app.all('/api/v1/*',AuthController.isAuthenticate);
 
