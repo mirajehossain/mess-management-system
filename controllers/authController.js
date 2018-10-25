@@ -12,16 +12,16 @@ class AuthController {
         let user = req.body;
         UserModel.findOne({email: user.email},(err, result)=>{
             if(err){
-                return res.json(response.error(false,"An error occur",err))
+                return res.status(501).json(response.error(false,"An error occur",err))
             } else {
                 console.log(result);
                 if(result == null) {
-                    return res.json(response.error(false, "User Not found", "User does not found"));
+                    return res.status(401).json(response.error(false, "User Not found", "User does not found"));
                 } else {
                     bcrypt.compare(user.password,result.password,(err,matched)=>{
                         console.log("password matched - ", matched);
                         if(!matched){
-                            return res.json(response.error(false, "Email or password not matched", "Email or password not matched"));
+                            return res.status(401).json(response.error(false, "Email or password not matched", "Email or password not matched"));
                         } else {
                             // return res.json(response.single(true,"User found",result));
                             req.user = result;
@@ -36,7 +36,7 @@ class AuthController {
         let user = req.body;
         bcrypt.hash(user.password,saltRounds,(err,hashed)=>{
             if(err){
-                return res.status(400).json(response.error(false,"An error occur hash password",err))
+                return res.status(501).json(response.error(false,"An error occur hash password",err))
             } else {
                 user.password = hashed;
                 // user.role = 0;/// 0 manager , 1 member
@@ -47,7 +47,7 @@ class AuthController {
 
                 MessModel.findOne(mes,(err,found)=>{
                     if(err){
-                        return res.status(400).json(response.error(false,"an error occur",err.message));
+                        return res.status(501).json(response.error(false,"an error occur",err.message));
                     } else {
                         console.log(found);
                         if(found !== null){
