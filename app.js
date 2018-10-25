@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const server = require('http').createServer(app);
 const config = require('./config/config');
-const port = config.development.server.port || 3000;
+const port = process.env.PORT || config.development.server.port ;
 const indexRoute = require('./routes/index');
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
@@ -35,6 +35,7 @@ app.use('/api/auth',authRoute);
 app.all('/api/v1/*',AuthController.isAuthenticate);
 
 app.use('/api/v1/user',userRoute);
+
 
 
 server.listen(port,()=>{
