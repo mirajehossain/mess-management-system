@@ -10,29 +10,26 @@ const saltRounds = 10;
 
 class AuthController {
 	constructor(){};
-	login(req,res,next){
-		let user = req.body;
-		UserModel.findOne({email: user.email},(err, result)=>{
-			if(err){
-				return res.status(501).json(response.error(false,"An error occur",err))
+	async login(req,res,next){
+		try {
+			let user = req.body;
+			const result = await authValidation.checkUser({email:user.email});
+
+			if(result instanceof Error){
+				return res.status(401).json(response.error(false, `${result}`,`${result}`));
 			} else {
-				console.log(result);
-				if(result == null) {
-					return res.status(401).json(response.error(false, "User Not found", "User does not found"));
-				} else {
-					bcrypt.compare(user.password,result.password,(err,matched)=>{
-						console.log("password matched - ", matched);
-						if(!matched){
-							return res.status(401).json(response.error(false, "Email or password not matched", "Email or password not matched"));
-						} else {
-							// return res.json(response.single(true,"User found",result));
-							req.user = result;
-							next();
-						}
-					})
-				}
+				bcrypt.compare(user.password,result.password,(err,matched)=>{
+					if(!matched){
+						return res.status(401).json(response.error(false, "Incorrect email or password", "Incorrect email or password "));
+					} else {
+						req.user = result;
+						next();
+					}
+				})
 			}
-		})
+		} catch (e) {
+
+		}
 	};
 	async signup(req,res){
 		try {
@@ -93,7 +90,7 @@ class AuthController {
 
 	sendToken(req,res){
 		res.setHeader('x-auth-token',req.tokenObject.token);
-		res.json(response.single(true, 'Enjoy your token!', {token: req.tokenObject}));
+		res.json(response.single(true, 'Enjoy your token!', {token: req.tokenObject.token}));
 	};
 
 	isAuthenticate(req,res,next){

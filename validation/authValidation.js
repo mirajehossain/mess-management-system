@@ -61,6 +61,21 @@ class AuthValidation {
 			return e;
 		}
 	}
+
+	// status(40!)
+	async checkUser(email){
+		let response;
+		try {
+			response = await UserModel.findOne(email);
+			if(response === null){
+				 throw new Error(`${email.email} is not exist, please signup or try valid registered email`);
+			} else {
+				return response;
+			}
+		} catch (e) {
+			return e;
+		}
+	}
 }
 
 module.exports = AuthValidation;
