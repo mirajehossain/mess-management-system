@@ -13,15 +13,25 @@ class AuthValidation {
 		 else if(req.body.email == null)
 			res.status(422).send({message:'Email can\'t be empty'});
 		else if(req.body.password == null)
-			res.status(422).send({message:'Password name can\'t be empty'});
+			res.status(422).send({message:'Password can\'t be empty'});
 		else if(req.body.phone == null)
 			res.status(422).send({message:'Phone no can\'t be empty'});
 		else if(req.body.messusername == null)
-			res.status(422).send({message:'Messusername name can\'t be empty'});
+			res.status(422).send({message:'Messusername can\'t be empty'});
 		 else
 		next();
 	};
 
+	// 422 (Unprocessable Entity)
+	static loginValidation(req, res, next){
+
+		if(req.body.email == null)
+			res.status(422).send({message:'Email can\'t be empty'});
+		else if(req.body.password == null)
+			res.status(422).send({message:'Password can\'t be empty'});
+		else
+			next();
+	};
 	// status(409)
 	async checkMessExistOrNot(mess){
 		let response;
