@@ -6,13 +6,18 @@ class UserController extends UserLib{
         super();
     };
 
-    addUser(req,res){
-        let user = req.body;
-        super.addUser(user, req.auth.messusername).then(data=>{
-            return res.status(201).json(response.single(true, `New User Created`, data));
-        }).catch(err=>{
-            return res.status(409).json(response.error(false,"An error occur",err));
-        });
+   async addUser(req,res){
+       try {
+		   let user = req.body;
+		   const data = await super.addUser(user);
+		   if(data instanceof Error){
+			   return res.status(409).json(response.error(false,`${data}`,`${data}`));
+		   } else {
+			   return res.status(201).json(response.single(true, `New User Created`, data));
+		   }
+	   } catch (e) {
+		   return res.status(409).json(response.error(false,"An error occur",e));
+	   }
     };
 
     changePassword(req, res){

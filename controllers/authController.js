@@ -55,7 +55,7 @@ class AuthController {
 							 return res.status(201).json(response.single(true, "New User Created", done));
 						 })
 					 }).catch(err=>{
-						 return res.status(409).json(response.error(false,"Internal server Error",err.message))
+						 return res.status(409).json(response.error(false,"Internal server Error",err))
 					 });
 				 }
 			}
@@ -98,7 +98,8 @@ class AuthController {
 		if(token){
 			jwt.verify(token, secretKey, (err,decoded)=>{
 				if (err) {
-					return res.json(response.error(false,"Failed to authenticate token",err));
+					///401 Unauthorized
+					res.status(401).json(response.error(false,"Failed to authenticate token",err));
 				} else {
 					req.auth = decoded;
 					console.log('token-',req.auth);
@@ -106,9 +107,10 @@ class AuthController {
 						$and: [ {_id: req.auth.id},{messusername: req.auth.messusername}]
 					},(err,user)=>{
 						if(err){
-							res.json(response.error(false, 'Failed to authenticate user',err));
+							///401 Unauthorized
+							res.status(401).json(response.error(false, 'Failed to authenticate user',err));
 						} else {
-							user? next() : res.json(response.error(false, 'Failed to authenticate user',err));
+							user? next() : res.status(401).json(response.error(false, 'Failed to authenticate user',err));
 						}
 					});
 				}
@@ -122,15 +124,17 @@ class AuthController {
 		if(req.auth.role === 'user' || 'admin'){
 			next();
 		} else {
-			res.json(response.error(false, 'You are not admin or user',null))
+			///401 Unauthorized
+			res.status(401).json(response.error(false, 'You are not admin or user',null))
 		}
 	}
 
-	isAdmin(req,res,next){
+		isAdmin(req,res,next){
 		if(req.auth.role === 'admin'){
 			next();
 		} else {
-			res.json(response.error(false, 'You are not admin',null))
+			///401 Unauthorized
+			res.status(401).json(response.error(false, 'You are not admin',null))
 		}
 	}
 

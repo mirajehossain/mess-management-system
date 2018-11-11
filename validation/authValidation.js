@@ -6,8 +6,6 @@ class AuthValidation {
 
 	// 422 (Unprocessable Entity)
 	static signupValidation(req, res, next){
-
-		console.log(typeof req.body.username );
 		if(req.body.username == null)
 			res.status(422).send({message:'User name can\'t be empty'});
 		 else if(req.body.email == null)
