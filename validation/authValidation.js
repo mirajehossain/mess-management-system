@@ -5,24 +5,20 @@ class AuthValidation {
 	constructor(){};
 
 	// 422 (Unprocessable Entity)
-	signupValidation(req, res, next){
+	static signupValidation(req, res, next){
 
-		console.log(req.body.username);
-		if(req.body.username == null || 'undefined'){
+		console.log(typeof req.body.username );
+		if(req.body.username == null)
 			res.status(422).send({message:'User name can\'t be empty'});
-		}
-		if(req.body.email == null || 'undefined'){
+		 else if(req.body.email == null)
 			res.status(422).send({message:'Email can\'t be empty'});
-		}
-		if(req.body.password == null || 'undefined'){
+		else if(req.body.password == null)
 			res.status(422).send({message:'Password name can\'t be empty'});
-		}
-		if(req.body.phone == null|| 'undefined'){
+		else if(req.body.phone == null)
 			res.status(422).send({message:'Phone no can\'t be empty'});
-		}
-		if(req.body.messusername == null|| 'undefined'){
+		else if(req.body.messusername == null)
 			res.status(422).send({message:'Messusername name can\'t be empty'});
-		}
+		 else
 		next();
 	};
 
