@@ -31,9 +31,6 @@ class BalanceController extends BalanceLib{
 			balanceObject.date = date || new Date().toISOString(); /// date format "10/22/2018"
 
 			const balance = await super.addBalance(balanceObject);
-			if(balance instanceof Error)
-				return res.status(409).json(response.error(false,`${balance}`,`${balance}`));
-			else
 				return res.status(201).json(response.single(true,`You are add ${balance.amount} amount on your balance`, balance));
 		} catch (e) {
 			return res.status(400).json(response.error(false,'An error occur', e))
