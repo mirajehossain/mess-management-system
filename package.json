@@ -21,7 +21,12 @@
     "mongoose": "^5.2.5"
   },
   "engines": {
-    "node": "8.10.0",
+    "node": "10.13.0",
     "npm": "5.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
   }
 }

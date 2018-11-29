@@ -6,52 +6,76 @@ class UserController extends UserLib{
         super();
     };
 
-    addUser(req,res){
-        let user = req.body;
-        super.addUser(user, req.auth.messusername).then(data=>{
-            return res.status(201).json(response.single(true, `New User Created`, data));
-        }).catch(err=>{
-            return res.status(409).json(response.error(false,"An error occur",err));
-        });
+   async addUser(req,res){
+       try {
+		   let user = req.body;
+		   const data = await super.addUser(user);
+		   if(data instanceof Error){
+			   return res.status(409).json(response.error(false,`${data}`,`${data}`));
+		   } else {
+			   return res.status(201).json(response.single(true, `New User Created`, data));
+		   }
+	   } catch (e) {
+		   return res.status(409).json(response.error(false,"An error occur",e));
+	   }
     };
 
-    changePassword(req, res){
-        let id = req.auth.id;
-        let oldPassword = req.body.oldPassword;
-        let newPassword = req.body.newPassword;
-        super.changPassword(id,oldPassword,newPassword).then(data=>{
-            return res.status(200).json(response.single(true, `Password changed successfully`, data));
-        }).catch(err=>{
-            return res.status(400).json(response.error(false,"An error occur",err));
-        });
+    async changePassword(req, res){
+        try {
+			const id = req.auth.id;
+			const oldPassword = req.body.oldPassword;
+			const newPassword = req.body.newPassword;
+			const data = await super.changPassword(id,oldPassword,newPassword);
+			if(data instanceof Error){
+				return res.status(400).json(response.error(false,`${data}`,`${data}`));
+			} else {
+				return res.status(200).json(response.single(true, `Password changed successfully`,`${data}`));
+			}
+        } catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",e));
+		}
     };
 
-    updateProfile(req,res){
-        const id = req.auth.id;
-        let updateObject = req.body;
-        super.updateProfile(updateObject).then(data=>{
-            return res.status(200).json(response.single(true, `Profile Update successfully`, data));
-        }).catch(err=>{
-            return res.status(400).json(response.error(false,"An error occur",err));
-        });
+    async updateProfile(req,res){
+        try {
+			const updateObject = req.body;
+			const data = await super.updateProfile(updateObject);
+			if( data instanceof Error){
+				return res.status(400).json(response.error(false,`${data}`,`${data}`));
+			} else {
+				return res.status(200).json(response.single(true, `Profile Update successfully`, `${data}`));
+			}
+		} catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",e));
+
+		}
     };
 
-    getProfile(req,res){
-        const id = req.auth.id;
-        super.getProfile(id).then(data=>{
-            return res.status(200).json(response.single(true, `Welcome ${data.username}`, data));
-        }).catch(err=>{
-            return res.status(400).json(response.error(false,"An error occur",err));
-        });
+    async getProfile(req,res){
+        try {
+			const id = req.auth.id;
+			const data = await super.getProfile(id);
+			if(data instanceof Error){
+				return res.status(400).json(response.error(false,"An error occur",`${data}`));
+			} else {
+				return res.status(200).json(response.single(true, `Welcome ${data.username}`, data));
+			}
+		} catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",e));
+		}
     };
 
-    getUsers(req,res){
-        const mess = req.auth.messusername;
-        super.getUsers(mess).then(users=>{
-            return res.status(200).json(response.single(true, `Mess users `, users));
-        }).catch(err=>{
-            return res.status(400).json(response.error(false,"An error occur",err));
-        })
+    async getUsers(req,res){
+        try {
+			const mess = req.auth.messusername;
+			const users = await super.getUsers(mess);
+			if(users.length !== 0)
+				return res.status(200).json(response.single(true, `Mess users `, users));
+			else
+				return res.status(400).json(response.error(false,"An error occur",`${users}`));
+		} catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",e));
+		}
     };
 
     userSummary(req,res){

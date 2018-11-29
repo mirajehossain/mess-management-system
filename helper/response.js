@@ -1,26 +1,17 @@
 module.exports = {
-    single:function (success, message, data) {
+    single:function (success = false, message= "", data= {}) {
         return {
-            success:success || false,
-            message:message || "",
-            data:data || {}
+            success, message, data
+        }
+    },
+    collection: function (success = false, message = "", data = [], page = 1, count = 1, limit = 1) {
+        return {
+            success, message, page, limit, count, data
         };
     },
-    collection: function (success, message, data, page, count, limit) {
+    error: function (success = false, message = "",error = "") {
         return {
-            success:success || false,
-            message:message || "",
-            page: page || 1,
-            limit: limit || 1,
-            count: count || 1,
-            data:data || []
-        };
-    },
-    error: function (success, message,error) {
-        return {
-            success: success || false,
-            message: message || "",
-            error: error || ""
+            success , message , error
         }
     }
 };
