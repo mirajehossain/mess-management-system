@@ -115,7 +115,7 @@ class MealController extends MealLib{
 			if(result instanceof Error)
 				return res.status(400).json(response.error(false,`${result}`, `${result}`));
 			else
-				return res.status(200).json(response.single(true, 'Meal rate', result));
+				return res.status(200).json(response.single(true, 'Meal rate', `${result}`));
 		} catch (e) {
 			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}
