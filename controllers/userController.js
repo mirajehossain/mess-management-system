@@ -16,7 +16,7 @@ class UserController extends UserLib{
 			   return res.status(201).json(response.single(true, `New User Created`, data));
 		   }
 	   } catch (e) {
-		   return res.status(409).json(response.error(false,"An error occur",e));
+		   return res.status(409).json(response.error(false,"An error occur",`${e}`));
 	   }
     };
 
@@ -32,7 +32,7 @@ class UserController extends UserLib{
 				return res.status(200).json(response.single(true, `Password changed successfully`,`${data}`));
 			}
         } catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",e));
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
     };
 
@@ -46,7 +46,7 @@ class UserController extends UserLib{
 				return res.status(200).json(response.single(true, `Profile Update successfully`, `${data}`));
 			}
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",e));
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 
 		}
     };
@@ -61,7 +61,7 @@ class UserController extends UserLib{
 				return res.status(200).json(response.single(true, `Welcome ${data.username}`, data));
 			}
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",e));
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
     };
 
@@ -74,7 +74,7 @@ class UserController extends UserLib{
 			else
 				return res.status(400).json(response.error(false,"An error occur",`${users}`));
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",e));
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
     };
 
@@ -83,7 +83,7 @@ class UserController extends UserLib{
         super.userSummary(userId).then(summary=>{
             return res.status(200).json(response.single(true, `User Summary `, summary));
         }).catch(err=>{
-            return res.status(400).json(response.error(false,"An error occur",err));
+            return res.status(400).json(response.error(false,"An error occur",`${err}`));
         })
     };
 

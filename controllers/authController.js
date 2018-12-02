@@ -28,7 +28,7 @@ class AuthController {
 				})
 			}
 		} catch (e) {
-
+			return res.status(401).json(response.error(false, `An error occur`,`${e}`));
 		}
 	};
 	async signup(req,res){
@@ -55,7 +55,7 @@ class AuthController {
 							 return res.status(201).json(response.single(true, "New User Created", done));
 						 })
 					 }).catch(err=>{
-						 return res.status(409).json(response.error(false,"Internal server Error",err))
+						 return res.status(409).json(response.error(false,"Internal server Error",`${err}`))
 					 });
 				 }
 			}
@@ -99,7 +99,7 @@ class AuthController {
 			jwt.verify(token, secretKey, (err,decoded)=>{
 				if (err) {
 					///401 Unauthorized
-					res.status(401).json(response.error(false,"Failed to authenticate token",err));
+					res.status(401).json(response.error(false,"Failed to authenticate token",`${err}`));
 				} else {
 					req.auth = decoded;
 					console.log('token-',req.auth);
@@ -108,9 +108,9 @@ class AuthController {
 					},(err,user)=>{
 						if(err){
 							///401 Unauthorized
-							res.status(401).json(response.error(false, 'Failed to authenticate user',err));
+							res.status(401).json(response.error(false, 'Failed to authenticate user',`${err}`));
 						} else {
-							user? next() : res.status(401).json(response.error(false, 'Failed to authenticate user',err));
+							user? next() : res.status(401).json(response.error(false, 'Failed to authenticate user',`${err}`));
 						}
 					});
 				}

@@ -14,7 +14,7 @@ class ExpenseController extends ExpenseLib{
 			const result = await super.addExpense(expenseObject);
 			return res.status(200).json(response.single(true,`You are add ${result.amount} amount on your Expense`, result));
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",e));
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
 	};
 
@@ -28,7 +28,7 @@ class ExpenseController extends ExpenseLib{
 				return res.status(200).json(response.single(true, `Total expense of mess: ${expense} `, expense));
 
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",e));
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
 	}
 
@@ -41,7 +41,7 @@ class ExpenseController extends ExpenseLib{
 			else
 				return res.status(200).json(response.single(true, `Expense amount of the categories is: ${expense} `, expense));
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",e));
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
 	}
 

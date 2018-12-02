@@ -16,7 +16,7 @@ class MealController extends MealLib{
 			const result = await super.addMeal(mealObject);
 			return res.status(200).json(response.single(true, 'Meal added', result));
 		} catch (e) {
-			return res.status(400).json(response.error(false, 'An error occur', e));
+			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}
 	}
 
@@ -27,7 +27,7 @@ class MealController extends MealLib{
 			const result = await super.updateMeal(mealId, updateObj);
 			return res.status(200).json(response.single(true, 'Meal updated successfully', result));
 		} catch (e) {
-			return res.status(400).json(response.error(false, 'An error occur', e));
+			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}
 	}
 
@@ -44,7 +44,7 @@ class MealController extends MealLib{
 				return res.status(200).json(response.single(true, 'Total Meals', result));
 
 		} catch (e) {
-			return res.status(400).json(response.error(false, 'An error occur', e));
+			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}
 	}
 
@@ -61,7 +61,7 @@ class MealController extends MealLib{
 			else
 				return res.status(200).json(response.single(true, 'Total Meals', result));
 		} catch (e) {
-			return res.status(400).json(response.error(false, 'An error occur', e));
+			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}
 	}
 
@@ -79,7 +79,7 @@ class MealController extends MealLib{
 			else
 				return res.status(200).json(response.single(true, 'Total Meals', result));
 		} catch (e) {
-			return res.status(400).json(response.error(false, 'An error occur', e));
+			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}
 	}
 
@@ -89,7 +89,7 @@ class MealController extends MealLib{
 			const result = await super.userWiseMeal(userId);
 			return res.status(200).json(response.single(true, 'Your total Meals', result));
 		} catch (e) {
-			return res.status(400).json(response.error(false, 'An error occur', e));
+			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}
 	}
 
@@ -100,7 +100,7 @@ class MealController extends MealLib{
 			return res.status(200).json(response.single(true, 'Current Mess Meals', result));
 
 		} catch (e) {
-			return res.status(400).json(response.error(false, 'An error occur', e));
+			return res.status(400).json(response.error(false, 'An error occur', e`${e}`));
 		}
 	}
 
@@ -117,7 +117,7 @@ class MealController extends MealLib{
 			else
 				return res.status(200).json(response.single(true, 'Meal rate', result));
 		} catch (e) {
-			return res.status(400).json(response.error(false, 'An error occur', e));
+			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}
 	}
 	async mealRate(req,res){
@@ -126,7 +126,7 @@ class MealController extends MealLib{
 			const result = await super.mealRate(messName);
 			return res.status(200).json(response.single(true, 'Meal rate', result));
 		} catch (e) {
-			return res.status(400).json(response.error(false, 'An error occur', e));
+			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}
 	}
 
