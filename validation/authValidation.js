@@ -6,15 +6,16 @@ class AuthValidation {
 
 	// 422 (Unprocessable Entity)
 	static signupValidation(req, res, next){
-		if(req.body.username == null)
+
+		if(req.body.username == null || req.body.username.length === 0)
 			res.status(422).send({message:'User name can\'t be empty'});
-		 else if(req.body.email == null)
+		 else if(req.body.email == null || req.body.email.length === 0)
 			res.status(422).send({message:'Email can\'t be empty'});
-		else if(req.body.password == null)
+		else if(req.body.password == null || req.body.password.length === 0)
 			res.status(422).send({message:'Password can\'t be empty'});
-		else if(req.body.phone == null)
+		else if(req.body.phone == null || req.body.phone.length === 0)
 			res.status(422).send({message:'Phone no can\'t be empty'});
-		else if(req.body.messusername == null)
+		else if(req.body.messusername == null || req.body.messusername.length === 0)
 			res.status(422).send({message:'Messusername can\'t be empty'});
 		 else
 		next();
