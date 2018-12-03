@@ -26,7 +26,7 @@ class BalanceController extends BalanceLib{
 			let balanceObject = req.body;
 			let date = new Date(req.body.date).toISOString();
 			balanceObject.userId = req.auth.id;
-			balanceObject.messName = req.auth.messusername;
+			balanceObject.messId = req.auth.messId;
 			balanceObject.date = date;  /// date format "10/22/2018"
 
 			const balance = await super.addBalance(balanceObject);
@@ -50,7 +50,7 @@ class BalanceController extends BalanceLib{
 
 	async totalMessBalance(req,res){
 		try {
-			const balance = await super.totalMessBalance(req.auth.messusername);
+			const balance = await super.totalMessBalance(req.auth.messId);
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else

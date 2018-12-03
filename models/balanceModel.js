@@ -11,8 +11,8 @@ const balanceSchema = new schema({
         type: schema.ObjectId,
         required: true
     },
-    messName: {
-        type: String,
+    messId: {
+        type: schema.ObjectId,
         required: true
     },
     amount: {
