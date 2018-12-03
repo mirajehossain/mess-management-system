@@ -76,8 +76,8 @@ class BalanceController extends BalanceLib{
 	};
 	async currentBalance(req,res){
 		try {
-			const messName = req.auth.messusername;
-			const balance = await super.currentBalance(messName);
+			const messId = req.auth.messId;
+			const balance = await super.currentBalance(messId);
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else

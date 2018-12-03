@@ -9,10 +9,14 @@ class ExpenseController extends ExpenseLib{
 			console.log(req.auth.id);
 			let expenseObject = req.body;
 			expenseObject.userId = req.auth.id;
-			expenseObject.messName = req.auth.messusername;
+			expenseObject.messId = req.auth.messId;
 			expenseObject.date = req.body.date || new Date().toLocaleDateString();  /// date formate "10/22/2018"
 			const result = await super.addExpense(expenseObject);
-			return res.status(200).json(response.single(true,`You are add ${result.amount} amount on your Expense`, result));
+			if(result instanceof Error){
+				return res.status(400).json(response.error(false,`${result}`,`${result}`));
+			} else {
+				return res.status(200).json(response.single(true,`You are add ${result.amount} amount on your Expense`, result));
+			}
 		} catch (e) {
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
@@ -20,8 +24,8 @@ class ExpenseController extends ExpenseLib{
 
 	async totalMessExpense(req,res){
 		try {
-			let mess = req.auth.messusername;
-			const expense = await super.totalMessExpense(mess);
+			let messId = req.auth.messId;
+			const expense = await super.totalMessExpense(messId);
 			if(expense instanceof Error)
 				return res.status(400).json(response.error(false,`${expense}`,`${expense}`));
 			else
