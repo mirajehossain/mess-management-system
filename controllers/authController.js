@@ -50,7 +50,9 @@ class AuthController {
 				 if( isMess instanceof Error){
 					 return res.status(409).json(response.error(false,`${isMess} `,`${isMess} `))
 				 } else {
-					 MessModel.create(mes).then(()=>{
+					 MessModel.create(mes).then((mess)=>{
+					 	user.messId = mess._id;
+					 	delete user.messusername;
 						 UserModel.create(user).then(done=>{
 							 return res.status(201).json(response.single(true, "New User Created", done));
 						 })
@@ -69,15 +71,17 @@ class AuthController {
 		if(!req.user){
 			return res.json(response.error(false, 'Authentication Failed!','Authentication Failed!'));
 		}
-
-		req.auth = {
-			id: req.user._id,
-			username: req.user.username,
-			messusername: req.user.messusername,
-			email: req.user.email,
-			role: req.user.role
-		};
-		next();
+		 MessModel.findById(req.user.messId).then(mess=>{
+			 req.auth = {
+				 id: req.user._id,
+				 username: req.user.username,
+				 messusername: mess.messusername,
+				 messId: mess._id,
+				 email: req.user.email,
+				 role: req.user.role
+			 };
+			 next();
+		 });
 	};
 
 	generateToken(req,res,next){
