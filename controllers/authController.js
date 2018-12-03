@@ -108,7 +108,7 @@ class AuthController {
 					req.auth = decoded;
 					console.log('token-',req.auth);
 					UserModel.findOne({
-						$and: [ {_id: req.auth.id},{messusername: req.auth.messusername}]
+						$and: [ {_id: req.auth.id},{messId: req.auth.messId}]
 					},(err,user)=>{
 						if(err){
 							///401 Unauthorized
