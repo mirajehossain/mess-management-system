@@ -8,8 +8,8 @@ const categorySchema = new schema({
         unique: false,
         required: true
     },
-    messName: {
-        type: String,
+    messId: {
+		type: schema.ObjectId,
         unique: false,
         required: true
     }
