@@ -9,7 +9,7 @@ class UserController extends UserLib{
    async addUser(req,res){
        try {
 		   let user = req.body;
-		   user.messusername = req.auth.messusername;
+		   user.messId = req.auth.messId;
 		   const data = await super.addUser(user);
 		   if(data instanceof Error){
 			   return res.status(409).json(response.error(false,`${data}`,`${data}`));
