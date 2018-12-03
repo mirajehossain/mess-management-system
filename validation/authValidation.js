@@ -24,9 +24,9 @@ class AuthValidation {
 	// 422 (Unprocessable Entity)
 	static loginValidation(req, res, next){
 
-		if(req.body.email == null)
+		if(req.body.email == null ||  req.body.email.length === 0)
 			res.status(422).send({message:'Email can\'t be empty'});
-		else if(req.body.password == null)
+		else if(req.body.password == null ||  req.body.password.length === 0)
 			res.status(422).send({message:'Password can\'t be empty'});
 		else
 			next();
