@@ -47,6 +47,20 @@ class ExpenseController extends ExpenseLib{
 		} catch (e) {
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
+	};
+
+	async updateExpense(req, res){
+		try {
+			const expenseId = req.params.expenseId;
+			const body = req.body;
+			const expense = await super.updateExpense(expenseId, body);
+			if(expense instanceof Error)
+				return res.status(400).json(response.error(false,`${expense}`,`${expense}`));
+			else
+				return res.status(200).json(response.single(true, `Your updated expense is: ${expense.amount} `, expense));
+		} catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+		}
 	}
 
 

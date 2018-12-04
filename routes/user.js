@@ -47,6 +47,7 @@ const AuthValidation = require('../validation/authValidation');
     router.route('/expense/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
     router.route('/expense/totalExpenseInMonth').get(AuthController.isUser, ExpenseController.totalExpenseInMonth);
     router.route('/expense/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
+    router.route('/expense/updateExpense/:expenseId').put(AuthController.isUser,  ExpenseController.updateExpense);
 
 
 /**
