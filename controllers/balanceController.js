@@ -87,6 +87,18 @@ class BalanceController extends BalanceLib{
 
 		}
 	};
+	async updateBalance(req,res){
+		try {
+			let body = req.body;  /// categoryId, amount
+			const balance = await super.updateBalance(req.params.balanceId, body);
+			if(balance instanceof Error)
+				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
+			else
+				return res.status(200).json(response.single(true, `Current Balance amount of the Mess is: ${balance.amount} `, balance));
+		} catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+		}
+	};
 }
 
 module.exports = BalanceController;

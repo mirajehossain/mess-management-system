@@ -38,6 +38,7 @@ const AuthValidation = require('../validation/authValidation');
     router.route('/balance/totalUserBalance').get(AuthController.isUser, BalanceController.totalUserBalance );
     router.route('/balance/categoryWiseBalance/:categoryId').get(AuthController.isUser,  BalanceController.categoryWiseBalance);
     router.route('/balance/currentBalance').get(AuthController.isUser,  BalanceController.currentBalance);
+    router.route('/balance/updateBalance/:balanceId').put(AuthController.isUser,  BalanceController.updateBalance);
 
 /**
  * Expense routing
