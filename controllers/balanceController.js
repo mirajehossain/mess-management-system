@@ -94,7 +94,7 @@ class BalanceController extends BalanceLib{
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else
-				return res.status(200).json(response.single(true, `Current Balance amount of the Mess is: ${balance.amount} `, balance));
+				return res.status(200).json(response.single(true, `Your updated balance is : ${balance.amount} `, balance));
 		} catch (e) {
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
