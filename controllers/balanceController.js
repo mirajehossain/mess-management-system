@@ -8,12 +8,12 @@ class BalanceController extends BalanceLib{
 	async addCategory(req,res){
 		try {
 			let categoryObject = req.body;
-			categoryObject.messName = req.auth.messusername;
+			categoryObject.messId = req.auth.messId;
 			const category = await super.addCategory(categoryObject);
 			if(category instanceof Error)
 				return res.status(409).json(response.error(false,`${category}`,`${category}`));
 			else
-				return res.status(201).json(response.single(true, `	New Balance category added `, data));
+				return res.status(201).json(response.single(true, `New Balance category added `, category));
 
 		} catch (e) {
 			return res.status(400).json(response.error(false,'An error occur', `${e}`))
@@ -26,7 +26,7 @@ class BalanceController extends BalanceLib{
 			let balanceObject = req.body;
 			let date = new Date(req.body.date).toISOString();
 			balanceObject.userId = req.auth.id;
-			balanceObject.messName = req.auth.messusername;
+			balanceObject.messId = req.auth.messId;
 			balanceObject.date = date;  /// date format "10/22/2018"
 
 			const balance = await super.addBalance(balanceObject);
@@ -50,7 +50,7 @@ class BalanceController extends BalanceLib{
 
 	async totalMessBalance(req,res){
 		try {
-			const balance = await super.totalMessBalance(req.auth.messusername);
+			const balance = await super.totalMessBalance(req.auth.messId);
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else
@@ -76,8 +76,8 @@ class BalanceController extends BalanceLib{
 	};
 	async currentBalance(req,res){
 		try {
-			const messName = req.auth.messusername;
-			const balance = await super.currentBalance(messName);
+			const messId = req.auth.messId;
+			const balance = await super.currentBalance(messId);
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else

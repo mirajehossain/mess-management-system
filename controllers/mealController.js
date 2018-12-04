@@ -10,11 +10,15 @@ class MealController extends MealLib{
 			let mealObject = req.body;
 			let date = new Date(req.body.date).toISOString();
 			console.log(date);
-			mealObject.messName = req.auth.messusername;
+			mealObject.messId = req.auth.messId;
 			mealObject.date = date;  /// date formate "10/22/2018"
 
 			const result = await super.addMeal(mealObject);
-			return res.status(200).json(response.single(true, 'Meal added', result));
+			if(result instanceof Error){
+				return res.status(400).json(response.error(false, `${result}`, `${result}`));
+			} else {
+				return res.status(200).json(response.single(true, 'Meal added', result));
+			}
 		} catch (e) {
 			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}
@@ -33,11 +37,11 @@ class MealController extends MealLib{
 
 	async totalMealInMonth(req,res){
 		try {
-			let messName = req.auth.messusername;
+			let messId = req.auth.messId;
 			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
-			const result = await super.totalMealInMonth(currentMonthFirstDate, currentMonthLastDate, messName);
+			const result = await super.totalMealInMonth(currentMonthFirstDate, currentMonthLastDate, messId);
 			if(result instanceof Error)
 				return res.status(400).json(response.error(false,`${result}`, `${result}`));
 			else
@@ -67,13 +71,13 @@ class MealController extends MealLib{
 
 	async currentMeal(req,res){
 		try {
-			let messName = req.auth.messusername;
+			let messId = req.auth.messId;
 			const month = new Date().getMonth()+1;
 			const year = new Date().getFullYear();
 			const currentMonthDate = new Date(`${month},1, ${year}`);
 			currentMonthDate.toISOString();
 			const currentDate = new Date().toISOString();
-			const result =  await super.currentMeal(currentMonthDate, currentDate, messName);
+			const result =  await super.currentMeal(currentMonthDate, currentDate, messId);
 			if(result instanceof Error)
 				return res.status(400).json(response.error(false,`${result}`, `${result}`));
 			else
@@ -106,16 +110,16 @@ class MealController extends MealLib{
 
 	async mealRateInMonth(req,res){
 		try {
-			let messName = req.auth.messusername;
+			let messId = req.auth.messId;
 			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 
-			const result = await super.mealRateInMonth(currentMonthFirstDate,currentMonthLastDate,messName);
+			const result = await super.mealRateInMonth(currentMonthFirstDate,currentMonthLastDate,messId);
 			if(result instanceof Error)
 				return res.status(400).json(response.error(false,`${result}`, `${result}`));
 			else
-				return res.status(200).json(response.single(true, 'Meal rate', result));
+				return res.status(200).json(response.single(true, 'Meal rate', `${result}`));
 		} catch (e) {
 			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}

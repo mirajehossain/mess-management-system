@@ -21,7 +21,7 @@ const AuthValidation = require('../validation/authValidation');
 /**
  * User routing
  */
-    router.route('/addUser').post(AuthController.isAdmin, AuthValidation.signupValidation, UserController.addUser);
+    router.route('/addUser').post(AuthController.isAdmin, AuthValidation.addUserValidation, UserController.addUser);
     router.route('/changePassword').put(AuthController.isUser, UserController.changePassword);
     router.route('/updateProfile').put(AuthController.isUser, UserController.updateProfile);
     router.route('/getProfile').get(AuthController.isUser, UserController.getProfile);
@@ -44,6 +44,7 @@ const AuthValidation = require('../validation/authValidation');
  */
     router.route('/expense/addExpense').post(AuthController.isUser, ExpenseController.addExpense);
     router.route('/expense/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
+    router.route('/expense/totalExpenseInMonth').get(AuthController.isUser, ExpenseController.totalExpenseInMonth);
     router.route('/expense/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
 
 

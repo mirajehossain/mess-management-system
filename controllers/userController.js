@@ -9,6 +9,7 @@ class UserController extends UserLib{
    async addUser(req,res){
        try {
 		   let user = req.body;
+		   user.messId = req.auth.messId;
 		   const data = await super.addUser(user);
 		   if(data instanceof Error){
 			   return res.status(409).json(response.error(false,`${data}`,`${data}`));
@@ -67,8 +68,8 @@ class UserController extends UserLib{
 
     async getUsers(req,res){
         try {
-			const mess = req.auth.messusername;
-			const users = await super.getUsers(mess);
+			const messId = req.auth.messId;
+			const users = await super.getUsers(messId);
 			if(users.length !== 0)
 				return res.status(200).json(response.single(true, `Mess users `, users));
 			else
