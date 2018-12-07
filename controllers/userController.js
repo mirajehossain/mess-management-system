@@ -40,7 +40,7 @@ class UserController extends UserLib{
     async updateProfile(req,res){
         try {
 			const updateObject = req.body;
-			const data = await super.updateProfile(updateObject);
+			const data = await super.updateProfile(req.auth.id,updateObject);
 			if( data instanceof Error){
 				return res.status(400).json(response.error(false,`${data}`,`${data}`));
 			} else {
