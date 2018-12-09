@@ -126,10 +126,16 @@ class BalanceController extends BalanceLib{
 		try {
 			let body = req.body;  /// categoryId, amount
 			const balance = await super.updateBalance(req.params.balanceId, body);
-			if(balance instanceof Error)
-				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
-			else
-				return res.status(200).json(response.single(true, `Your updated balance is : ${balance} `, balance));
+			return res.status(200).json(response.single(true, `Your updated balance is : ${balance} `, balance));
+		} catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+		}
+	};
+
+	async deleteBalance(req,res){
+		try {
+			await super.deleteBalance(req.params.balanceId);
+			return res.status(200).json(response.single(true, `Delete balance successfully`));
 		} catch (e) {
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}

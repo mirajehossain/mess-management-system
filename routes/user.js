@@ -43,6 +43,7 @@ const AuthValidation = require('../validation/authValidation');
  */
     router.route('/balance/addBalance').post(AuthController.isUser, BalanceController.addBalance );
     router.route('/balance/updateBalance/:balanceId').put(AuthController.isAdmin,  BalanceController.updateBalance);
+    router.route('/balance/deleteBalance/:balanceId').delete(AuthController.isAdmin,  BalanceController.deleteBalance);
     router.route('/balance/totalMessBalance').get(AuthController.isUser, BalanceController.totalMessBalance );
     router.route('/balance/totalUserBalance').get(AuthController.isUser, BalanceController.totalUserBalance );
     router.route('/balance/categoryWiseBalance/:categoryId').get(AuthController.isUser,  BalanceController.categoryWiseBalance);
