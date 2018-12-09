@@ -19,6 +19,41 @@ class BalanceController extends BalanceLib{
 			return res.status(400).json(response.error(false,'An error occur', `${e}`))
 		}
 	};
+	async getCategory (req,res){
+		try {
+			const messId = req.auth.messId;
+			const category = await super.getCategory(messId);
+			if(category instanceof Error)
+				return res.status(409).json(response.error(false,`${category}`,`${category}`));
+			else
+				return res.status(200).json(response.single(true, `Categories `, category));
+
+		} catch (e) {
+			return res.status(400).json(response.error(false,'An error occur', `${e}`))
+		}
+	};
+	async updateCategory(req,res){
+		try {
+			const categoryId = req.params.categoryId;
+			const updateObj = req.body; // name
+			const category = await super.updateCategory(categoryId , updateObj);
+			return res.status(200).json(response.single(true, `Updated Category `, category));
+
+		} catch (e) {
+			return res.status(400).json(response.error(false,'An error occur', `${e}`))
+		}
+	};
+
+	async deleteCategory(req,res){
+		try {
+			const categoryId = req.params.categoryId;
+			await super.deleteCategory(categoryId);
+			return res.status(200).json(response.single(true, `Category deleted successfully`));
+
+		} catch (e) {
+			return res.status(400).json(response.error(false,'An error occur', `${e}`))
+		}
+	};
 
 	async addBalance(req,res){
 		try {
@@ -30,7 +65,7 @@ class BalanceController extends BalanceLib{
 			balanceObject.date = date;  /// date format "10/22/2018"
 
 			const balance = await super.addBalance(balanceObject);
-				return res.status(201).json(response.single(true,`You are add ${balance.amount} amount on your balance`, balance));
+			return res.status(201).json(response.single(true,`You are add ${balance.amount} amount on your balance`, balance));
 		} catch (e) {
 			return res.status(400).json(response.error(false,'An error occur', `${e}`))
 		}
@@ -94,7 +129,7 @@ class BalanceController extends BalanceLib{
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else
-				return res.status(200).json(response.single(true, `Your updated balance is : ${balance.amount} `, balance));
+				return res.status(200).json(response.single(true, `Your updated balance is : ${balance} `, balance));
 		} catch (e) {
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}

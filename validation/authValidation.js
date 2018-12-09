@@ -43,6 +43,31 @@ class AuthValidation {
 		else
 			next();
 	};
+	// 422 (Unprocessable Entity)
+	/*static updateValidation(req, res, next){
+		if(req.body.hasOwnProperty('email')){
+			if(req.body.email == null ||  req.body.email.length === 0)
+				res.status(422).send({message:'Email can\'t be empty'});
+
+		} else if(req.body.hasOwnProperty('username')){
+			if(req.body.username == null ||  req.body.username.length === 0)
+				res.status(422).send({message:'username can\'t be empty'});
+
+		} else if (req.body.hasOwnProperty('address')){
+			if(req.body.address == null ||  req.body.address.length === 0)
+				res.status(422).send({message:'address can\'t be empty'});
+
+		} else if(req.body.hasOwnProperty('phone')){
+			if(req.body.phone == null ||  req.body.phone.length === 0)
+				res.status(422).send({message:'phone can\'t be empty'});
+
+		} else  if(req.body.hasOwnProperty('password')){
+			res.status(422).send({message:'Can\'t update password '});
+		} else {
+			next();
+		}
+
+	};*/
 	// status(409)
 	async checkMessExistOrNot(mess){
 		let response;

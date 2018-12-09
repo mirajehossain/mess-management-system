@@ -18,14 +18,14 @@
     "cors": "2.8.4",
     "express": "^4.16.3",
     "jsonwebtoken": "8.3.0",
-    "mongoose": "^5.2.5"
+    "mongoose": "^5.3.15"
   },
   "engines": {
     "node": "10.13.0",
     "npm": "5.6.0"
   },
   "devDependencies": {
-    "eslint": "^5.8.0",
+    "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0"
   }
