@@ -28,17 +28,26 @@ const AuthValidation = require('../validation/authValidation');
     router.route('/getUsers').get(AuthController.isUser, UserController.getUsers);
 
 
+/**
+ * Category routing
+ */
+
+    router.route('/category/addCategory').post(AuthController.isAdmin, BalanceController.addCategory );
+    router.route('/category/getCategory').get(AuthController.isUser, BalanceController.getCategory );
+    router.route('/category/updateCategory/:categoryId').put(AuthController.isAdmin, BalanceController.updateCategory);
+    router.route('/category/deleteCategory/:categoryId').delete(AuthController.isAdmin, BalanceController.deleteCategory);
+
 
 /**
  * Balance routing
  */
-    router.route('/balance/addCategory').post(AuthController.isAdmin, BalanceController.addCategory );
     router.route('/balance/addBalance').post(AuthController.isUser, BalanceController.addBalance );
+    router.route('/balance/updateBalance/:balanceId').put(AuthController.isAdmin,  BalanceController.updateBalance);
+    router.route('/balance/deleteBalance/:balanceId').delete(AuthController.isAdmin,  BalanceController.deleteBalance);
     router.route('/balance/totalMessBalance').get(AuthController.isUser, BalanceController.totalMessBalance );
     router.route('/balance/totalUserBalance').get(AuthController.isUser, BalanceController.totalUserBalance );
     router.route('/balance/categoryWiseBalance/:categoryId').get(AuthController.isUser,  BalanceController.categoryWiseBalance);
     router.route('/balance/currentBalance').get(AuthController.isUser,  BalanceController.currentBalance);
-    router.route('/balance/updateBalance/:balanceId').put(AuthController.isUser,  BalanceController.updateBalance);
 
 /**
  * Expense routing
