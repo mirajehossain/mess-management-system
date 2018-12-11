@@ -57,10 +57,8 @@ class BalanceController extends BalanceLib{
 
 	async addBalance(req,res){
 		try {
-			console.log(req.auth.id);
 			let balanceObject = req.body;
 			let date = new Date(req.body.date).toISOString();
-			balanceObject.userId = req.auth.id;
 			balanceObject.messId = req.auth.messId;
 			balanceObject.date = date;  /// date format "10/22/2018"
 
