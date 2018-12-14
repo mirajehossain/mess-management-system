@@ -96,7 +96,7 @@ class BalanceController extends BalanceLib{
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else
-				return res.status(200).json(response.single(true,'Total Mess Balance is '+ balance, balance));
+				return res.status(200).json(response.single(true,'Total Mess Balance is '+ balance.total, balance));
 		} catch (e) {
 			return res.status(400).json(response.error(false,'An error occur', `${e}`));
 		}
@@ -114,7 +114,7 @@ class BalanceController extends BalanceLib{
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else
-				return res.status(200).json(response.single(true, `Balance amount of the categories is: ${balance} `, balance));
+				return res.status(200).json(response.single(true, `Balance amount of the categories is: ${balance.total} `, balance));
 
 		} catch (e) {
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
