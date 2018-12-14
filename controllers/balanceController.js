@@ -71,11 +71,16 @@ class BalanceController extends BalanceLib{
 
 	async totalUserBalance(req,res) {
 		try {
-			const balance = await super.totalUserBalance(req.auth.id);
+
+			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+
+			const balance = await super.totalUserBalance(currentMonthFirstDate, currentMonthLastDate, req.auth.id);
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else
-				return res.status(200).json(response.single(true,'Total Balance is '+ balance, balance));
+				return res.status(200).json(response.single(true,'Total Balance is '+ balance.total, balance));
 		} catch (e) {
 			return res.status(400).json(response.error(false,'An error occur', `${e}`))
 		}
@@ -83,7 +88,11 @@ class BalanceController extends BalanceLib{
 
 	async totalMessBalance(req,res){
 		try {
-			const balance = await super.totalMessBalance(req.auth.messId);
+
+			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+			const balance = await super.totalMessBalance(currentMonthFirstDate, currentMonthLastDate, req.auth.messId);
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else
