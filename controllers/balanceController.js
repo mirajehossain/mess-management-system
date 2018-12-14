@@ -104,13 +104,13 @@ class BalanceController extends BalanceLib{
 
 	async categoryWiseBalance(req,res){
 		try {
-			let balanceCatId = req.params.balanceCatId;
+			let categoryId = req.params.categoryId;
 
 			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 
-			const balance = await super.categoryWiseBalance(currentMonthFirstDate, currentMonthLastDate, balanceCatId);
+			const balance = await super.categoryWiseBalance(currentMonthFirstDate, currentMonthLastDate, categoryId);
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else
