@@ -124,7 +124,11 @@ class BalanceController extends BalanceLib{
 	async currentBalance(req,res){
 		try {
 			const messId = req.auth.messId;
-			const balance = await super.currentBalance(messId);
+			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+
+			const balance = await super.currentBalance(currentMonthFirstDate, currentMonthLastDate, messId);
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else

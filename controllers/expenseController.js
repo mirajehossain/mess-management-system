@@ -6,17 +6,13 @@ class ExpenseController extends ExpenseLib{
 	};
 	async addExpense(req,res){
 		try {
-			console.log(req.auth.id);
 			let expenseObject = req.body;
+			let date = new Date(req.body.date).toISOString();
 			expenseObject.userId = req.auth.id;
 			expenseObject.messId = req.auth.messId;
-			expenseObject.date = req.body.date || new Date().toLocaleDateString();  /// date formate "10/22/2018"
+			expenseObject.date = date;  /// date formate "10/22/2018"
 			const result = await super.addExpense(expenseObject);
-			if(result instanceof Error){
-				return res.status(400).json(response.error(false,`${result}`,`${result}`));
-			} else {
-				return res.status(200).json(response.single(true,`You are add ${result.amount} amount on your Expense`, result));
-			}
+			return res.status(200).json(response.single(true,`You are add ${result.amount} amount on your Expense`, result));
 		} catch (e) {
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
@@ -25,7 +21,11 @@ class ExpenseController extends ExpenseLib{
 	async totalMessExpense(req,res){
 		try {
 			let messId = req.auth.messId;
-			const expense = await super.totalMessExpense(messId);
+			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+
+			const expense = await super.totalMessExpense(currentMonthFirstDate, currentMonthLastDate, messId);
 			if(expense instanceof Error)
 				return res.status(400).json(response.error(false,`${expense}`,`${expense}`));
 			else
