@@ -8,7 +8,6 @@ class ExpenseController extends ExpenseLib{
 		try {
 			let expenseObject = req.body;
 			let date = new Date(req.body.date).toISOString();
-			// expenseObject.userId = req.auth.id;
 			expenseObject.messId = req.auth.messId;
 			expenseObject.date = date;  /// date formate "10/22/2018"
 			const result = await super.addExpense(expenseObject);
@@ -39,11 +38,15 @@ class ExpenseController extends ExpenseLib{
 	async categoryWiseExpense(req, res){
 		try {
 			let categoryId = req.params.categoryId;
-			const expense = await super.categoryWiseExpense(categoryId);
+			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+
+			const expense = await super.categoryWiseExpense(currentMonthFirstDate, currentMonthLastDate, categoryId);
 			if(expense instanceof Error)
 				return res.status(400).json(response.error(false,`${expense}`,`${expense}`));
 			else
-				return res.status(200).json(response.single(true, `Expense amount of the categories is: ${expense} `, expense));
+				return res.status(200).json(response.single(true, `Expense amount of the categories is: ${expense.total} `, expense));
 		} catch (e) {
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
@@ -62,6 +65,16 @@ class ExpenseController extends ExpenseLib{
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
 	}
+	async deleteExpense(req, res){
+		try {
+			const expenseId = req.params.expenseId;
+			await super.deleteExpense(expenseId);
+			return res.status(200).json(response.single(true, `Delete expense successfully`));
+		} catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+		}
+	}
+/*
 	async totalExpenseInMonth(req, res) {
 		try {
 			const messId = req.auth.messId;
@@ -78,6 +91,7 @@ class ExpenseController extends ExpenseLib{
 			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
 		}
 	};
+*/
 
 }
 
