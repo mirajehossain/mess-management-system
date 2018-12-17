@@ -8,7 +8,7 @@ class ExpenseController extends ExpenseLib{
 		try {
 			let expenseObject = req.body;
 			let date = new Date(req.body.date).toISOString();
-			expenseObject.userId = req.auth.id;
+			// expenseObject.userId = req.auth.id;
 			expenseObject.messId = req.auth.messId;
 			expenseObject.date = date;  /// date formate "10/22/2018"
 			const result = await super.addExpense(expenseObject);
@@ -29,7 +29,7 @@ class ExpenseController extends ExpenseLib{
 			if(expense instanceof Error)
 				return res.status(400).json(response.error(false,`${expense}`,`${expense}`));
 			else
-				return res.status(200).json(response.single(true, `Total expense of mess: ${expense} `, expense));
+				return res.status(200).json(response.single(true, `Total expense of mess: ${expense.total} `, expense));
 
 		} catch (e) {
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
