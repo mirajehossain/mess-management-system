@@ -55,6 +55,7 @@ const AuthValidation = require('../validation/authValidation');
     router.route('/expense/addExpense').post(AuthController.isAdmin, ExpenseController.addExpense);
     router.route('/expense/updateExpense/:expenseId').put(AuthController.isAdmin,  ExpenseController.updateExpense);
     router.route('/expense/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
+    router.route('/expense/totalMealExpense').get(AuthController.isUser, ExpenseController.totalMealExpense);
     router.route('/expense/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
     router.route('/expense/deleteExpense/:expenseId').delete(AuthController.isAdmin,  ExpenseController.deleteExpense);
 
@@ -64,11 +65,11 @@ const AuthValidation = require('../validation/authValidation');
  */
     router.route('/meal/addMeal').post(AuthController.isAdmin, MealController.addMeal);
     router.route('/meal/updateMeal/:mealId').put(AuthController.isAdmin, MealController.updateMeal);
+    router.route('/meal/deleteMeal/:mealId').delete(AuthController.isAdmin, MealController.deleteMeal);
     router.route('/meal/totalMealInMonth').get(AuthController.isUser, MealController.totalMealInMonth);
-    // router.route('/meal/totalMeal').get(AuthController.isUser, MealController.totalMeal);
     router.route('/meal/currentMeal').get(AuthController.isUser, MealController.currentMeal);
-    // router.route('/meal/userWiseMeal/:userId').get(AuthController.isUser, MealController.userWiseMeal);
     router.route('/meal/mealRateInMonth').get(AuthController.isUser, MealController.mealRateInMonth);
+    // router.route('/meal/userWiseMeal/:userId').get(AuthController.isUser, MealController.userWiseMeal);
     // router.route('/meal/mealRate').get(AuthController.isUser, MealController.mealRate);
     // router.route('/meal/currentMessMealWithRate').get(AuthController.isUser, MealController.currentMessMealWithRate);
 
@@ -78,6 +79,7 @@ const AuthValidation = require('../validation/authValidation');
  */
 
 router.route('/userSummary/userId').get(AuthController.isUser, UserController.userSummary);
+// router.route('/messSummary/messId').get(AuthController.isUser, UserController.messSummary);
 
 
 
