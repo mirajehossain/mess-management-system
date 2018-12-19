@@ -78,8 +78,8 @@ const AuthValidation = require('../validation/authValidation');
  * Calculate routing
  */
 
-router.route('/userSummary/userId').get(AuthController.isUser, UserController.userSummary);
-// router.route('/messSummary/messId').get(AuthController.isUser, UserController.messSummary);
+    router.route('/mess/messSummary').get(AuthController.isUser, UserController.messSummary);
+    router.route('/mess/userSummary/:userId').get(AuthController.isUser, UserController.userSummary);
 
 
 

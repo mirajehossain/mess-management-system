@@ -79,13 +79,28 @@ class UserController extends UserLib{
 		}
     };
 
-    userSummary(req,res){
+     userSummary(req,res){
         let userId = req.params.userId;
         super.userSummary(userId).then(summary=>{
             return res.status(200).json(response.single(true, `User Summary `, summary));
         }).catch(err=>{
             return res.status(400).json(response.error(false,"An error occur",`${err}`));
         })
+    };
+	async messSummary(req,res){
+		try {
+			const messId = req.auth.messId;
+			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+			const summary = await super.messSummary(currentMonthFirstDate, currentMonthLastDate, messId);
+			if(summary instanceof Error)
+				return res.status(400).json(response.error(false, `${summary}`, `${summary}`));
+			return res.status(200).json(response.single(true, `Mess Summary `, summary));
+
+		} catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+		}
     };
 
 }
