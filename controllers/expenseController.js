@@ -1,6 +1,5 @@
 let response = require('../helper/response');
 let ExpenseLib = require('../lib/exepnse.lib');
-let CategoryModel = require('../models/categoryModel');
 class ExpenseController extends ExpenseLib{
 	constructor(){
 		super();
@@ -41,9 +40,7 @@ class ExpenseController extends ExpenseLib{
 			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
-			const category = await CategoryModel.findOne({isMeal: 1});
-			console.log(category)
-			const expense = await super.totalMealExpense(currentMonthFirstDate, currentMonthLastDate, category._id);
+			const expense = await super.totalMealExpense(currentMonthFirstDate, currentMonthLastDate);
 			if(expense instanceof Error)
 				return res.status(400).json(response.error(false,`${expense}`,`${expense}`));
 			else
