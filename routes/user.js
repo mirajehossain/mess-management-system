@@ -55,6 +55,7 @@ const AuthValidation = require('../validation/authValidation');
     router.route('/expense/addExpense').post(AuthController.isAdmin, ExpenseController.addExpense);
     router.route('/expense/updateExpense/:expenseId').put(AuthController.isAdmin,  ExpenseController.updateExpense);
     router.route('/expense/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
+    router.route('/expense/totalMealExpense').get(AuthController.isUser, ExpenseController.totalMealExpense);
     router.route('/expense/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
     router.route('/expense/deleteExpense/:expenseId').delete(AuthController.isAdmin,  ExpenseController.deleteExpense);
 
@@ -78,6 +79,7 @@ const AuthValidation = require('../validation/authValidation');
  */
 
 router.route('/userSummary/userId').get(AuthController.isUser, UserController.userSummary);
+// router.route('/messSummary/messId').get(AuthController.isUser, UserController.messSummary);
 
 
 

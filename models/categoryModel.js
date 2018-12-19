@@ -12,7 +12,13 @@ const categorySchema = new schema({
 		type: schema.ObjectId,
         unique: false,
         required: true
-    }
+    },
+    isMeal: {
+		type: Number,
+        required: true,
+		defaultValue: 0
+    },
+
 });
 
 
