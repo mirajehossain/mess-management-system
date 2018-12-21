@@ -37,10 +37,11 @@ class ExpenseController extends ExpenseLib{
 
 	async totalMealExpense(req,res){
 		try {
+			const messId = req.auth.messId;
 			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
-			const expense = await super.totalMealExpense(currentMonthFirstDate, currentMonthLastDate);
+			const expense = await super.totalMealExpense(currentMonthFirstDate, currentMonthLastDate, messId);
 			if(expense instanceof Error)
 				return res.status(400).json(response.error(false,`${expense}`,`${expense}`));
 			else

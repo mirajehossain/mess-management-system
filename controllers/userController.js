@@ -70,7 +70,7 @@ class UserController extends UserLib{
         try {
 			const messId = req.auth.messId;
 			const users = await super.getUsers(messId);
-			if(users.length !== 0)
+			if(users.length)
 				return res.status(200).json(response.single(true, `Mess users `, users));
 			else
 				return res.status(400).json(response.error(false,"An error occur",`${users}`));
@@ -78,14 +78,43 @@ class UserController extends UserLib{
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
     };
+    async removeUser (req,res){
+        try {
+			const userId = req.params.userId;
+			await super.removeUser(userId);
+				return res.status(200).json(response.single(true, `User removed successfully `, `User removed successfully`));
+		} catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+		}
+    };
 
-    userSummary(req,res){
-        let userId = req.params.userId;
-        super.userSummary(userId).then(summary=>{
-            return res.status(200).json(response.single(true, `User Summary `, summary));
-        }).catch(err=>{
-            return res.status(400).json(response.error(false,"An error occur",`${err}`));
-        })
+
+
+     async userSummary(req,res) {
+        try {
+			let userId = req.params.userId;
+			let messId = req.auth.messId;
+			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+			const summary = await super.userSummary(currentMonthFirstDate, currentMonthLastDate, userId, messId);
+				return res.status(200).json(response.single(true, `User Summary `, summary));
+		} catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+		}
+    };
+	async messSummary(req,res){
+		try {
+			const messId = req.auth.messId;
+			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+			const summary = await super.messSummary(currentMonthFirstDate, currentMonthLastDate, messId);
+			return res.status(200).json(response.single(true, `Mess Summary `, summary));
+
+		} catch (e) {
+			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+		}
     };
 
 }

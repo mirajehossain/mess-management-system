@@ -97,7 +97,10 @@ class MealController extends MealLib{
 	async userWiseMeal(req,res){
 		try {
 			let userId = req.params.userId;
-			const result = await super.userWiseMeal(userId);
+			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+			const result = await super.userWiseMeal(currentMonthFirstDate, currentMonthLastDate, userId);
 			return res.status(200).json(response.single(true, 'Your total Meals', result));
 		} catch (e) {
 			return res.status(400).json(response.error(false, 'An error occur', `${e}`));

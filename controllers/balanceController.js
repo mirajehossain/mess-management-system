@@ -69,18 +69,31 @@ class BalanceController extends BalanceLib{
 		}
 	};
 
-	async totalUserBalance(req,res) {
+	async userTotalBalance(req,res) {
 		try {
 
 			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 
-			const balance = await super.totalUserBalance(currentMonthFirstDate, currentMonthLastDate, req.auth.id);
+			const balance = await super.userTotalBalance(currentMonthFirstDate, currentMonthLastDate, req.auth.id);
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else
 				return res.status(200).json(response.single(true,'Total Balance is '+ balance.total, balance));
+		} catch (e) {
+			return res.status(400).json(response.error(false,'An error occur', `${e}`))
+		}
+	}
+
+	async userMealBalance(req,res) {
+		try {
+			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+
+			const balance = await super.userMealBalance(currentMonthFirstDate, currentMonthLastDate, req.auth.id);
+			return res.status(200).json(response.single(true,'Total meal Balance is '+ balance.total, balance));
 		} catch (e) {
 			return res.status(400).json(response.error(false,'An error occur', `${e}`))
 		}
