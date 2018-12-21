@@ -79,7 +79,7 @@ class UserController extends UserLib{
 		}
     };
 
-     userSummary(req,res){
+     userSummary(req,res) {
         let userId = req.params.userId;
         super.userSummary(userId).then(summary=>{
             return res.status(200).json(response.single(true, `User Summary `, summary));

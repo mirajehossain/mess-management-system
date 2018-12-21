@@ -45,7 +45,8 @@ router.route('/balance/addBalance').post(AuthController.isAdmin, BalanceControll
 router.route('/balance/updateBalance/:balanceId').put(AuthController.isAdmin,  BalanceController.updateBalance);
 router.route('/balance/deleteBalance/:balanceId').delete(AuthController.isAdmin,  BalanceController.deleteBalance);
 router.route('/balance/totalMessBalance').get(AuthController.isUser, BalanceController.totalMessBalance);
-router.route('/balance/totalUserBalance').get(AuthController.isUser, BalanceController.totalUserBalance );
+router.route('/balance/userTotalBalance').get(AuthController.isUser, BalanceController.userTotalBalance );
+router.route('/balance/userMealBalance').get(AuthController.isUser, BalanceController.userMealBalance );
 router.route('/balance/categoryWiseBalance/:categoryId').get(AuthController.isUser,  BalanceController.categoryWiseBalance);
 router.route('/balance/currentBalance').get(AuthController.isUser,  BalanceController.currentBalance);
 
