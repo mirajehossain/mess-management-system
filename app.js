@@ -9,6 +9,7 @@ const port = process.env.PORT || config.development.server.port ;
 const indexRoute = require('./routes/index');
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
+const messRoute = require('./routes/mess');
 const authController = require('./controllers/authController');
 const AuthController = new authController();
 require('./config/database')();
@@ -35,6 +36,7 @@ app.use('/api/auth',authRoute);
 app.all('/api/v1/*',AuthController.isAuthenticate);
 
 app.use('/api/v1/user',userRoute);
+app.use('/api/v1/mess',messRoute);
 
 
 
