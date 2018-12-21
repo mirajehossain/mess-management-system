@@ -81,10 +81,11 @@ class UserController extends UserLib{
 
      userSummary(req,res) {
         let userId = req.params.userId;
+        let messId = req.auth.messId;
 		 const date = new Date(), y = date.getFullYear(), m = date.getMonth();
 		 const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 		 const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
-		 super.userSummary(currentMonthFirstDate, currentMonthLastDate, userId).then(summary=>{
+		 super.userSummary(currentMonthFirstDate, currentMonthLastDate, userId, messId).then(summary=>{
             return res.status(200).json(response.single(true, `User Summary `, summary));
         }).catch(err=>{
             return res.status(400).json(response.error(false,"An error occur",`${err}`));
