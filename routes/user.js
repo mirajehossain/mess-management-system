@@ -26,6 +26,7 @@ router.route('/changePassword').put(AuthController.isUser, UserController.change
 router.route('/updateProfile').put(AuthController.isUser, UserController.updateProfile);
 router.route('/getProfile').get(AuthController.isUser, UserController.getProfile);
 router.route('/getUsers').get(AuthController.isUser, UserController.getUsers);
+router.route('/removeUser/:userId').delete(AuthController.isAdmin, UserController.removeUser);
 
 
 /**
@@ -73,15 +74,6 @@ router.route('/meal/mealRateInMonth').get(AuthController.isUser, MealController.
 router.route('/meal/userWiseMeal/:userId').get(AuthController.isUser, MealController.userWiseMeal);
 // router.route('/meal/mealRate').get(AuthController.isUser, MealController.mealRate);
 // router.route('/meal/currentMessMealWithRate').get(AuthController.isUser, MealController.currentMessMealWithRate);
-
-
-/**
- * Calculate routing
- */
-
-// router.route('/mess/messSummary').get(AuthController.isUser, UserController.messSummary);
-// router.route('/mess/userSummary/:userId').get(AuthController.isUser, UserController.userSummary);
-//
 
 
 module.exports = router;
