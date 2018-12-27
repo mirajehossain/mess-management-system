@@ -105,10 +105,12 @@ class UserController extends UserLib{
     };
 	async messSummary(req,res){
 		try {
+			let firstDate = req.body.firstDate;
+			let lastDate = req.body.lastDate;
 			const messId = req.auth.messId;
 			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
-			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
-			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+			const currentMonthFirstDate = firstDate || new Date(y, m, 1).toISOString();
+			const currentMonthLastDate = lastDate || new Date(y, m + 1, 0).toISOString();
 			const summary = await super.messSummary(currentMonthFirstDate, currentMonthLastDate, messId);
 			return res.status(200).json(response.single(true, `Mess Summary `, summary));
 
