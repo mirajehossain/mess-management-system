@@ -35,9 +35,15 @@ class BalanceController extends BalanceLib{
 	async updateCategory(req,res){
 		try {
 			const categoryId = req.params.categoryId;
-			const updateObj = req.body; // name
+			let updateObj = req.body; // name
+			updateObj.messId = req.auth.messId;
+
 			const category = await super.updateCategory(categoryId , updateObj);
-			return res.status(200).json(response.single(true, `Updated Category `, category));
+			if(category instanceof Error){
+					return res.status(400).json(response.error(false, `${category}`, `${category}`))
+			} else {
+				return res.status(200).json(response.single(true, `Updated Category `, `${category}`));
+			}
 
 		} catch (e) {
 			return res.status(400).json(response.error(false,'An error occur', `${e}`))
