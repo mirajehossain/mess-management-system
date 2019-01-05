@@ -11,7 +11,6 @@ const UserController = new userController();
  * Calculate routing
  */
 
-    // router.route('/messSummary').get(AuthController.isUser, UserController.messSummary);
     router.route('/messSummary').post(AuthController.isUser, UserController.messSummary);
     router.route('/userSummary/:userId').get(AuthController.isUser, UserController.userSummary);
 

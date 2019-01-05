@@ -140,18 +140,18 @@ class BalanceController extends BalanceLib{
 		}
 
 	};
-	async currentBalance(req,res){
+	async currentAvailableBalance(req,res){
 		try {
 			const messId = req.auth.messId;
 			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 
-			const balance = await super.currentBalance(currentMonthFirstDate, currentMonthLastDate, messId);
+			const balance = await super.currentAvailableBalance(currentMonthFirstDate, currentMonthLastDate, messId);
 			if(balance instanceof Error)
 				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
 			else
-				return res.status(200).json(response.single(true, `Current Balance amount of the Mess is: ${balance} `, balance));
+				return res.status(200).json(response.single(true, `Current available balance of the Mess is: ${balance} `, balance));
 		} catch (e) {
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 

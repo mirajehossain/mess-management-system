@@ -45,7 +45,7 @@ You can try our API in [Swagger](https://swagger.io/) ([https://mess-api.herokua
 - **[<code>GET</code> UserTotalBalance]: /api/v1/balance/userTotalBalance**
 - **[<code>GET</code> UserMealBalance]: /api/v1/balance/userMealBalance**
 - **[<code>GET</code> CategoryWiseBalance]: /api/v1/balance/categoryWiseBalance/:categoryId**
-- **[<code>GET</code> CurrentBalance]: /api/v1/balance/currentAvailableBalance**
+- **[<code>GET</code> CurrentBalance]: /api/v1/balance/currentBalance**
 - **[<code>PUT</code> UpdateBalance]: /api/v1/balance/updateBalance/:balanceId**
 - **[<code>DELETE</code> DeleteBalance]: /api/v1/balance/deleteBalance/:balanceId**
 
@@ -73,17 +73,3 @@ You can try our API in [Swagger](https://swagger.io/) ([https://mess-api.herokua
 - **[<code>GET</code> MessSummary]: /api/v1/mess/messSummary**
 - **[<code>GET</code> UserSummary]: /api/v1/mess/userSummary/:userId**
 
-
-
-## Prerequisites
-- > Install [NodeJS](https://nodejs.org/en/download/).
-- > Install and connect [mongoDB](https://www.mongodb.com/).
-
-## After complete installation Node and mongodb.
-
-```shell
-git clone https://github.com/mirajehossain/mess-management-system.git
-cd mess-management-system
-npm install
-npm start
-```
