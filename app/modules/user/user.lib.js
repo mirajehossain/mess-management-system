@@ -1,16 +1,17 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const BalanceModel = require('../models/balanceModel');
-const ExpenseModel = require('../models/expenseModel');
-const MealModel = require('../models/mealModel');
-const UserModel = require('../models/userModel');
-const balanceLib = require('../lib/balance.lib');
+const BalanceModule = require('../balance/index');
+const BalanceModel = BalanceModule.BalanceModel;
+const ExpenseModel = require('../../../models/expenseModel');
+const MealModel = require('../../../models/mealModel');
+const UserModel = require('./user.model');
+const balanceLib = BalanceModule.BalanceLib;
 const BalanceLib = new balanceLib();
 
-const mealLib = require('../lib/meal.lib');
+const mealLib = require('../../../lib/meal.lib');
 const MealLib = new mealLib();
-const ExpenseLib = require('../lib/exepnse.lib');
+const ExpenseLib = require('../../../lib/exepnse.lib');
 class UserLib extends ExpenseLib {
 	constructor() {
 		super();

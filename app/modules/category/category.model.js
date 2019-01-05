@@ -3,21 +3,21 @@ const schema = mongoose.Schema;
 
 
 const categorySchema = new schema({
-    name: {
-        type: String,
-        unique: false,
-        required: true
-    },
-    messId: {
+	name: {
+		type: String,
+		unique: false,
+		required: true
+	},
+	messId: {
 		type: schema.ObjectId,
-        unique: false,
-        required: true
-    },
-    isMeal: {
+		unique: false,
+		required: true
+	},
+	isMeal: {
 		type: Number,
-        required: true,
+		required: true,
 		defaultValue: 0
-    },
+	},
 
 });
 

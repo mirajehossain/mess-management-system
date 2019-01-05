@@ -7,11 +7,15 @@ const server = require('http').createServer(app);
 const config = require('./config/config');
 const port = process.env.PORT || config.development.server.port ;
 
+
+const AppModule = require('./app/modules/index');
+
 const indexRoute = require('./routes/index');
 const authRoute = require('./routes/auth');
-const userRoute = require('./routes/user');
-const categoryRoute = require('./routes/category');
-const balanceRoute = require('./routes/balance');
+
+const userRoute = AppModule.UserModule.UserRoute;
+const categoryRoute = AppModule.CategoryModule.CategoryRoute;
+const balanceRoute = AppModule.BalanceModule.BalanceRoute;
 const expenseRoute = require('./routes/expense');
 const mealRoute = require('./routes/meal');
 const messRoute = require('./routes/mess');

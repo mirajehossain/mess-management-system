@@ -4,7 +4,7 @@ const router = express.Router();
 const authController = require('../controllers/authController');
 const AuthController = new authController();
 
-const userController = require('../controllers/userController');
+const userController = require('../app/modules/user/user.controller');
 const UserController = new userController();
 
 /**

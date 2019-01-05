@@ -1,5 +1,5 @@
 const MessModel = require('../models/messModel');
-const UserModel = require('../models/userModel');
+const UserModel = require('../app/modules/user/user.model');
 
 class AuthValidation {
 	constructor(){};

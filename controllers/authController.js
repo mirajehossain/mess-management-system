@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const response = require('../helper/response');
-const UserModel = require('../models/userModel');
+const UserModel = require('../app/modules/user/user.model');
 const MessModel = require('../models/messModel');
 const AuthValidation = require('../validation/authValidation');
 const authValidation = new AuthValidation();
