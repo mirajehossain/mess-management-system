@@ -4,7 +4,7 @@ const CategoryModel = CategoryModule.CategoryModel;
 const BalanceModule = require('../balance/index');
 const BalanceModel = BalanceModule.BalanceModel;
 
-const ExpenseModel = require('../../../models/expenseModel');
+const ExpenseModel = require('../expense/expense.model');
 const MealModel = require('../../../models/mealModel');
 class CategoryLib {
 	constructor(){};

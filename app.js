@@ -16,7 +16,7 @@ const authRoute = require('./routes/auth');
 const userRoute = AppModule.UserModule.UserRoute;
 const categoryRoute = AppModule.CategoryModule.CategoryRoute;
 const balanceRoute = AppModule.BalanceModule.BalanceRoute;
-const expenseRoute = require('./routes/expense');
+const expenseRoute = AppModule.ExpenseModule.ExpenseRoute;
 const mealRoute = require('./routes/meal');
 const messRoute = require('./routes/mess');
 

@@ -1,6 +1,6 @@
-const ExpenseModel = require('../models/expenseModel');
-const CategoryModel = require('../app/modules/category/category.model');
-const UserModel = require('../app/modules/user/user.model');
+const ExpenseModel = require('./expense.model');
+const CategoryModel = require('../category/category.model');
+const UserModel = require('../user/user.model');
 class ExpenseLib {
 	constructor(){};
 

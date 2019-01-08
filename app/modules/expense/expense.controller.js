@@ -1,5 +1,5 @@
-let response = require('../helper/response');
-let ExpenseLib = require('../lib/exepnse.lib');
+let response = require('../../../helper/response');
+let ExpenseLib = require('./expense.lib');
 class ExpenseController extends ExpenseLib{
 	constructor(){
 		super();
@@ -91,24 +91,24 @@ class ExpenseController extends ExpenseLib{
 			return res.status(400).json(response.error(false,"An error occur",`${e}`));
 		}
 	}
-/*
-	async totalExpenseInMonth(req, res) {
-		try {
-			const messId = req.auth.messId;
-			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
-			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
-			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
-			const result = await super.totalExpenseInMonth(currentMonthFirstDate, currentMonthLastDate, messId);
-			if(result instanceof Error)
-				return res.status(400).json(response.error(false,`${result}`, `${result}`));
-			else
-				return res.status(200).json(response.single(true, 'Total expense', result));
+	/*
+		async totalExpenseInMonth(req, res) {
+			try {
+				const messId = req.auth.messId;
+				const date = new Date(), y = date.getFullYear(), m = date.getMonth();
+				const currentMonthFirstDate = new Date(y, m, 1).toISOString();
+				const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
+				const result = await super.totalExpenseInMonth(currentMonthFirstDate, currentMonthLastDate, messId);
+				if(result instanceof Error)
+					return res.status(400).json(response.error(false,`${result}`, `${result}`));
+				else
+					return res.status(200).json(response.single(true, 'Total expense', result));
 
-		} catch (e) {
-			return res.status(400).json(response.error(false, 'An error occur', `${e}`));
-		}
-	};
-*/
+			} catch (e) {
+				return res.status(400).json(response.error(false, 'An error occur', `${e}`));
+			}
+		};
+	*/
 
 }
 
