@@ -1,5 +1,5 @@
-let response = require('../helper/response');
-const MealLib = require('../lib/meal.lib');
+let response = require('../../../helper/response');
+const MealLib = require('./meal.lib');
 class MealController extends MealLib{
 	constructor(){
 		super();

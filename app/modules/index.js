@@ -2,10 +2,12 @@ const UserModule = require('./user/index');
 const BalanceModule = require('./balance/index');
 const CategoryModule = require('./category/index');
 const ExpenseModule = require('./expense/index');
+const MealModule = require('./meal/index');
 
 module.exports = {
 	UserModule,
 	BalanceModule,
 	CategoryModule,
-	ExpenseModule
+	ExpenseModule,
+	MealModule
 };

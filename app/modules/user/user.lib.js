@@ -4,12 +4,12 @@ const saltRounds = 10;
 const BalanceModule = require('../balance/index');
 const BalanceModel = BalanceModule.BalanceModel;
 const ExpenseModel = require('../expense/expense.model');
-const MealModel = require('../../../models/mealModel');
+const MealModel = require('../meal/meal.model');
 const UserModel = require('./user.model');
 const balanceLib = BalanceModule.BalanceLib;
 const BalanceLib = new balanceLib();
 
-const mealLib = require('../../../lib/meal.lib');
+const mealLib = require('../meal/meal.lib');
 const MealLib = new mealLib();
 const ExpenseLib = require('../expense/expense.lib');
 class UserLib extends ExpenseLib {

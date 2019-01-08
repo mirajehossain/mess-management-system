@@ -1,6 +1,6 @@
-const MealModel = require('../models/mealModel');
-const UserModel = require('../app/modules/user/user.model');
-const expenseLib = require('../app/modules/expense/expense.lib');
+const MealModel = require('./meal.model');
+const UserModel = require('../user/user.model');
+const expenseLib = require('../expense/expense.lib');
 const ExpenseLib =new expenseLib();
 class MealLib {
 	constructor(){};
