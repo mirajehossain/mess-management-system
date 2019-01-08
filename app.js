@@ -18,7 +18,7 @@ const categoryRoute = AppModule.CategoryModule.CategoryRoute;
 const balanceRoute = AppModule.BalanceModule.BalanceRoute;
 const expenseRoute = AppModule.ExpenseModule.ExpenseRoute;
 const mealRoute = AppModule.MealModule.MealRoute;
-const messRoute = require('./routes/mess');
+const messRoute = AppModule.MessModule.MessRoute;
 
 const authController = require('./controllers/authController');
 const AuthController = new authController();
