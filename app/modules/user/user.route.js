@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const authController = require('../../../controllers/authController');
+const authController = require('../auth/auth.controller');
 const AuthController = new authController();
+const AuthValidation = require('../auth/auth.validation');
 
 const userController = require('./user.controller');
 const UserController = new userController();
 
-const AuthValidation = require('../../../validation/authValidation');
 
 /**
  * User routing

@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const response = require('../helper/response');
-const UserModel = require('../app/modules/user/user.model');
-const MessModel = require('../app/modules/mess/mess.model');
-const AuthValidation = require('../validation/authValidation');
+const response = require('../../../helper/response');
+const UserModel = require('../user/user.model');
+const MessModel= require('../mess/mess.model');
+const AuthValidation = require('./auth.validation');
 const authValidation = new AuthValidation();
-const secretKey = require('../config/config').development.JWTsecret;
+const secretKey = require('../../../config/config').development.JWTsecret;
 const saltRounds = 10;
 
 class AuthController {

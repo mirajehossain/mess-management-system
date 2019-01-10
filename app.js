@@ -7,11 +7,10 @@ const server = require('http').createServer(app);
 const config = require('./config/config');
 const port = process.env.PORT || config.development.server.port ;
 
-
 const AppModule = require('./app/modules/index');
 
 const indexRoute = require('./routes/index');
-const authRoute = require('./routes/auth');
+const authRoute = AppModule.AuthModule.AuthRoute;
 
 const userRoute = AppModule.UserModule.UserRoute;
 const categoryRoute = AppModule.CategoryModule.CategoryRoute;
@@ -20,7 +19,7 @@ const expenseRoute = AppModule.ExpenseModule.ExpenseRoute;
 const mealRoute = AppModule.MealModule.MealRoute;
 const messRoute = AppModule.MessModule.MessRoute;
 
-const authController = require('./controllers/authController');
+const authController = AppModule.AuthModule.AuthController;
 const AuthController = new authController();
 require('./config/database')();
 
@@ -57,6 +56,3 @@ app.use('/api/v1/mess',messRoute);
 server.listen(port,()=>{
     console.log(`Server is running on ${config.development.server.host}:${port}`);
 });
-
-
-
