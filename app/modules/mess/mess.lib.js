@@ -1,4 +1,4 @@
-const balanceLib = BalanceModule.BalanceLib;
+const balanceLib =  require('../balance/balance.lib');
 const BalanceLib = new balanceLib();
 const mealLib 	 = require('../meal/meal.lib');
 const MealLib	 = new mealLib();
