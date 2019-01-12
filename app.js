@@ -1,39 +1,38 @@
-const express = require('express');
-const app = express();
-const path = require('path');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const server = require('http').createServer(app);
-const config = require('./config/config');
-const port = process.env.PORT || config.development.server.port ;
+const express       = require('express');
+const app           = express();
+const path          = require('path');
+const bodyParser    = require('body-parser');
+const cors          = require('cors');
+const server        = require('http').createServer(app);
+const config        = require('./config/config');
+const port          = process.env.PORT || config.development.server.port ;
 
-const AppModule = require('./app/modules/index');
+const AppModule     = require('./app/modules/index');
 
-const indexRoute = require('./routes/index');
-const authRoute = AppModule.AuthModule.AuthRoute;
-
-const userRoute = AppModule.UserModule.UserRoute;
+const indexRoute    = require('./routes/index');
+const authRoute     = AppModule.AuthModule.AuthRoute;
+const userRoute     = AppModule.UserModule.UserRoute;
 const categoryRoute = AppModule.CategoryModule.CategoryRoute;
-const balanceRoute = AppModule.BalanceModule.BalanceRoute;
-const expenseRoute = AppModule.ExpenseModule.ExpenseRoute;
-const mealRoute = AppModule.MealModule.MealRoute;
-const messRoute = AppModule.MessModule.MessRoute;
+const balanceRoute  = AppModule.BalanceModule.BalanceRoute;
+const expenseRoute  = AppModule.ExpenseModule.ExpenseRoute;
+const mealRoute     = AppModule.MealModule.MealRoute;
+const messRoute     = AppModule.MessModule.MessRoute;
 
-const authController = AppModule.AuthModule.AuthController;
-const AuthController = new authController();
+const authController= AppModule.AuthModule.AuthController;
+const AuthController= new authController();
 require('./config/database')();
 
 const corsOptions = {
-    origin: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    exposedHeaders: ['x-auth-token']
+	origin: true,
+	methods: 'GET,HEAD,PUT,POST,DELETE',
+	credentials: true,
+	exposedHeaders: ['x-auth-token']
 };
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended:true
+	extended:true
 }));
 
 
@@ -54,5 +53,5 @@ app.use('/api/v1/mess',messRoute);
 
 
 server.listen(port,()=>{
-    console.log(`Server is running on ${config.development.server.host}:${port}`);
+	console.log(`Server is running on ${config.development.server.host}:${port}`);
 });
