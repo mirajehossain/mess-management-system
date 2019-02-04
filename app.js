@@ -1,11 +1,11 @@
 const express       = require('express');
 const app           = express();
+require('dotenv').config();
 const path          = require('path');
 const bodyParser    = require('body-parser');
 const cors          = require('cors');
 const server        = require('http').createServer(app);
-const config        = require('./config/config');
-const port          = process.env.PORT || config.development.server.port ;
+const port          = process.env.PORT || 3000;
 
 const AppModule     = require('./app/modules/index');
 
@@ -53,5 +53,5 @@ app.use('/api/v1/mess',messRoute);
 
 
 server.listen(port,()=>{
-	console.log(`Server is running on ${config.development.server.host}:${port}`);
+	console.log(`Server is running on ${process.env.HOST}:${process.env.PORT}`);
 });
