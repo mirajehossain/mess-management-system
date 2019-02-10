@@ -17,9 +17,8 @@ const categorySchema = new schema({
 		type: Number,
 		required: true,
 		defaultValue: 0
-	},
-
-});
+	}
+}, {versionKey: false});
 
 
 module.exports = mongoose.model('category',categorySchema);

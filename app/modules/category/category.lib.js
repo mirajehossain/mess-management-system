@@ -1,6 +1,4 @@
-const CategoryModule = require('../category/index');
-const CategoryModel = CategoryModule.CategoryModel;
-
+const CategoryModel = require('../category/category.model');
 const BalanceModule = require('../balance/index');
 const BalanceModel = BalanceModule.BalanceModel;
 
@@ -40,6 +38,7 @@ class CategoryLib {
 	};
 	async getCategory(messId){
 		try {
+			console.log(messId)
 			const mess = await CategoryModel.find({messId:messId});
 			if(mess.length) {
 				return mess;
