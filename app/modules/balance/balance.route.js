@@ -5,8 +5,7 @@ const authController = require('../auth/auth.controller');
 const AuthController = new authController();
 
 
-const balanceController = require('./balance.controller');
-const BalanceController = new balanceController();
+const BalanceController = require('./balance.controller');
 
 
 

@@ -11,55 +11,42 @@ const ExpenseLib= new expenseLib();
 class BalanceLib {
 	constructor(){};
 
-	async addBalance(balanceObject){
+	static async addBalance(balanceObject){
 		try {
-			return await BalanceModel.create(balanceObject);
+			const balance = await BalanceModel.create(balanceObject);
+			return {success: true, message: `You are add ${balance.amount} amount on your balance`, data: balance}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
-	async userTotalBalance(currentMonthFirstDate, currentMonthLastDate, id){
+	static async userTotalBalance(currentMonthFirstDate, currentMonthLastDate, id){
 		try {
 			const data = await BalanceModel.find({
 				userId: id,
-				date: {
-					$gte:  currentMonthFirstDate,
-					$lte:  currentMonthLastDate,
-				}
+				date: {$gte:  currentMonthFirstDate, $lte:  currentMonthLastDate}
 			});
 
 			if(data.length){
 				let balanceDetails = await Promise.all(data.map(async (item)=>{
 					let cat = await CategoryModel.findById(item.categoryId);
 					let usr = await UserModel.findById(item.userId);
-					let ob = {
-						category:'',
-						username:'',
-						...item._doc
+					return {
+						category:cat.name,
+						username:usr.messusername,
+						...item.toObject()
 					};
-					ob.category = cat.name;
-					ob.username = usr.username;
-					// ob.date = item._doc.date.toLocaleDateString();
-					return ob;
 				}));
 
 				let balanceArr = data.map((item)=>item.amount);
 				const total = balanceArr.reduce((sum, balance)=>sum + balance);
-				return {
-					data: balanceDetails,
-					total: total,
-				}
+				return {data: balanceDetails, total}
 			} else
-				return {
-					data: null,
-					total: 0
-				}
+				return {data: null, total: 0}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
-
-	async userMealBalance(currentMonthFirstDate, currentMonthLastDate, id,messId){
+	static async userMealBalance(currentMonthFirstDate, currentMonthLastDate, id,messId){
 		try {
 			const category = await CategoryModel.findOne({
 				$and :[{isMeal : 1},{messId: messId}]
@@ -77,33 +64,23 @@ class BalanceLib {
 				let balanceDetails = await Promise.all(data.map(async (item)=>{
 					let cat = await CategoryModel.findById(item.categoryId);
 					let usr = await UserModel.findById(item.userId);
-					let ob = {
-						category:'',
-						username:'',
-						...item._doc
+					return {
+						category:cat.name,
+						username:usr.username,
+						...item.toObject()
 					};
-					ob.category = cat.name;
-					ob.username = usr.username;
-					return ob;
 				}));
 
 				let balanceArr = data.map((item)=>item.amount);
 				const total = balanceArr.reduce((sum, balance)=>sum + balance);
-				return {
-					data: balanceDetails,
-					total: total,
-				}
+				return {data: balanceDetails, total: total}
 			} else
-				return {
-					data: null,
-					total: 0
-				}
+				return {data: null, total: 0}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
-
-	async totalMessBalance(currentMonthFirstDate,currentMonthLastDate ,messId){
+	static async totalMessBalance(currentMonthFirstDate,currentMonthLastDate ,messId){
 		try {
 			const data = await BalanceModel.find({
 				messId: messId,
@@ -117,15 +94,11 @@ class BalanceLib {
 				let balanceDetails = await Promise.all(data.map(async (item)=>{
 					let cat = await CategoryModel.findById(item.categoryId);
 					let usr = await UserModel.findById(item.userId);
-					let ob = {
-						category:'',
-						username:'',
-						...item._doc
+					return {
+						category: cat.name,
+						username:usr.username,
+						...item.toObject()
 					};
-					ob.category = cat.name;
-					ob.username = usr.username;
-					// ob.date = item._doc.date.toLocaleDateString();
-					return ob;
 				}));
 
 				let balanceArr = data.map((item)=>item.amount);
@@ -135,14 +108,13 @@ class BalanceLib {
 					total: total
 				}
 			} else {
-				throw new Error('No balance available in the mess.');
+				return {data: null, total: 0};
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
-
-	async totalMealBalance(currentMonthFirstDate,currentMonthLastDate, messId){
+	static async totalMealBalance(currentMonthFirstDate,currentMonthLastDate, messId){
 		try {
 			const category = await CategoryModel.findOne({
 				$and :[{isMeal : 1},{messId: messId}]
@@ -187,9 +159,7 @@ class BalanceLib {
 			return e;
 		}
 	};
-
-
-	async categoryWiseBalance(currentMonthFirstDate, currentMonthLastDate,categoryId){
+	static async categoryWiseBalance(currentMonthFirstDate, currentMonthLastDate,categoryId){
 		try {
 			const data = await BalanceModel.find({
 				categoryId: categoryId,
@@ -202,36 +172,25 @@ class BalanceLib {
 				let balanceDetails = await Promise.all(data.map(async (item)=>{
 					let cat = await CategoryModel.findById(item.categoryId);
 					let usr = await UserModel.findById(item.userId);
-					let ob = {
-						category:'',
-						username:'',
-						...item._doc
+					return {
+						category:cat.name,
+						username:usr.username,
+						...item.toObject()
 					};
-					ob.category = cat.name;
-					ob.username = usr.username;
-					// ob.date = item._doc.date.toLocaleDateString();
-					return ob;
 				}));
 
 				let BalanceArr = data.map((item)=> item.amount);
 				console.log(BalanceArr);
 				let total = BalanceArr.reduce((sum, balance)=>sum + balance);
-				return {
-					data: balanceDetails,
-					total:total
-				}
+				return {data: balanceDetails, total:total}
 			} else {
-				return {
-					data: null,
-					total: 0
-				}
+				return {data: null, total: 0}
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
-
-	async currentAvailableBalance(currentMonthFirstDate, currentMonthLastDate, messId){
+	static async currentAvailableBalance(currentMonthFirstDate, currentMonthLastDate, messId){
 		try {
 			let b = new BalanceLib();
 			return await Promise.all(
@@ -251,15 +210,14 @@ class BalanceLib {
 			return e;
 		}
 	};
-
-	async updateBalance(balanceId, updateObj){
+	static async updateBalance(balanceId, updateObj){
 		try {
 			return await BalanceModel.findByIdAndUpdate({_id: balanceId},updateObj,{new:true});
 		} catch (e) {
 			return e;
 		}
 	}
-	async deleteBalance(balanceId){
+	static async deleteBalance(balanceId){
 		try {
 			return await BalanceModel.findByIdAndRemove(balanceId);
 		} catch (e) {
