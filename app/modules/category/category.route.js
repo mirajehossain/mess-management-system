@@ -4,8 +4,7 @@ const router = express.Router();
 const authController = require('../auth/auth.controller');
 const AuthController = new authController();
 
-const categoryController = require('./category.controller');
-const CategoryController = new categoryController ();
+const CategoryController = require('./category.controller');
 
 /**
  * Category routing

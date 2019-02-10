@@ -1,5 +1,5 @@
 module.exports = {
-    single:function (success = false, message= "", data= {}) {
+    single:function (success = true, message= "", data= {}) {
         return {
             success, message, data
         }
