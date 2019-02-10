@@ -20,13 +20,13 @@ class CategoryLib {
 			} else {
 				if (isMealCheck == null && categoryObject.isMeal == 0){
 					const data =await CategoryModel.create(categoryObject);
-					if(data != null) return  {success: true, data:data};
+					if(data != null) return  {success: true, data:data, message: 'New category Created'};
 				} else if (isMealCheck == null && categoryObject.isMeal == 1){
 					const data =await CategoryModel.create(categoryObject);
-					if(data != null) return  {success: true, data:data};
+					if(data != null) return  {success: true, data:data,message: 'New category Created'};
 				} else if(isMealCheck != null && categoryObject.isMeal == 0){
 					const data =await CategoryModel.create(categoryObject);
-					if(data != null) return {success: true, data:data};
+					if(data != null) return {success: true, data:data, message: 'New category Created'};
 				} else {
 					return {success:false, message: 'Default meal category already selected'};
 				}
@@ -54,12 +54,13 @@ class CategoryLib {
 				const isMealCheck = await CategoryModel.findOne({
 					$and :[{isMeal : 1},{messId: updateObj.messId}]
 				});
+
 				if (isMealCheck == null && updateObj.isMeal == 0){
-					return {success: true, data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
+					return {success: true,message: 'Category Updated successfully', data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
 				} else if (isMealCheck == null && updateObj.isMeal == 1){
-					return {success: true, data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
+					return {success: true,message: 'Category Updated successfully',  data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
 				} else if(isMealCheck != null && updateObj.isMeal == 0){
-					return {success: true, data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
+					return {success: true,message: 'Category Updated successfully',  data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
 				} else {return {success:false, message:'Default meal category already selected'};}
 			}  else {return {success:false, message:'No category found in this ID'};}
 		} catch (e) {
