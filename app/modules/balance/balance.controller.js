@@ -59,7 +59,6 @@ class BalanceController{
 	static async categoryWiseBalance(req, res){
 		try {
 			let categoryId = req.params.categoryId;
-
 			const date = new Date(), y = date.getFullYear(), m = date.getMonth();
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
@@ -79,12 +78,9 @@ class BalanceController{
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 
 			const balance = await BalanceLib.currentAvailableBalance(currentMonthFirstDate, currentMonthLastDate, messId);
-			if(balance instanceof Error)
-				return res.status(400).json(response.error(false,`${balance}`, `${balance}`));
-			else
-				return res.status(200).json(response.single(true, `Current available balance of the Mess is: ${balance} `, balance));
+			return res.status(200).json(response.single(true, `Current available balance of the Mess is: ${balance} `, balance));
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+			return res.status(500).json(response.error(false,"An error occur",`${e}`));
 
 		}
 	};
@@ -92,9 +88,9 @@ class BalanceController{
 		try {
 			let body = req.body;  /// categoryId, amount
 			const balance = await BalanceLib.updateBalance(req.params.balanceId, body);
-			return res.status(200).json(response.single(true, `Your updated balance is : ${balance} `, balance));
+			return res.status(200).json(response.single(true, `Your updated balance is : ${balance.amount} `, balance));
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+			return res.status(500).json(response.error(false,"An error occur",`${e}`));
 		}
 	};
 
@@ -103,7 +99,7 @@ class BalanceController{
 			await BalanceLib.deleteBalance(req.params.balanceId);
 			return res.status(200).json(response.single(true, `Delete balance successfully`));
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+			return res.status(500).json(response.error(false,"An error occur",`${e}`));
 		}
 	};
 }

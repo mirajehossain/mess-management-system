@@ -25,7 +25,7 @@ const balanceSchema = new schema({
 		defaultValue: new Date().toISOString(),
 		required: true
 	}
-});
+}, {versionKey: false});
 
 
 module.exports = mongoose.model('balance',balanceSchema);

@@ -4,8 +4,8 @@ const router = express.Router();
 const authController = require('../auth/auth.controller');
 const AuthController = new authController();
 
-const expenseController = require('./expense.controller');
-const ExpenseController = new expenseController();
+const ExpenseController = require('./expense.controller');
+// const ExpenseController = new expenseController();
 
 
 /**

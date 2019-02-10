@@ -5,7 +5,7 @@ class ExpenseLib {
 	constructor(){};
 
 
-	async addExpense(expenseObject){
+	static async addExpense(expenseObject){
 		try {
 			return await ExpenseModel.create(expenseObject);
 		} catch (e) {
@@ -13,7 +13,7 @@ class ExpenseLib {
 		}
 
 	}
-	async totalMessExpense(currentMonthFirstDate, currentMonthLastDate, messId){
+	static async totalMessExpense(currentMonthFirstDate, currentMonthLastDate, messId){
 		try {
 			const data = await ExpenseModel.find({
 				messId: messId,
@@ -50,12 +50,12 @@ class ExpenseLib {
 				// throw new Error('No Expense in the mess');
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 
 	};
 
-	async totalMealExpense(currentMonthFirstDate, currentMonthLastDate, messId){
+	static async totalMealExpense(currentMonthFirstDate, currentMonthLastDate, messId){
 		try {
 			const category = await CategoryModel.findOne({
 				$and :[{isMeal : 1},{messId: messId}]
@@ -100,30 +100,8 @@ class ExpenseLib {
 		}
 
 	};
-/*
-	async totalExpenseInMonth(currentMonthFirstDate,currentMonthLastDate,messId){
-		try {
-			const data = await ExpenseModel.find( {
-				messId: messId,
-				date: {
-					$gte:  currentMonthFirstDate,
-					$lte:  currentMonthLastDate,
-				}
-			});
-			if(data.length){
-				let ExpenseArr = data.map((item)=>item.amount);
-				return ExpenseArr.reduce((sum, expense)=>sum + expense);
-			} else {
-				throw new Error('No expense in the mess');
-			}
-		} catch (e) {
-			return e;
-		}
 
-	};
-*/
-
-	async categoryWiseExpense(currentMonthFirstDate, currentMonthLastDate, categoryId){
+	static async categoryWiseExpense(currentMonthFirstDate, currentMonthLastDate, categoryId){
 		try {
 			const data = await ExpenseModel.find({
 				categoryId: categoryId,
@@ -164,14 +142,14 @@ class ExpenseLib {
 		}
 	};
 
-	async updateExpense(expenseId, updateObj){
+	static async updateExpense(expenseId, updateObj){
 		try {
 			return await ExpenseModel.findByIdAndUpdate({_id: expenseId},updateObj,{new:true});
 		} catch (e) {
 			return e;
 		}
 	}
-async deleteExpense(expenseId){
+	static async deleteExpense(expenseId){
 		try {
 			return await ExpenseModel.findByIdAndRemove(expenseId);
 		} catch (e) {
