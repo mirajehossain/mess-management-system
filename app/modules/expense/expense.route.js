@@ -5,20 +5,19 @@ const authController = require('../auth/auth.controller');
 const AuthController = new authController();
 
 const ExpenseController = require('./expense.controller');
-// const ExpenseController = new expenseController();
 
 
 /**
  * Expense routing
  */
-router.route('/expense/addExpense').post(AuthController.isAdmin, ExpenseController.addExpense);
-router.route('/expense/updateExpense/:expenseId').put(AuthController.isAdmin,  ExpenseController.updateExpense);
-router.route('/expense/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
+router.route('/addExpense').post(AuthController.isAdmin, ExpenseController.addExpense);
+router.route('/updateExpense/:expenseId').put(AuthController.isAdmin,  ExpenseController.updateExpense);
+router.route('/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
 // router.route('/expense/messTotalExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
-router.route('/expense/totalMealExpense').get(AuthController.isUser, ExpenseController.totalMealExpense);
+router.route('/totalMealExpense').get(AuthController.isUser, ExpenseController.totalMealExpense);
 // router.route('/expense/mealTotalExpense').get(AuthController.isUser, ExpenseController.totalMealExpense);
-router.route('/expense/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
-router.route('/expense/deleteExpense/:expenseId').delete(AuthController.isAdmin,  ExpenseController.deleteExpense);
+router.route('/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
+router.route('/deleteExpense/:expenseId').delete(AuthController.isAdmin,  ExpenseController.deleteExpense);
 
 
 module.exports = router;

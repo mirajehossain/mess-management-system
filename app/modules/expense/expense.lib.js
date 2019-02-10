@@ -9,7 +9,7 @@ class ExpenseLib {
 		try {
 			return await ExpenseModel.create(expenseObject);
 		} catch (e) {
-			return e;
+			throw e;
 		}
 
 	}
@@ -47,7 +47,6 @@ class ExpenseLib {
 					data: 0,
 					total: 0
 				};
-				// throw new Error('No Expense in the mess');
 			}
 		} catch (e) {
 			throw e;
@@ -72,14 +71,11 @@ class ExpenseLib {
 				let expenseDetails = await Promise.all(data.map(async (item)=>{
 					let cat = await CategoryModel.findById(item.categoryId);
 					let usr = await UserModel.findById(item.userId);
-					let ob = {
-						category:'',
-						username:'',
-						...item._doc
+					return {
+						category:cat.name,
+						username:usr.username,
+						...item.toObject()
 					};
-					ob.category = cat.name;
-					ob.username = usr.username;
-					return ob;
 				}));
 
 				let ExpenseArr = data.map((item)=>item.amount);
@@ -93,10 +89,9 @@ class ExpenseLib {
 					data: 0,
 					total: 0
 				};
-				// throw new Error('No Expense in the mess');
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 
 	};
@@ -115,14 +110,11 @@ class ExpenseLib {
 				let expenseDetails = await Promise.all(data.map(async (item)=>{
 					let cat = await CategoryModel.findById(item.categoryId);
 					let usr = await UserModel.findById(item.userId);
-					let ob = {
-						category:'',
-						username:'',
-						...item._doc
+					return {
+						category:cat.name,
+						username:usr.username,
+						...item.toObject()
 					};
-					ob.category = cat.name;
-					ob.username = usr.username;
-					return ob;
 				}));
 
 				let ExpenseArr = data.map((item)=>item.amount);
@@ -138,7 +130,7 @@ class ExpenseLib {
 				};
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
@@ -146,14 +138,14 @@ class ExpenseLib {
 		try {
 			return await ExpenseModel.findByIdAndUpdate({_id: expenseId},updateObj,{new:true});
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
 	static async deleteExpense(expenseId){
 		try {
 			return await ExpenseModel.findByIdAndRemove(expenseId);
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
 

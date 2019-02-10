@@ -29,7 +29,7 @@ const expenseSchema = new schema({
 		type: schema.ObjectId,
         required: true
     }
-});
+}, {versionKey: false});
 
 
 module.exports = mongoose.model('expense',expenseSchema);

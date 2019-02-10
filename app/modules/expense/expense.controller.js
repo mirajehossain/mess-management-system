@@ -11,7 +11,7 @@ class ExpenseController{
 			const result = await ExpenseLib.addExpense(expenseObject);
 			return res.status(200).json(response.single(true,`You are add ${result.amount} amount on your Expense`, result));
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+			return res.status(500).json(response.error(false,"An error occur",`${e}`));
 		}
 	};
 
@@ -23,13 +23,10 @@ class ExpenseController{
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 
 			const expense = await ExpenseLib.totalMessExpense(currentMonthFirstDate, currentMonthLastDate, messId);
-			if(expense instanceof Error)
-				return res.status(400).json(response.error(false,`${expense}`,`${expense}`));
-			else
-				return res.status(200).json(response.single(true, `Total expense of mess: ${expense.total} `, expense));
+			return res.status(200).json(response.single(true, `Total expense of mess: ${expense.total} `, expense));
 
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+			return res.status(500).json(response.error(false,"An error occur",`${e}`));
 		}
 	}
 
@@ -40,13 +37,10 @@ class ExpenseController{
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 			const expense = await ExpenseLib.totalMealExpense(currentMonthFirstDate, currentMonthLastDate, messId);
-			if(expense instanceof Error)
-				return res.status(400).json(response.error(false,`${expense}`,`${expense}`));
-			else
-				return res.status(200).json(response.single(true, `Total expense of mess: ${expense.total} `, expense));
+			return res.status(200).json(response.single(true, `Total expense of mess: ${expense.total} `, expense));
 
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+			return res.status(500).json(response.error(false,"An error occur",`${e}`));
 		}
 	}
 
@@ -58,12 +52,9 @@ class ExpenseController{
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 
 			const expense = await ExpenseLib.categoryWiseExpense(currentMonthFirstDate, currentMonthLastDate, categoryId);
-			if(expense instanceof Error)
-				return res.status(400).json(response.error(false,`${expense}`,`${expense}`));
-			else
-				return res.status(200).json(response.single(true, `Expense amount of the categories is: ${expense.total} `, expense));
+			return res.status(200).json(response.single(true, `Expense amount of the categories is: ${expense.total} `, expense));
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+			return res.status(500).json(response.error(false,"An error occur",`${e}`));
 		}
 	};
 
@@ -72,12 +63,9 @@ class ExpenseController{
 			const expenseId = req.params.expenseId;
 			const body = req.body;
 			const expense = await ExpenseLib.updateExpense(expenseId, body);
-			if(expense instanceof Error)
-				return res.status(400).json(response.error(false,`${expense}`,`${expense}`));
-			else
-				return res.status(200).json(response.single(true, `Your updated expense is: ${expense.amount} `, expense));
+			return res.status(200).json(response.single(true, `Your updated expense is: ${expense.amount} `, expense));
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+			return res.status(500).json(response.error(false,"An error occur",`${e}`));
 		}
 	}
 	static async deleteExpense(req, res){
@@ -86,7 +74,7 @@ class ExpenseController{
 			await ExpenseLib.deleteExpense(expenseId);
 			return res.status(200).json(response.single(true, `Delete expense successfully`));
 		} catch (e) {
-			return res.status(400).json(response.error(false,"An error occur",`${e}`));
+			return res.status(500).json(response.error(false,"An error occur",`${e}`));
 		}
 	}
 	/*
