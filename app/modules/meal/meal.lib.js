@@ -1,221 +1,162 @@
 const MealModel = require('./meal.model');
 const UserModel = require('../user/user.model');
-const expenseLib = require('../expense/expense.lib');
-const ExpenseLib =new expenseLib();
+const ExpenseLib = require('../expense/expense.lib');
 class MealLib {
 	constructor(){};
 
-	async addMeal(mealObject){
+	static async addMeal(mealObject){
 		try {
 			return await MealModel.create(mealObject);
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
 
-	async updateMeal(mealId, updateObj){
+	static async updateMeal(mealId, updateObj){
 		try {
 			return await MealModel.findByIdAndUpdate({_id: mealId},updateObj,{new:true});
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
 	async deleteMeal(mealId){
 		try {
 			return await MealModel.findByIdAndRemove(mealId);
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
-	async totalMealInMonth(currentMonthFirstDate, currentMonthLastDate,messId){
+	static async totalMealInMonth(currentMonthFirstDate, currentMonthLastDate,messId){
 		try {
 			const data = await MealModel.find(
 				{
 					messId: messId,
-					date: {
-						$gte: currentMonthFirstDate,
-						$lte: currentMonthLastDate,
-					}
+					date: {$gte: currentMonthFirstDate, $lte: currentMonthLastDate}
 				});
 
 			if(data.length){
 				let mealDetails = await Promise.all(data.map(async (item)=>{
 					let usr = await UserModel.findById(item.userId);
-					let ob = {
-						username:'',
-						...item._doc
+					return {
+						username:usr.username,
+						...item.toObject()
 					};
-					ob.username = usr.username;
-					return ob;
 				}));
 
 				let MealArr = data.map((item)=> item.numberOfMeal);
 				let meals = MealArr.reduce((sum, meal)=> sum + meal);
-				return  {
-					data: mealDetails,
-					meals: meals
-				}
+				return  { data: mealDetails, meals: meals}
 			} else
-				return  {
-					data:null,
-					meals: 0
-				}
+				return  { data:null, meals: 0 }
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
 
-	async totalMeal(currentMonth, currentDate,messId){
+	static async totalMeal(currentMonth, currentDate,messId){
 		try {
 			const data = await MealModel.find(
 				{
 					messId: messId,
-					date: {
-						$gte:  currentMonth,
-						$lte:  currentDate,
-					}
+					date: {$gte:  currentMonth, $lte:  currentDate}
 				});
 
-			console.log(data);
 			if(data.length){
 				let mealDetails = await Promise.all(data.map(async (item)=>{
 					let usr = await UserModel.findById(item.userId);
-					let ob = {
-						username:'',
-						...item._doc
+					return {
+						username:usr.username,
+						...item.toObject()
 					};
-					ob.username = usr.username;
-					return ob;
 				}));
 				let MealArr = data.map((item)=>item.numberOfMeal);
 				let result =  MealArr.reduce((sum, meal)=>sum + meal);
-				return {
-					data: mealDetails,
-					meals:result
-				};
+				return {data: mealDetails, meals:result};
 			} else {
-				return {
-					data: null,
-					meals: 0
-				}
+				return {data: null, meals: 0}
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
 
-	async currentMeal(currentMonth, currentDate,messId){
+	static async currentMeal(currentMonth, currentDate,messId){
 		try {
 			const data = await MealModel.find(	
 				{
 					messId: messId,
-					date: {
-						$gte:  currentMonth,
-						$lte:  currentDate,
-					}
+					date: {$gte:  currentMonth, $lte:  currentDate}
 				});
 			if(data.length){
 				let mealDetails = await Promise.all(data.map(async (item)=>{
 					let usr = await UserModel.findById(item.userId);
-					let ob = {
-						username:'',
-						...item._doc
+					return {
+						username:usr.username,
+						...item.toObject()
 					};
-					ob.username = usr.username;
-					return ob;
 				}));
 
 				let MealArr = data.map((item)=>item.numberOfMeal);
 				let result =  MealArr.reduce((sum, meal)=>sum + meal);
-				return {
-					data:mealDetails,
-					meals:result
-				};
+				return {data:mealDetails, meals:result};
 			} else {
-				return {
-					data: null,
-					meals: 0
-				}
+				return {data: null, meals: 0}
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
-	async userWiseMeal(currentMonthFirstDate, currentMonthLastDate, userId){
+	static async userWiseMeal(currentMonthFirstDate, currentMonthLastDate, userId){
 		try {
 			let data = await MealModel.find({
 				userId:userId,
-				date: {
-					$gte: currentMonthFirstDate,
-					$lte: currentMonthLastDate
-				}
+				date: {$gte: currentMonthFirstDate, $lte: currentMonthLastDate}
 			});
 
 			if(data.length){
 				let MealArr = data.map((item)=>item.numberOfMeal);
 				let result =  MealArr.reduce((sum, meal)=>sum + meal);
-				return {
-					data: data,
-					meals:result
-				};
+				return {data: data, meals:result};
 			} else {
-				return {
-					data: null,
-					meals: 0
-				}
+				return {data: null, meals: 0}
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
-	async currentMessMeal(messName){
-		try {
-			return await MealModel.find({messName:messName});
-		} catch (e) {
-			return e;
-		}
-	};
 
-	async mealRateInMonth(currentMonthFirstDate,currentMonthLastDate,messId){
+	static async mealRateInMonth(currentMonthFirstDate,currentMonthLastDate,messId){
 		try {
-			let m = new MealLib();
 			return await Promise.all(
 				[
 					ExpenseLib.totalMealExpense(currentMonthFirstDate,currentMonthLastDate, messId),
-					m.totalMealInMonth(currentMonthFirstDate,currentMonthLastDate,messId)
+					MealLib.totalMealInMonth(currentMonthFirstDate,currentMonthLastDate,messId)
 				]).then(result=>{
-				if(result[0] instanceof Error) return result[0];
-
-				if (result[1] instanceof Error) return result[1];
-
-				return result[0].total/ result[1].meals;
+					return result[0].total/ result[1].meals;
 			});
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
 
-	async mealRate(messId){
+	static async mealRate(messId){
 		try {
-			let m = new MealLib();
 			return await Promise.all(
 				[
 					ExpenseLib.totalMessExpense(messId),
-					m.totalMeal(messId)
+					MealLib.totalMeal(messId)
 				]).then(result=>{
 				return result[0]/ result[1];
 			});
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
-
-
 
 }
 

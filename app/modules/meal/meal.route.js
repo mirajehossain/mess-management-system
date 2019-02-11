@@ -4,8 +4,7 @@ const router = express.Router();
 const authController = require('../auth/auth.controller');
 const AuthController = new authController();
 
-const mealController = require('./meal.controller');
-const MealController = new mealController();
+const MealController = require('./meal.controller');
 
 
 
