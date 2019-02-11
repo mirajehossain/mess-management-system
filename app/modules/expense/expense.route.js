@@ -12,10 +12,8 @@ const ExpenseController = require('./expense.controller');
  */
 router.route('/addExpense').post(AuthController.isAdmin, ExpenseController.addExpense);
 router.route('/updateExpense/:expenseId').put(AuthController.isAdmin,  ExpenseController.updateExpense);
-router.route('/totalMessExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
-// router.route('/expense/messTotalExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
-router.route('/totalMealExpense').get(AuthController.isUser, ExpenseController.totalMealExpense);
-// router.route('/expense/mealTotalExpense').get(AuthController.isUser, ExpenseController.totalMealExpense);
+router.route('/messTotalExpense').get(AuthController.isUser, ExpenseController.totalMessExpense);
+router.route('/mealTotalExpense').get(AuthController.isUser, ExpenseController.totalMealExpense);
 router.route('/categoryWiseExpense/:categoryId').get(AuthController.isUser,  ExpenseController.categoryWiseExpense);
 router.route('/deleteExpense/:expenseId').delete(AuthController.isAdmin,  ExpenseController.deleteExpense);
 
