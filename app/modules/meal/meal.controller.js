@@ -45,7 +45,7 @@ class MealController{
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 			const result = await MealLib.totalMealInMonth(currentMonthFirstDate, currentMonthLastDate, messId);
-			return res.status(200).json(response.single(true, 'Total Meals'+result.meals, result.data));
+			return res.status(200).json(response.single(true, 'Total Meals '+result.meals, result.data));
 		} catch (e) {
 			return res.status(500).json(response.error(false, 'An error occur', `${e}`));
 		}
@@ -59,7 +59,7 @@ class MealController{
 			const currentDate = new Date().toISOString();
 
 			const result = await MealLib.totalMeal(currentMonthFirstDate, currentDate, messId);
-			return res.status(200).json(response.single(true, 'Total Meals'+ result.meals, result.data));
+			return res.status(200).json(response.single(true, 'Total Meals '+ result.meals, result.data));
 		} catch (e) {
 			return res.status(500).json(response.error(false, 'An error occur', `${e}`));
 		}
@@ -72,7 +72,7 @@ class MealController{
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentDate = new Date().toISOString();
 			const result =  await MealLib.currentMeal(currentMonthFirstDate, currentDate, messId);
-			return res.status(200).json(response.single(true, 'Total Meals'+result.meals, result.data));
+			return res.status(200).json(response.single(true, 'Total Meals '+result.meals, result.data));
 		} catch (e) {
 			return res.status(500).json(response.error(false, 'An error occur', `${e}`));
 		}
@@ -85,7 +85,7 @@ class MealController{
 			const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 			const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 			const result = await MealLib.userWiseMeal(currentMonthFirstDate, currentMonthLastDate, userId);
-			return res.status(200).json(response.single(true, 'Your total Meal is'+ result.meals, result));
+			return res.status(200).json(response.single(true, 'Your total Meal is '+ result.meals, result));
 		} catch (e) {
 			return res.status(500).json(response.error(false, 'An error occur', `${e}`));
 		}

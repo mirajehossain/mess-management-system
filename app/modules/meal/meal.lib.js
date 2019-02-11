@@ -19,7 +19,7 @@ class MealLib {
 			throw e;
 		}
 	}
-	async deleteMeal(mealId){
+	static async deleteMeal(mealId){
 		try {
 			return await MealModel.findByIdAndRemove(mealId);
 		} catch (e) {
