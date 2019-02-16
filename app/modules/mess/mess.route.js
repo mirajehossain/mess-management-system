@@ -3,16 +3,14 @@ const router = express.Router();
 
 const authController = require('../auth/auth.controller');
 const AuthController = new authController();
-
-const userController = require('../user/user.controller');
-const UserController = new userController();
+const MessController = require('./mess.controller');
 
 /**
  * Calculate routing
  */
 
-    router.route('/messSummary').post(AuthController.isUser, UserController.messSummary);
-    router.route('/userSummary/:userId').get(AuthController.isUser, UserController.userSummary);
+    router.route('/messSummary').post(AuthController.isUser, MessController.messSummary);
+    router.route('/userSummary/:userId').get(AuthController.isUser, MessController.userSummary);
 
 
 

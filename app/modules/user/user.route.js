@@ -5,8 +5,7 @@ const authController = require('../auth/auth.controller');
 const AuthController = new authController();
 const AuthValidation = require('../auth/auth.validation');
 
-const userController = require('./user.controller');
-const UserController = new userController();
+const UserController = require('./user.controller');
 
 
 /**

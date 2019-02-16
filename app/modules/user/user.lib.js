@@ -6,38 +6,30 @@ const BalanceModel = BalanceModule.BalanceModel;
 const ExpenseModel = require('../expense/expense.model');
 const MealModel = require('../meal/meal.model');
 const UserModel = require('./user.model');
-const balanceLib = BalanceModule.BalanceLib;
-const BalanceLib = new balanceLib();
+const BalanceLib= BalanceModule.BalanceLib;
 
-const mealLib = require('../meal/meal.lib');
-const MealLib = new mealLib();
+const MealLib= require('../meal/meal.lib');
 const ExpenseLib = require('../expense/expense.lib');
-class UserLib extends ExpenseLib {
-	constructor() {
-		super();
-	};
+class UserLib{
+	constructor() {};
 
-	async getProfile(id){
+	static async getProfile(id){
 		try {
-			const data = await UserModel.findById(id, {password:0});
-			if(data != null)
-				return data;
-			else
-				throw new Error(`No data found corresponding ID`);
+			return await UserModel.findById(id, {password:0});
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
-	async updateProfile(id,updateObject){
+	static async updateProfile(id,updateObject){
 		try {
 			return await UserModel.findByIdAndUpdate(id, updateObject,{new:true});
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
-	async changPassword(id, oldPassword, newPassword){
+	static async changPassword(id, oldPassword, newPassword){
 		try {
 			const user = await UserModel.findOne({_id: id});
 			if(user != null){
@@ -46,30 +38,25 @@ class UserLib extends ExpenseLib {
 					const hashed = bcrypt.hashSync(newPassword, saltRounds);
 					return await UserModel.update({_id: id},{ $set: { password: hashed}}, { new: true });
 				} else {
-					throw new Error(`Password not matched`);
+					throw (`Password not matched`);
 				}
 			} else {
-				throw new Error(`User not found corresponding ID`);
+				throw (`User not found corresponding ID`);
 			}
 
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
-	async getUsers(messId) {
+	static async getUsers(messId) {
 		try {
-			const users = await UserModel.find({messId: messId},{password:0});
-			if(users.length){
-				return users;
-			} else {
-				throw new Error(`No User found`);
-			}
+			return await UserModel.find({messId: messId},{password:0});
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
-	async removeUser(userId) {
+	static async removeUser(userId) {
 		try {
 			await UserModel.findByIdAndRemove(userId);
 			await BalanceModel.deleteMany({userId: userId});
@@ -77,11 +64,11 @@ class UserLib extends ExpenseLib {
 			await MealModel.deleteMany({userId: userId});
 			return true
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
-	async addUser(user){
+	static async addUser(user){
 		try {
 			user.password = await bcrypt.hashSync(user.password, saltRounds);
 			user.role = 'user'; /// admin, user
@@ -91,17 +78,17 @@ class UserLib extends ExpenseLib {
 
 			const found = await UserModel.findOne(emailobj);
 			if(found != null){
-				throw new Error('Email already exist');
+				throw ('Email already exist');
 			} else {
 				return await UserModel.create(user);
 			}
 
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
-	async userSummary(currentMonthFirstDate, currentMonthLastDate, userId, messId){
+	static async userSummary(currentMonthFirstDate, currentMonthLastDate, userId, messId){
 		try {
 			const totalSavings = await BalanceLib.userMealBalance(currentMonthFirstDate, currentMonthLastDate, userId, messId);
 			const meal = await MealLib.userWiseMeal(currentMonthFirstDate, currentMonthLastDate, userId);
@@ -115,14 +102,14 @@ class UserLib extends ExpenseLib {
 				meals: meal.meals,
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
 
-	async messSummary(currentMonthFirstDate, currentMonthLastDate, messId) {
+	static async messSummary(currentMonthFirstDate, currentMonthLastDate, messId) {
 		try {
 			const totalSavings = await BalanceLib.totalMealBalance(currentMonthFirstDate, currentMonthLastDate, messId);
-			const totalExpense = await super.totalMealExpense(currentMonthFirstDate, currentMonthLastDate, messId);
+			const totalExpense = await ExpenseLib.totalMealExpense(currentMonthFirstDate, currentMonthLastDate, messId);
 			const totalMeals = await MealLib.totalMealInMonth(currentMonthFirstDate, currentMonthLastDate, messId);
 			const mealRate = await MealLib.mealRateInMonth(currentMonthFirstDate, currentMonthLastDate,messId);
 			const balanceStatus = totalSavings.total - totalExpense.total;
@@ -134,7 +121,7 @@ class UserLib extends ExpenseLib {
 				mealRate : mealRate.toFixed(2)
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
 }

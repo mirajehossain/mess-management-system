@@ -93,7 +93,6 @@ class ExpenseLib {
 		} catch (e) {
 			throw e;
 		}
-
 	};
 
 	static async categoryWiseExpense(currentMonthFirstDate, currentMonthLastDate, categoryId){

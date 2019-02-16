@@ -1,15 +1,11 @@
-const balanceLib =  require('../balance/balance.lib');
-const BalanceLib = new balanceLib();
-const mealLib 	 = require('../meal/meal.lib');
-const MealLib	 = new mealLib();
+const BalanceLib =  require('../balance/balance.lib');
+const MealLib	 = require('../meal/meal.lib');
 const ExpenseLib = require('../expense/expense.lib');
 
-class MessLib extends ExpenseLib {
-	constructor() {
-		super();
-	};
+class MessLib  {
+	constructor() {};
 
-	async userSummary(currentMonthFirstDate, currentMonthLastDate, userId, messId){
+	static async userSummary(currentMonthFirstDate, currentMonthLastDate, userId, messId){
 		try {
 			const totalSavings = await BalanceLib.userMealBalance(currentMonthFirstDate, currentMonthLastDate, userId, messId);
 			const meal = await MealLib.userWiseMeal(currentMonthFirstDate, currentMonthLastDate, userId);
@@ -23,14 +19,14 @@ class MessLib extends ExpenseLib {
 				meals: meal.meals,
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
 
-	async messSummary(currentMonthFirstDate, currentMonthLastDate, messId) {
+	static async messSummary(currentMonthFirstDate, currentMonthLastDate, messId) {
 		try {
 			const totalSavings = await BalanceLib.totalMealBalance(currentMonthFirstDate, currentMonthLastDate, messId);
-			const totalExpense = await super.totalMealExpense(currentMonthFirstDate, currentMonthLastDate, messId);
+			const totalExpense = await ExpenseLib.totalMealExpense(currentMonthFirstDate, currentMonthLastDate, messId);
 			const totalMeals = await MealLib.totalMealInMonth(currentMonthFirstDate, currentMonthLastDate, messId);
 			const mealRate = await MealLib.mealRateInMonth(currentMonthFirstDate, currentMonthLastDate,messId);
 			const balanceStatus = totalSavings.total - totalExpense.total;
@@ -42,7 +38,7 @@ class MessLib extends ExpenseLib {
 				mealRate : mealRate.toFixed(2)
 			}
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
 }
