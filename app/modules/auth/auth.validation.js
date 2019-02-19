@@ -103,13 +103,11 @@ class AuthValidation {
 		let response;
 		try {
 			response = await UserModel.findOne(email);
-			if(response === null){
-				 throw new Error(`${email.email} is not exist, please signup or try valid registered email`);
-			} else {
-				return response;
-			}
+			if(response === null)
+				return {success: false, message: `${email.email} is not exist, please signup or try valid registered email`};
+			return  {success: true, data: response};
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
 }
