@@ -18,7 +18,7 @@ class AuthController {
 				bcrypt.compare(user.password,result.data.password,(err,matched)=>{
 					console.log(matched);
 					if(!matched){
-						return res.status(401).json(response.error(false, "Incorrect email or password", "Incorrect email or password "));
+						return res.status(200).json(response.error(false, "Incorrect email or password", "Incorrect email or password "));
 					} else {
 						req.user = result.data;
 						next();
