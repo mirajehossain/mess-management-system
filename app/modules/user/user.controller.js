@@ -12,7 +12,7 @@ class UserController {
       }
       return res.status(200).json(response.error(false, userData.message));
     } catch (e) {
-      return res.status(50).json(response.error(false, 'An error occur', `${e}`));
+      return res.status(500).json(response.error(false, 'An error occur', `${e}`));
     }
   }
 
