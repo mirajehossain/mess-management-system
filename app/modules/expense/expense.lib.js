@@ -1,6 +1,27 @@
 const ExpenseModel = require('./expense.model');
 const CategoryModel = require('../category/category.model');
 const UserModel = require('../user/user.model');
+
+
+async function ExpenseDetails (data) {
+	let expenseDetails = await Promise.all(data.map(async (item)=>{
+		let cat = await CategoryModel.findById(item.categoryId);
+		let usr = await UserModel.findById(item.userId);
+		return {
+			category:cat.name,
+			username:usr.username,
+			...item.toObject()
+		};
+	}));
+
+	let ExpenseArr = data.map((item)=>item.amount);
+	let total = ExpenseArr.reduce((sum, expense)=>sum + expense);
+	return {
+		data: expenseDetails,
+		total: total
+	}
+}
+
 class ExpenseLib {
 	constructor(){};
 
@@ -22,31 +43,9 @@ class ExpenseLib {
 					$lte:  currentMonthLastDate,
 				}});
 			if(data.length){
-
-				let expenseDetails = await Promise.all(data.map(async (item)=>{
-					let cat = await CategoryModel.findById(item.categoryId);
-					let usr = await UserModel.findById(item.userId);
-					let ob = {
-						category:'',
-						username:'',
-						...item._doc
-					};
-					ob.category = cat.name;
-					ob.username = usr.username;
-					return ob;
-				}));
-
-				let ExpenseArr = data.map((item)=>item.amount);
-				let total = ExpenseArr.reduce((sum, expense)=>sum + expense);
-				return {
-					data: expenseDetails,
-					total: total
-				}
+				return await ExpenseDetails(data);
 			} else {
-				return {
-					data: 0,
-					total: 0
-				};
+				return {data: 0, total: 0};
 			}
 		} catch (e) {
 			throw e;
@@ -67,28 +66,9 @@ class ExpenseLib {
 					$lte:  currentMonthLastDate,
 				}});
 			if(data.length){
-
-				let expenseDetails = await Promise.all(data.map(async (item)=>{
-					let cat = await CategoryModel.findById(item.categoryId);
-					let usr = await UserModel.findById(item.userId);
-					return {
-						category:cat.name,
-						username:usr.username,
-						...item.toObject()
-					};
-				}));
-
-				let ExpenseArr = data.map((item)=>item.amount);
-				let total = ExpenseArr.reduce((sum, expense)=>sum + expense);
-				return {
-					data: expenseDetails,
-					total: total
-				}
+				return await ExpenseDetails(data);
 			} else {
-				return {
-					data: 0,
-					total: 0
-				};
+				return { data: 0, total: 0};
 			}
 		} catch (e) {
 			throw e;
@@ -105,28 +85,9 @@ class ExpenseLib {
 				}});
 
 			if(data.length){
-
-				let expenseDetails = await Promise.all(data.map(async (item)=>{
-					let cat = await CategoryModel.findById(item.categoryId);
-					let usr = await UserModel.findById(item.userId);
-					return {
-						category:cat.name,
-						username:usr.username,
-						...item.toObject()
-					};
-				}));
-
-				let ExpenseArr = data.map((item)=>item.amount);
-				let total = ExpenseArr.reduce((sum, expense)=> sum + expense);
-				return {
-					data: expenseDetails,
-					total: total
-				}
+				return await ExpenseDetails(data);
 			} else {
-				return {
-					data: 0,
-					total: 0
-				};
+				return {data: 0, total: 0 };
 			}
 		} catch (e) {
 			throw e;
