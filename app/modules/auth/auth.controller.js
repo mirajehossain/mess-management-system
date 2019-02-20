@@ -19,10 +19,12 @@ class AuthController {
 				if (matched) {
 					req.user = result.data;
 					next();
+				} else {
+					return res.status(200).json(response.error(false, "Incorrect email or password", "Incorrect email or password "));
 				}
-				return res.status(200).json(response.error(false, "Incorrect email or password", "Incorrect email or password "));
+			} else {
+				return res.status(200).json(response.error(false, result.message))
 			}
-			return res.status(200).json(response.error(false, result.message))
 		} catch (e) {
 			return res.status(500).json(response.error(false, `An error occur`,`${e}`));
 		}

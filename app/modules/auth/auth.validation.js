@@ -76,9 +76,9 @@ class AuthValidation {
 	async checkUser(email){
 		try {
 			const response = await UserModel.findOne(email);
-			if(response === null)
-				return {success: false, message: `${email.email} is not exist, please signup or try valid registered email`};
-			return  {success: true, data: response};
+			if(response)
+				return  {success: true, data: response};
+			return {success: false, message: `${email.email} is not exist, please signup or try valid registered email`};
 		} catch (e) {
 			throw e;
 		}
