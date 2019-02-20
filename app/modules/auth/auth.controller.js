@@ -38,29 +38,19 @@ class AuthController {
 			user.password = bcrypt.hashSync(user.password, saltRounds);
 			// user.role = 0;/// 0 manager , 1 member
 			user.role = 'admin'; ///admin , user
-			const mes = {messusername};
-			const email = user.email;
-			const emailobj = {email};
-			const isEmail = await authValidation.checkEmailExistOrNot(emailobj);
-			const isMess = await authValidation.checkMessExistOrNot(mes);
-
-			if(isEmail instanceof Error ){
-				return res.status(409).json(response.error(false,`${isEmail} `,`${isEmail} `))
-			} else {
-				 if( isMess instanceof Error){
-					 return res.status(409).json(response.error(false,`${isMess} `,`${isMess} `))
-				 } else {
-					 MessModel.create(mes).then((mess)=>{
-					 	user.messId = mess._id;
-					 	delete user.messusername;
-						 UserModel.create(user).then(done=>{
-							 return res.status(201).json(response.single(true, "New User Created", done));
-						 })
-					 }).catch(err=>{
-						 return res.status(409).json(response.error(false,"Internal server Error",`${err}`))
-					 });
-				 }
+			const isEmail = await authValidation.checkEmailExistOrNot({email: user.email});
+			const isMess = await authValidation.checkMessExistOrNot({messusername});
+			if(isEmail.success){
+				if(isMess.success){
+					const mess = await MessModel.create({messusername});
+					user.messId = mess._id;
+					delete user.messusername;
+					const user = await UserModel.create(user);
+					return res.status(201).json(response.single(true, "New User Created", user));
+				}
+				return res.status(200).json(response.error(false, isMess.message,isMess.message))
 			}
+			return res.status(200).json(response.error(false, isEmail.message,isEmail.message))
 
 		} catch (e) {
 			return res.status(500).json(response.error(false,`${e}`,`${e}`))

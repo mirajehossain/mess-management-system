@@ -74,12 +74,11 @@ class AuthValidation {
 		try {
 			response = await MessModel.findOne(mess);
 			if(response !== null){
-				return new Error(`${mess.messusername} is exist, please try another name`);
-			} else {
-				return true;
+				return {success: false, message: `${mess.messusername} is exist, please try another name`};
 			}
+			return {success: true};
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	};
 
@@ -89,12 +88,14 @@ class AuthValidation {
 		try {
 			response = await UserModel.findOne(email);
 			if(response !== null){
-				 throw new Error(`${email.email} is exist, please try another email`);
-			} else {
-				return true;
+				return {
+					success: false, message: `${email.email} is exist, please try another email`
+				}
 			}
+			return {success: true,};
+
 		} catch (e) {
-			return e;
+			throw e;
 		}
 	}
 
