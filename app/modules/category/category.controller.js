@@ -10,8 +10,7 @@ class CategoryController {
 			const category = await CategoryLib.addCategory(categoryObject);
 			if(category.success)
 				res.status(201).json(response.single(true, category.message, category.data));
-			else
-				res.status(200).json(response.single(false,`${category.message}`));
+			res.status(201).json(response.single(false,`${category.message}`));
 
 		} catch (e) {
 			res.status(500).json(response.error(false,'An error occur', `${e}`))
@@ -23,8 +22,7 @@ class CategoryController {
 			const category = await CategoryLib.getCategory(messId);
 			if(category.success)
 				res.status(200).json(response.single(true, `Categories `, category.data));
-			else
-				res.status(200).json(response.single(false,`${category.message}`));
+			res.status(200).json(response.single(false,`${category.message}`));
 
 		} catch (e) {
 			res.status(500).json(response.error(false,'An error occur', `${e}`))
@@ -39,8 +37,7 @@ class CategoryController {
 			const category = await CategoryLib.updateCategory(categoryId , updateObj);
 			if(category.success)
 				res.status(200).json(response.single(true, category.message, category.data));
-			else
-				res.status(200).json(response.single(false, category.message));
+			res.status(200).json(response.single(false, category.message));
 
 		} catch (e) {
 			res.status(500).json(response.error(false,'An error occur', `${e}`))
@@ -52,7 +49,6 @@ class CategoryController {
 			const categoryId = req.params.categoryId;
 			await CategoryLib.deleteCategory(categoryId);
 			res.status(200).json(response.single(true, `Category deleted successfully`));
-
 		} catch (e) {
 			res.status(500).json(response.error(false,'An error occur', `${e}`))
 		}
