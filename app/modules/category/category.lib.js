@@ -15,22 +15,16 @@ class CategoryLib {
 				$and :[{isMeal : 1},{messId: categoryObject.messId}]
 			});
 
-			if(mess != null) {
-				return {success:false, message: `Category '${mess.name}' already exist`};
-			} else {
-				if (isMealCheck == null && categoryObject.isMeal == 0){
-					const data =await CategoryModel.create(categoryObject);
-					if(data != null) return  {success: true, data:data, message: 'New category Created'};
-				} else if (isMealCheck == null && categoryObject.isMeal == 1){
-					const data =await CategoryModel.create(categoryObject);
-					if(data != null) return  {success: true, data:data,message: 'New category Created'};
-				} else if(isMealCheck != null && categoryObject.isMeal == 0){
-					const data =await CategoryModel.create(categoryObject);
-					if(data != null) return {success: true, data:data, message: 'New category Created'};
-				} else {
-					return {success:false, message: 'Default meal category already selected'};
-				}
-			}
+			if(mess) return {success:false, message: `Category '${mess.name}' already exist`};
+			if (isMealCheck == null && categoryObject.isMeal == 0)
+				return  {success: true, data: await CategoryModel.create(categoryObject), message: 'New category Created'};
+			if (isMealCheck == null && categoryObject.isMeal == 1)
+				return  {success: true, data: await CategoryModel.create(categoryObject),message: 'New category Created'};
+			if(isMealCheck != null && categoryObject.isMeal == 0)
+				return  {success: true, data: await CategoryModel.create(categoryObject),message: 'New category Created'};
+			return {success:false, message: 'Default meal category already selected'};
+
+
 		} catch (e) {
 			throw e;
 		}
@@ -39,9 +33,8 @@ class CategoryLib {
 		try {
 			console.log(messId);
 			const mess = await CategoryModel.find({messId:messId});
-			if(mess.length) {
+			if(mess.length)
 				return {success: true, data: mess};
-			}
 			return {success: false , message: `No categories in this mess`};
 		} catch (e) {
 			throw e;
@@ -56,13 +49,20 @@ class CategoryLib {
 				});
 
 				if (isMealCheck == null && updateObj.isMeal == 0){
-					return {success: true,message: 'Category Updated successfully', data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
-				} else if (isMealCheck == null && updateObj.isMeal == 1){
-					return {success: true,message: 'Category Updated successfully',  data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
-				} else if(isMealCheck != null && updateObj.isMeal == 0){
-					return {success: true,message: 'Category Updated successfully',  data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
-				} else {return {success:false, message:'Default meal category already selected'};}
-			}  else {return {success:false, message:'No category found in this ID'};}
+					return {success: true,message: 'Category Updated successfully',
+						data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
+				}
+				if (isMealCheck == null && updateObj.isMeal == 1){
+					return {success: true,message: 'Category Updated successfully',
+						data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
+				}
+				if(isMealCheck != null && updateObj.isMeal == 0){
+					return {success: true,message: 'Category Updated successfully',
+						data: await CategoryModel.findByIdAndUpdate({_id: categoryId}, updateObj, {new: true})};
+				}
+				return {success:false, message:'Default meal category already selected'};
+			}
+			return {success:false, message:'No category found in this ID'};
 		} catch (e) {
 			throw e;
 		}
