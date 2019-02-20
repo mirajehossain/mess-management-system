@@ -15,7 +15,8 @@ class AuthController {
 			let user = req.body;
 			const result = await authValidation.checkUser({email:user.email});
 			if(result.success){
-				bcrypt.compare(user.password,result.password,(err,matched)=>{
+				bcrypt.compare(user.password,result.data.password,(err,matched)=>{
+					console.log(matched);
 					if(!matched){
 						return res.status(401).json(response.error(false, "Incorrect email or password", "Incorrect email or password "));
 					} else {
