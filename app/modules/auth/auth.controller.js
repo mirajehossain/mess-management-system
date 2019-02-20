@@ -57,17 +57,17 @@ class AuthController {
 		if(!req.user){
 			return res.json(response.error(false, 'Authentication Failed!','Authentication Failed!'));
 		}
-		 MessModel.findById(req.user.messId).then(mess=>{
-			 req.auth = {
-				 id: req.user._id,
-				 username: req.user.username,
-				 messusername: mess.messusername,
-				 messId: mess._id,
-				 email: req.user.email,
-				 role: req.user.role
-			 };
-			 next();
-		 });
+		MessModel.findById(req.user.messId).then(mess=>{
+			req.auth = {
+				id: req.user._id,
+				username: req.user.username,
+				messusername: mess.messusername,
+				messId: mess._id,
+				email: req.user.email,
+				role: req.user.role
+			};
+			next();
+		});
 	};
 
 	generateToken(req,res,next){
@@ -83,31 +83,17 @@ class AuthController {
 		res.json(response.single(true, 'Enjoy your token!', {token: req.tokenObject.token}));
 	};
 
-	isAuthenticate(req,res,next){
+	 async isAuthenticate(req,res,next){
 		const token = req.body.token || req.query.token || req.headers['x-auth-token'];
 		if(token){
-			jwt.verify(token, secretKey, (err,decoded)=>{
-				if (err) {
-					///401 Unauthorized
-					res.status(401).json(response.error(false,"Failed to authenticate token",`${err}`));
-				} else {
-					req.auth = decoded;
-					console.log('token-',req.auth);
-					UserModel.findOne({
-						$and: [ {_id: req.auth.id},{messId: req.auth.messId}]
-					},(err,user)=>{
-						if(err){
-							///401 Unauthorized
-							res.status(401).json(response.error(false, 'Failed to authenticate user',`${err}`));
-						} else {
-							user? next() : res.status(401).json(response.error(false, 'Failed to authenticate user',`${err}`));
-						}
-					});
-				}
-			})
-		} else {
-			return res.json(response.error(false,"You are not authenticate", null))
+			req.auth = jwt.verify(token, secretKey);
+			console.log('token-',req.auth);
+			const user = await UserModel.findOne({
+				$and: [ {_id: req.auth.id},{messId: req.auth.messId}]
+			});
+			user? next() : res.status(401).json(response.error(false, 'Failed to authenticate user'));
 		}
+		return res.json(response.error(false,"You are not authenticate", null))
 	}
 
 	isUser(req,res,next){
@@ -119,7 +105,7 @@ class AuthController {
 		}
 	}
 
-		isAdmin(req,res,next){
+	isAdmin(req,res,next){
 		if(req.auth.role === 'admin'){
 			next();
 		} else {
