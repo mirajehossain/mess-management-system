@@ -3,7 +3,6 @@ const MealLib	 = require('../meal/meal.lib');
 const ExpenseLib = require('../expense/expense.lib');
 
 class MessLib  {
-	constructor() {};
 
 	static async userSummary(currentMonthFirstDate, currentMonthLastDate, userId, messId){
 		try {

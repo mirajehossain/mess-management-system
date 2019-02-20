@@ -21,13 +21,13 @@ class AuthValidation {
 	};
 
 	static addUserValidation(req, res, next){
-		if(req.body.username == null || req.body.username.length === 0)
+		if(req.body.username === null || req.body.username.length === 0)
 			res.status(422).send({message:'User name can\'t be empty'});
-		 else if(req.body.email == null || req.body.email.length === 0)
+		 else if(req.body.email === null || req.body.email.length === 0)
 			res.status(422).send({message:'Email can\'t be empty'});
-		else if(req.body.password == null || req.body.password.length === 0)
+		else if(req.body.password === null || req.body.password.length === 0)
 			res.status(422).send({message:'Password can\'t be empty'});
-		else if(req.body.phone == null || req.body.phone.length === 0)
+		else if(req.body.phone === null || req.body.phone.length === 0)
 			res.status(422).send({message:'Phone no can\'t be empty'});
 		 else
 		next();
@@ -36,44 +36,18 @@ class AuthValidation {
 	// 422 (Unprocessable Entity)
 	static loginValidation(req, res, next){
 
-		if(req.body.email == null ||  req.body.email.length === 0)
+		if(req.body.email === null ||  req.body.email.length === 0)
 			res.status(422).send({message:'Email can\'t be empty'});
-		else if(req.body.password == null ||  req.body.password.length === 0)
+		else if(req.body.password === null ||  req.body.password.length === 0)
 			res.status(422).send({message:'Password can\'t be empty'});
 		else
 			next();
 	};
-	// 422 (Unprocessable Entity)
-	/*static updateValidation(req, res, next){
-		if(req.body.hasOwnProperty('email')){
-			if(req.body.email == null ||  req.body.email.length === 0)
-				res.status(422).send({message:'Email can\'t be empty'});
-
-		} else if(req.body.hasOwnProperty('username')){
-			if(req.body.username == null ||  req.body.username.length === 0)
-				res.status(422).send({message:'username can\'t be empty'});
-
-		} else if (req.body.hasOwnProperty('address')){
-			if(req.body.address == null ||  req.body.address.length === 0)
-				res.status(422).send({message:'address can\'t be empty'});
-
-		} else if(req.body.hasOwnProperty('phone')){
-			if(req.body.phone == null ||  req.body.phone.length === 0)
-				res.status(422).send({message:'phone can\'t be empty'});
-
-		} else  if(req.body.hasOwnProperty('password')){
-			res.status(422).send({message:'Can\'t update password '});
-		} else {
-			next();
-		}
-
-	};*/
 	// status(409)
 	async checkMessExistOrNot(mess){
-		let response;
 		try {
-			response = await MessModel.findOne(mess);
-			if(response !== null){
+			const response = await MessModel.findOne(mess);
+			if(response){
 				return {success: false, message: `${mess.messusername} is exist, please try another name`};
 			}
 			return {success: true};
@@ -84,9 +58,8 @@ class AuthValidation {
 
 	// status(409)
 	async checkEmailExistOrNot(email){
-		let response;
 		try {
-			response = await UserModel.findOne(email);
+			const response = await UserModel.findOne(email);
 			if(response !== null){
 				return {
 					success: false, message: `${email.email} is exist, please try another email`
@@ -101,9 +74,8 @@ class AuthValidation {
 
 	// status(40!)
 	async checkUser(email){
-		let response;
 		try {
-			response = await UserModel.findOne(email);
+			const response = await UserModel.findOne(email);
 			if(response === null)
 				return {success: false, message: `${email.email} is not exist, please signup or try valid registered email`};
 			return  {success: true, data: response};

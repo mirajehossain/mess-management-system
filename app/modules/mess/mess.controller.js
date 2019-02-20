@@ -6,7 +6,6 @@ const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 
 class MessController  {
-	constructor(){};
 
 	static async userSummary(req,res) {
 		try {

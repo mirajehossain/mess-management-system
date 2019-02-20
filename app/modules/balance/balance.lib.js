@@ -102,22 +102,6 @@ class BalanceLib {
         },
       });
       if (data.length) {
-        // const balanceDetails = await Promise.all(data.map(async (item) => {
-        //   const cat = await CategoryModel.findById(item.categoryId);
-        //   const usr = await UserModel.findById(item.userId);
-        //   return {
-        //     category: cat.name,
-        //     username: usr.username,
-        //     ...item.toObject(),
-        //   };
-        // }));
-        //
-        // const balanceArr = data.map(item => item.amount);
-        // const total = balanceArr.reduce((sum, balance) => sum + balance);
-        // return {
-        //   data: balanceDetails,
-        //   total,
-        // };
         return await Balancedetails(data);
       }
       return { data: null, total: 0 };
@@ -137,19 +121,6 @@ class BalanceLib {
         date: { $gte: currentMonthFirstDate, $lte: currentMonthLastDate },
       });
       if (data.length) {
-        // const balanceDetails = await Promise.all(data.map(async (item) => {
-        //   const cat = await CategoryModel.findById(item.categoryId);
-        //   const usr = await UserModel.findById(item.userId);
-        //   return {
-        //     category: cat.name,
-        //     username: usr.username,
-        //     ...item.toObject(),
-        //   };
-        // }));
-        //
-        // const balanceArr = data.map(item => item.amount);
-        // const total = balanceArr.reduce((sum, balance) => sum + balance);
-        // return { data: balanceDetails, total };
         return await Balancedetails(data);
       }
       return { data: null, total: 0 };
@@ -165,19 +136,6 @@ class BalanceLib {
         date: { $gte: currentMonthFirstDate, $lte: currentMonthLastDate },
       });
       if (data.length) {
-        // const balanceDetails = await Promise.all(data.map(async (item) => {
-        //   const cat = await CategoryModel.findById(item.categoryId);
-        //   const usr = await UserModel.findById(item.userId);
-        //   return {
-        //     category: cat.name,
-        //     username: usr.username,
-        //     ...item.toObject(),
-        //   };
-        // }));
-        //
-        // const BalanceArr = data.map(item => item.amount);
-        // const total = BalanceArr.reduce((sum, balance) => sum + balance);
-        // return { data: balanceDetails, total };
         return await Balancedetails(data);
       }
       return { data: null, total: 0 };

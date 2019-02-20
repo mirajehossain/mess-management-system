@@ -23,8 +23,6 @@ async function ExpenseDetails (data) {
 }
 
 class ExpenseLib {
-	constructor(){};
-
 
 	static async addExpense(expenseObject){
 		try {

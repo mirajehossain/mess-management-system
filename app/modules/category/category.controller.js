@@ -2,7 +2,6 @@ let response = require('../../../helper/response');
 let CategoryLib = require('./category.lib');
 
 class CategoryController {
-	constructor(){};
 	static async addCategory(req, res){
 		try {
 			let categoryObject = req.body;

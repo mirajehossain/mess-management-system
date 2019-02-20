@@ -4,7 +4,6 @@ const ExpenseModel = require('../expense/expense.model');
 const MealModel = require('../meal/meal.model');
 
 class CategoryLib {
-	constructor(){};
 
 	static async addCategory(categoryObject){
 		try {

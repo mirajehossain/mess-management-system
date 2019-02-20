@@ -6,7 +6,6 @@ const currentMonthFirstDate = new Date(y, m, 1).toISOString();
 const currentMonthLastDate = new Date(y, m + 1, 0).toISOString();
 
 class ExpenseController{
-	constructor(){};
 	static async addExpense(req,res){
 		try {
 			let expenseObject = req.body;

@@ -41,15 +41,15 @@ class AuthController {
 					const mess = await MessModel.create({messusername});
 					user.messId = mess._id;
 					delete user.messusername;
-					const user = await UserModel.create(user);
-					return res.status(201).json(response.single(true, "New User Created", user));
+					const newUser = await UserModel.create(user);
+					return res.status(201).json(response.single(true, "New User Created", newUser));
 				}
 				return res.status(200).json(response.error(false, isMess.message,isMess.message))
 			}
 			return res.status(200).json(response.error(false, isEmail.message,isEmail.message))
 
 		} catch (e) {
-			return res.status(500).json(response.error(false,`${e}`,`${e}`))
+			return res.status(500).json(response.error(false,`An error occur`,`${e}`))
 		}
 	};
 
