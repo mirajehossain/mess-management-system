@@ -53,11 +53,9 @@ class AuthController {
 		}
 	};
 
-	prepareToken(req,res,next){
-		if(!req.user){
-			return res.json(response.error(false, 'Authentication Failed!','Authentication Failed!'));
-		}
-		MessModel.findById(req.user.messId).then(mess=>{
+	async prepareToken(req,res,next){
+		try {
+			const mess = await MessModel.findById(req.user.messId);
 			req.auth = {
 				id: req.user._id,
 				username: req.user.username,
@@ -67,7 +65,9 @@ class AuthController {
 				role: req.user.role
 			};
 			next();
-		});
+		} catch (e) {
+			throw e;
+		}
 	};
 
 	generateToken(req,res,next){
