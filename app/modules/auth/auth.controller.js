@@ -12,21 +12,17 @@ class AuthController {
 	constructor(){};
 	async login(req,res,next){
 		try {
-			let user = req.body;
+			const user = req.body;
 			const result = await authValidation.checkUser({email:user.email});
-			if(result.success){
-				bcrypt.compare(user.password,result.data.password,(err,matched)=>{
-					console.log(matched);
-					if(!matched){
-						return res.status(200).json(response.error(false, "Incorrect email or password", "Incorrect email or password "));
-					} else {
-						req.user = result.data;
-						next();
-					}
-				})
-			} else {
-				return res.status(200).json(response.error(false, result.message))
+			if(result.success) {
+				const matched = await bcrypt.compare(user.password, result.data.password);
+				if (matched) {
+					req.user = result.data;
+					next();
+				}
+				return res.status(200).json(response.error(false, "Incorrect email or password", "Incorrect email or password "));
 			}
+			return res.status(200).json(response.error(false, result.message))
 		} catch (e) {
 			return res.status(500).json(response.error(false, `An error occur`,`${e}`));
 		}
