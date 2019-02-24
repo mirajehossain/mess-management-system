@@ -104,7 +104,7 @@ class AuthController {
 			next();
 		} else {
 			///401 Unauthorized
-			res.status(401).json(response.error(false, 'You are not admin or user',null))
+			res.status(200).json(response.error(false, 'You are not admin or user',null))
 		}
 	}
 
@@ -113,7 +113,7 @@ class AuthController {
 			next();
 		} else {
 			///401 Unauthorized
-			res.status(401).json(response.error(false, 'You are not admin',null))
+			res.status(200).json(response.error(false, 'You are not admin',null))
 		}
 	}
 
