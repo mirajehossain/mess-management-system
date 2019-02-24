@@ -9,7 +9,7 @@ class CategoryController {
 			const category = await CategoryLib.addCategory(categoryObject);
 			if(category.success)
 				return res.status(201).json(response.single(true, category.message, category.data));
-			return res.status(201).json(response.single(false,`${category.message}`));
+			return res.status(200).json(response.single(false,`${category.message}`));
 
 		} catch (e) {
 			return res.status(500).json(response.error(false,'An error occur', `${e}`))
