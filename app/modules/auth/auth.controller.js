@@ -86,16 +86,20 @@ class AuthController {
 	};
 
 	 async isAuthenticate(req,res,next){
-		const token = req.headers['x-auth-token'];
-		if(token){
-			req.auth = jwt.verify(token, secretKey);
-			console.log('token-',req.auth);
-			const user = await UserModel.findOne({
-				$and: [ {_id: req.auth.id},{messId: req.auth.messId}]
-			});
-			return user? next() : res.status(200).json(response.error(false, 'Failed to authenticate user'));
-		} else {
-			return res.json(response.error(false,"You are not authenticate", null))
+		try {
+			const token = req.headers['x-auth-token'];
+			if(token){
+				req.auth = jwt.verify(token, secretKey);
+				console.log('token-',req.auth);
+				const user = await UserModel.findOne({
+					$and: [ {_id: req.auth.id},{messId: req.auth.messId}]
+				});
+				return user? next() : res.status(200).json(response.error(false, 'Failed to authenticate user'));
+			} else {
+				return res.json(response.error(false,"You are not authenticate", "No token provided"))
+			}
+		} catch (e) {
+			return res.json(response.error(false,e.name, e.message))
 		}
 	}
 
