@@ -4,8 +4,8 @@ const AuthValidation 	= require('./auth.validation');
 const AuthRoute			= require('./auth.route');
 
 module.exports = {
-	AuthController,
-	AuthValidation,
-	AuthLib,
-	AuthRoute
+    AuthController,
+    AuthValidation,
+    AuthLib,
+    AuthRoute,
 };

@@ -7,11 +7,11 @@ const MealModule = require('./meal/index');
 const MessModule = require('./mess/index');
 
 module.exports = {
-  AuthModule,
-  UserModule,
-  BalanceModule,
-  CategoryModule,
-  ExpenseModule,
-  MealModule,
-  MessModule,
+    AuthModule,
+    UserModule,
+    BalanceModule,
+    CategoryModule,
+    ExpenseModule,
+    MealModule,
+    MessModule,
 };

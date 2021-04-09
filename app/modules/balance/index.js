@@ -4,8 +4,8 @@ const BalanceLib = require('./balance.lib');
 const BalanceRoute = require('./balance.route');
 
 module.exports = {
-  BalanceModel,
-  BalanceController,
-  BalanceLib,
-  BalanceRoute,
+    BalanceModel,
+    BalanceController,
+    BalanceLib,
+    BalanceRoute,
 };

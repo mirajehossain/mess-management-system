@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const schema = mongoose.Schema;
 
 
@@ -6,30 +7,30 @@ const expenseSchema = new schema({
     amount: {
         type: Number,
         defaultValue: 0,
-        required: true
+        required: true,
     },
     date: {
         type: Date,
         defaultValue: new Date().toLocaleDateString(),
-        required: true
+        required: true,
     },
     summary: {
         type: String,
-        required: true
+        required: true,
     },
     categoryId: {
         type: schema.ObjectId,
-        required: true
+        required: true,
     },
     userId: {
         type: schema.ObjectId,
-        required: true
+        required: true,
     },
     messId: {
-		type: schema.ObjectId,
-        required: true
-    }
-}, {versionKey: false});
+        type: schema.ObjectId,
+        required: true,
+    },
+}, { versionKey: false });
 
 
-module.exports = mongoose.model('expense',expenseSchema);
+module.exports = mongoose.model('expense', expenseSchema);

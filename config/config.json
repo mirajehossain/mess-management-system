@@ -5,7 +5,7 @@
       "port": 3000
     },
     "database":{
-      "db": "mongodb://admin:A111111a@ds125673.mlab.com:25673/db_mess"
+      "db": "mongodb+srv://root:root@cluster0.slp4o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
     },
     "JWTsecret": "MySecretKey"
   },

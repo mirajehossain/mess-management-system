@@ -4,8 +4,8 @@ const UserLib = require('./user.lib');
 const UserRoute = require('./user.route');
 
 module.exports = {
-  UserModel,
-  UserController,
-  UserLib,
-  UserRoute,
+    UserModel,
+    UserController,
+    UserLib,
+    UserRoute,
 };
