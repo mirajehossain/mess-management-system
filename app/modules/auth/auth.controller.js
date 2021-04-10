@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const response = require('../../../helper/response');
 const UserModel = require('../user/user.model');
@@ -10,7 +10,7 @@ const secretKey = require('../../../config/config').development.JWTsecret;
 
 const saltRounds = 10;
 
-class AuthController {
+module.exports = class AuthController {
     constructor() {}
 
     async login(req, res, next) {
@@ -122,6 +122,4 @@ class AuthController {
             res.status(200).json(response.error(false, 'You are not admin', null));
         }
     }
-}
-
-module.exports = AuthController;
+};

@@ -2,20 +2,20 @@ const express = require('express');
 
 const router = express.Router();
 const AuthValidation = require('./auth.validation');
-const authController = require('./auth.controller');
+const AuthController = require('./auth.controller');
 
-const AuthController = new authController();
+const authController = new AuthController();
 
 router.route('/signup').post(
     AuthValidation.signupValidation,
-    AuthController.signup,
+    authController.signup,
 );
 router.route('/login').post(
     AuthValidation.loginValidation,
-    AuthController.login,
-    AuthController.prepareToken,
-    AuthController.generateToken,
-    AuthController.sendToken,
+    authController.login,
+    authController.prepareToken,
+    authController.generateToken,
+    authController.sendToken,
 );
 
 module.exports = router;
