@@ -1,13 +1,11 @@
 const MessModel = require('../mess/mess.model');
 const UserModel = require('../user/user.model');
 
-class AuthValidation {
-    constructor() {}
-
+module.exports = class AuthValidation {
     // 422 (Unprocessable Entity)
     static signupValidation(req, res, next) {
         if (req.body.username == null || req.body.username.length === 0) res.status(200).send({ success: false, message: 'User name can\'t be empty' });
-		 else if (req.body.email == null || req.body.email.length === 0) res.status(200).send({ success: false, message: 'Email can\'t be empty' });
+        else if (req.body.email == null || req.body.email.length === 0) res.status(200).send({ success: false, message: 'Email can\'t be empty' });
         else if (req.body.password == null || req.body.password.length === 0) res.status(200).send({ success: false, message: 'Password can\'t be empty' });
         else if (req.body.phone == null || req.body.phone.length === 0) res.status(200).send({ success: false, message: 'Phone no can\'t be empty' });
         else if (req.body.messusername == null || req.body.messusername.length === 0) res.status(200).send({ success: false, message: 'Messusername can\'t be empty' });
@@ -68,5 +66,3 @@ class AuthValidation {
         }
     }
 }
-
-module.exports = AuthValidation;

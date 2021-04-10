@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 
-const schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 
-const balanceSchema = new schema({
+const balanceSchema = new Schema({
     userId: {
-        type: schema.ObjectId,
+        type: Schema.ObjectId,
         required: true,
     },
     categoryId: {
-        type: schema.ObjectId,
+        type: Schema.ObjectId,
         required: true,
     },
     messId: {
-        type: schema.ObjectId,
+        type: Schema.ObjectId,
         required: true,
     },
     amount: {
@@ -26,7 +26,7 @@ const balanceSchema = new schema({
         defaultValue: new Date().toISOString(),
         required: true,
     },
-}, { versionKey: false });
+}, { versionKey: false }, { timestamps: true});
 
 
 module.exports = mongoose.model('balance', balanceSchema);

@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const path = require('path');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const server = require('http').createServer(app);
 
@@ -13,16 +12,18 @@ const AppModule = require('./app/modules/index');
 
 const indexRoute = require('./routes/index');
 
-const authRoute = AppModule.AuthModule.AuthRoute;
-const userRoute = AppModule.UserModule.UserRoute;
-const categoryRoute = AppModule.CategoryModule.CategoryRoute;
-const balanceRoute = AppModule.BalanceModule.BalanceRoute;
-const expenseRoute = AppModule.ExpenseModule.ExpenseRoute;
-const mealRoute = AppModule.MealModule.MealRoute;
-const messRoute = AppModule.MessModule.MessRoute;
+const {
+    AuthModule, CategoryModule, BalanceModule, ExpenseModule, MealModule, MessModule, UserModule,
+} = AppModule;
+const { UserRoute } = UserModule;
+const { CategoryRoute } = CategoryModule;
+const { BalanceRoute } = BalanceModule;
+const { ExpenseRoute } = ExpenseModule;
+const { MealRoute } = MealModule;
+const { MessRoute } = MessModule;
 
-const authController = AppModule.AuthModule.AuthController;
-const AuthController = new authController();
+const { AuthController, AuthRoute } = AuthModule;
+const authController = new AuthController();
 require('./config/database')();
 
 const corsOptions = {
@@ -33,8 +34,8 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
     extended: true,
 }));
 
@@ -43,15 +44,15 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRoute);
-app.use('/api/auth', authRoute);
-app.all('/api/v1/*', AuthController.isAuthenticate);
+app.use('/api/auth', AuthRoute);
+app.all('/api/v1/*', authController.isAuthenticate);
 
-app.use('/api/v1/user', userRoute);
-app.use('/api/v1/category', categoryRoute);
-app.use('/api/v1/balance', balanceRoute);
-app.use('/api/v1/expense', expenseRoute);
-app.use('/api/v1/meal', mealRoute);
-app.use('/api/v1/mess', messRoute);
+app.use('/api/v1/user', UserRoute);
+app.use('/api/v1/category', CategoryRoute);
+app.use('/api/v1/balance', BalanceRoute);
+app.use('/api/v1/expense', ExpenseRoute);
+app.use('/api/v1/meal', MealRoute);
+app.use('/api/v1/mess', MessRoute);
 
 
 server.listen(port, () => {
